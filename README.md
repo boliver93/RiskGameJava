@@ -12,4 +12,4 @@
 | Fodor Ádám | Project Associate | fodorad |
 | Nagy Olivér | Project Associate | boliver93 |
 | Szabó Dávid | Project Associate | SasasoftHUN |
-| Toplenszki Szabolcs | Project Associate | Szabi |
+| Toplenszki Szabolcs | Project Associate | Topi |
