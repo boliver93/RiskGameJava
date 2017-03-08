@@ -8,7 +8,7 @@
 
 | NAME | STATUS | NICKNAME |
 | ------ | ------ | ------ |
-| Keszthelyi Zsolt | Project Manager | ----------------- |
+| Keszthelyi Zsolt | Project Manager | riskgamejava |
 | Fodor Ádám | Project Associate | fodorad |
 | Nagy Olivér | Project Associate | boliver93 |
 | Szabó Dávid | Project Associate | SasasoftHUN |
