@@ -36,10 +36,10 @@
 ### Szabó Dávid
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Átcsoportosítás | N |
-| Erősítés | N |
+| Átcsoportosítás | Y |
+| Erősítés | Y |
 | Kilépés a játékból | N |
-| Játékállás mentése | N |
+| Játékállás mentése | Y |
 
 ### Toplenszki Szabolcs
 | Task name | Ready (Y/N) |
