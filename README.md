@@ -19,10 +19,10 @@
 
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Előkészítés | N |
-| Játékosok számának megadása | N |
-| Kilépés az alkalmazásból | N |
-| Mentett játékállás betöltése | N |
+| Előkészítés | Y |
+| Játékosok számának megadása | Y |
+| Kilépés az alkalmazásból | Y |
+| Mentett játékállás betöltése | Y |
 
 ### Nagy Olivér
 | Task name | Ready (Y/N) |
