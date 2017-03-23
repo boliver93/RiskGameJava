@@ -28,8 +28,7 @@
 | Task name | Ready (Y/N) |
 | ------ | ------ |
 | Játék | N |
-| Egységek elhelyezése | N |
-| Kezdőjátékos meghatározása | N |
+| Kezdőjátékos meghatározása | Y |
 | Nyert egységek elhelyezése | N |
 | Területkártya beváltás | N |
 
@@ -38,7 +37,7 @@
 | ------ | ------ |
 | Átcsoportosítás | Y |
 | Erősítés | Y |
-| Kilépés a játékból | N |
+| Egységek elhelyezése | N |
 | Játékállás mentése | Y |
 
 ### Toplenszki Szabolcs
