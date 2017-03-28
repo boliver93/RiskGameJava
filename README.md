@@ -14,36 +14,36 @@
 | Szabó Dávid | Project Associate | SasasoftHUN |
 | Toplenszki Szabolcs | Project Associate | Topi |
 
-# Task list 
-### Fodor Ádám
+# Task list
 
+### Fodor Ádám
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Előkészítés | Y |
-| Játékosok számának megadása | Y |
-| Kilépés az alkalmazásból | Y |
-| Mentett játékállás betöltése | Y |
+| Előkészítés / Preparation (Preparation Stage package) | Y |
+| Játékosok számának megadása / Define Number Of Players | Y |
+| Kilépés az alkalmazásból / Exit Game | Y |
+| Mentett játékállás betöltése / Load Saved Gamestate| Y |
 
 ### Nagy Olivér
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Játék | N |
-| Kezdőjátékos meghatározása | Y |
-| Nyert egységek elhelyezése | N |
-| Területkártya beváltás | N |
+| Játék / Game (Game Stage package) | N |
+| Kezdőjátékos meghatározása / Define The Starting Player | Y |
+| Nyert egységek elhelyezése / Placing The Captived Units | N |
+| Területkártya beváltás / Risk Card Drawing And Using | Y |
 
 ### Szabó Dávid
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Átcsoportosítás | Y |
-| Erősítés | Y |
-| Egységek elhelyezése | N |
-| Játékállás mentése | Y |
+| Átcsoportosítás / Transfer Units | Y |
+| Erősítés / Reinforcement | Y |
+| Egységek elhelyezése / Placing The Units | N |
+| Játékállás mentése / Save Game | Y |
 
 ### Toplenszki Szabolcs
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| 3 egyforma kártya beváltása | N |
-| 3 teljesen különböző kártya beváltása | N |
-| Csata | Y |
-| Támadás | Y |
+| 3 egyforma kártya beváltása / 3 Same Card Using | N |
+| 3 teljesen különböző kártya beváltása / 3 Distinct Card Using | N |
+| Csata / Main Battle Sequence | Y |
+| Támadás / Check Attack Possible & Check If Captured And Conquer | Y |
