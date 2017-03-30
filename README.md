@@ -19,7 +19,7 @@
 ### Fodor Ádám
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Előkészítés / Preparation (Preparation Stage package) | Y |
+| Előkészítés / Preparation (Preparation Stage package) | N |
 | Játékosok számának megadása / Define Number Of Players | Y |
 | Kilépés az alkalmazásból / Exit Game | Y |
 | Mentett játékállás betöltése / Load Saved Gamestate| Y |
@@ -29,21 +29,17 @@
 | ------ | ------ |
 | Játék / Game (Game Stage package) | N |
 | Kezdőjátékos meghatározása / Define The Starting Player | Y |
-| Nyert egységek elhelyezése / Placing The Captived Units | N |
-| Területkártya beváltás / Risk Card Drawing And Using | Y |
 
 ### Szabó Dávid
 | Task name | Ready (Y/N) |
 | ------ | ------ |
 | Átcsoportosítás / Transfer Units | Y |
 | Erősítés / Reinforcement | Y |
-| Egységek elhelyezése / Placing The Units | N |
 | Játékállás mentése / Save Game | Y |
 
 ### Toplenszki Szabolcs
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| 3 egyforma kártya beváltása / 3 Same Card Using | N |
-| 3 teljesen különböző kártya beváltása / 3 Distinct Card Using | N |
-| Csata / Main Battle Sequence | Y |
-| Támadás / Check Attack Possible & Check If Captured And Conquer | Y |
+| Területkártya beváltás / Exchange Cards | Y |
+| Csata / Main Battle Sequence | N |
+| Támadás / Check Attack Possible & Check If Captured And Conquer | N |
