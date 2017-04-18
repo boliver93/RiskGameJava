@@ -19,7 +19,7 @@
 ### Fodor Ádám
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Előkészítés / Preparation (Preparation Stage package) | N |
+| Előkészítés / Preparation (Preparation Stage package) | Y |
 | Játékosok számának megadása / Define Number Of Players | Y |
 | Kilépés az alkalmazásból / Exit Game | Y |
 | Mentett játékállás betöltése / Load Saved Gamestate| Y |
