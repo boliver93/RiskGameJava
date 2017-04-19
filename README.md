@@ -27,7 +27,7 @@
 ### Nagy Olivér
 | Task name | Ready (Y/N) |
 | ------ | ------ |
-| Játék / Game (Game Stage package) | N |
+| Játék / Game (Game Stage package) | Y |
 | Kezdőjátékos meghatározása / Define The Starting Player | Y |
 
 ### Szabó Dávid
@@ -41,5 +41,5 @@
 | Task name | Ready (Y/N) |
 | ------ | ------ |
 | Területkártya beváltás / Exchange Cards | Y |
-| Csata / Main Battle Sequence | N |
-| Támadás / Check Attack Possible & Check If Captured And Conquer | N |
+| Csata / Main Battle Sequence | Y |
+| Támadás / Check Attack Possible & Check If Captured And Conquer | Y |
