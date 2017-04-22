@@ -43,3 +43,14 @@
 | Területkártya beváltás / Exchange Cards | Y |
 | Csata / Main Battle Sequence | Y |
 | Támadás / Check Attack Possible & Check If Captured And Conquer | Y |
+
+# Software
+
+### Eclipse
+We use the Eclipse IDE for Java Developers Neon.3. Download from: http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon3 .
+
+### Scene Builder
+We use JavaFX Scene Builder 8.3.0 to make View. Download from: http://gluonhq.com/products/scene-builder/ .
+
+### Enterprise Architect
+We use Enterprise Architect 12.1. Download from: http://www.sparxsystems.com/products/ea/ .
