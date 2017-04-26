@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.event.ActionListener;
+
 import Model.AttackResult;
 
 /**
@@ -22,13 +24,15 @@ public abstract class RiskAttackView {
 	/**
 	 * 
 	 * @param controller
+	 * @return 
 	 */
-	public abstract AddControllerListener(ActionListener controller);
+	public abstract void AddControllerListener(ActionListener controller);
 
 	/**
 	 * 
 	 * @param attackResult
+	 * @return 
 	 */
-	public abstract UpdateViewState(AttackResult attackResult);
+	public abstract void UpdateViewState(AttackResult attackResult);
 
 }

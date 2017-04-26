@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.event.ActionListener;
+
 import Model.Territory;
 
 /**
@@ -24,8 +26,9 @@ public abstract class RiskMainView {
 	 * stb.).
 	 * 
 	 * @param controller
+	 * @return 
 	 */
-	public abstract AddControllerListener(ActionListener controller);
+	public abstract void AddControllerListener(ActionListener controller);
 
 	public boolean confirmSave(){
 		return false;
@@ -43,7 +46,8 @@ public abstract class RiskMainView {
 	 * Frissul a jatekterkep a parameterben kapott adatokkal.
 	 * 
 	 * @param territories
+	 * @return 
 	 */
-	public abstract UpdateViewState(Territory territories);
+	public abstract void UpdateViewState(Territory territories);
 
 }

@@ -4,6 +4,10 @@ import View.RiskAddPlayerView;
 import View.RiskAttackView;
 import View.RiskRiskCardView;
 import View.RiskMainView;
+
+import java.awt.event.ActionEvent;
+import java.util.Observable;
+
 import Model.RiskGameModel;
 import View.RiskTransferView;
 
@@ -16,7 +20,7 @@ import View.RiskTransferView;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:42
  */
-public class RiskGameController {
+public class RiskGameController extends java.util.Observable implements java.awt.event.ActionListener, java.util.Observer {
 
 	private RiskAddPlayerView addPlayerView;
 	private RiskAttackView attackView;
@@ -26,7 +30,8 @@ public class RiskGameController {
 	private RiskTransferView transferView;
 
 	public RiskGameController(){
-
+		mainView = new View.JFXMainView();
+		mainView.AddControllerListener(this);
 	}
 
 	public void finalize() throws Throwable {
@@ -38,24 +43,27 @@ public class RiskGameController {
 	 * 
 	 * @param e
 	 */
-	public actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e){
 
 	}
 
 	/**
-	 * 
+	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire
 	 * @param model
 	 */
-	public setModel(RiskGameModel model){
-
+	public void setModel(RiskGameModel model){
+		this.model = model;
+		this.model.addObserver(this);
 	}
 
-	private showAttackView(){
-
+	private void showAttackView(){
+		attackView = new View.JFXAttackView();
+		attackView.AddControllerListener(this);
 	}
 
-	private showTransferView(){
-
+	private void showTransferView(){
+		transferView = new View.JFXTransferView();
+		transferView.AddControllerListener(this);
 	}
 
 	/**
@@ -65,7 +73,7 @@ public class RiskGameController {
 	 * @param obs
 	 * @param obj
 	 */
-	public update(Observable obs, Object obj){
+	public void update(Observable obs, Object obj){
 
 	}
 

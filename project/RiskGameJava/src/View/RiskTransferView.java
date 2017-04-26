@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.event.ActionListener;
+
 import Model.Territory;
 
 /**
@@ -22,14 +24,16 @@ public abstract class RiskTransferView {
 	/**
 	 * 
 	 * @param controller
+	 * @return 
 	 */
-	public abstract AddControllerListener(ActionListener controller);
+	public abstract void AddControllerListener(ActionListener controller);
 
 	/**
 	 * 
 	 * @param from
 	 * @param to
+	 * @return 
 	 */
-	public abstract UpdateViewState(Territory from, Territory to);
+	public abstract void UpdateViewState(Territory from, Territory to);
 
 }

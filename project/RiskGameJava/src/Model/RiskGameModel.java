@@ -1,13 +1,14 @@
 package Model;
 
+import java.util.List;
 
 /**
- * Az MVC architektura Model reszet megvalosíto osztalya.
+ * Az MVC architektura Model reszet megvalosÃ­to osztalya.
  * @author Szabi
  * @version 1.0
- * @created 19-ápr.-2017 23:11:55
+ * @created 19-Ã¡pr.-2017 23:11:55
  */
-public class RiskGameModel {
+public class RiskGameModel extends java.util.Observable {
 
 	private Deck deck;
 	private Map map;
@@ -51,7 +52,7 @@ public class RiskGameModel {
 	}
 
 	/**
-	 * Csak akkor támadhat, ha a terEeten elegend? egysége van.
+	 * Csak akkor tÃ¡madhat, ha a terï¿½Eeten elegend? egysÃ©ge van.
 	 * 
 	 * @param attacker
 	 * @param attackerUnits    attackerUnits
@@ -105,7 +106,7 @@ public class RiskGameModel {
 	}
 
 	/**
-	 * Ez a fEgvény fogja a kockadobásokkal történ? harcot szimulálja.
+	 * Ez a fï¿½EgvÃ©ny fogja a kockadobÃ¡sokkal tÃ¶rtÃ©n? harcot szimulÃ¡lja.
 	 * 
 	 * @param attackerUnits
 	 * @param defenderUnits    defenderUnits
