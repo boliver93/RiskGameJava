@@ -1,6 +1,14 @@
 package View;
 
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
+
+import Model.Player;
 import Model.Territory;
+import Controller.RiskGameController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 /**
  * Az MVC architektura View reszet megvalosíto osztalya. Ez a View a jatek
@@ -9,29 +17,22 @@ import Model.Territory;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:48
  */
-public class JFXMainView extends RiskMainView {
-
+public class JFXMainView extends JFXViewBase {
+	
 	public JFXMainView(){
-
+		LoadFXML("MainView.fxml");
 	}
 
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
-
-	/**
-	 * 
-	 * @param controller
-	 */
-	public AddControllerListener(ActionListener controller){
-
-	}
+	
 
 	/**
 	 * 
 	 * @param playerList
 	 */
-	public UpdateConnectedPlayer(PlayerList<List> playerList){
+	public void UpdateConnectedPlayer(List<Player> playerList){
 
 	}
 
@@ -39,7 +40,7 @@ public class JFXMainView extends RiskMainView {
 	 * 
 	 * @param player
 	 */
-	public UpdateStartingPlayer(Player player){
+	public void UpdateStartingPlayer(Player player){
 
 	}
 
@@ -47,7 +48,7 @@ public class JFXMainView extends RiskMainView {
 	 * 
 	 * @param territories
 	 */
-	public UpdateViewState(Territory territories){
+	public void UpdateViewState(Territory territories){
 
 	}
 

@@ -9,10 +9,10 @@ import Model.Territory;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:49
  */
-public class JFXTransferView extends RiskTransferView {
+public class JFXTransferView extends JFXViewBase {
 
 	public JFXTransferView(){
-
+		LoadFXML("TransferView.fxml");
 	}
 
 	public void finalize() throws Throwable {
@@ -21,18 +21,10 @@ public class JFXTransferView extends RiskTransferView {
 
 	/**
 	 * 
-	 * @param controller
-	 */
-	public AddControllerListener(ActionListener controller){
-
-	}
-
-	/**
-	 * 
 	 * @param from
 	 * @param to
 	 */
-	public UpdateViewState(Territory from, Territory to){
+	public void UpdateViewState(Territory from, Territory to){
 
 	}
 

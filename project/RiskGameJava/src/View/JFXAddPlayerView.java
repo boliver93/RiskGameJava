@@ -7,29 +7,22 @@ package View;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:48
  */
-public class JFXAddPlayerView extends RiskAddPlayerView {
+public class JFXAddPlayerView extends JFXViewBase {
 
 	public JFXAddPlayerView(){
-
+		LoadFXML("AddPlayerView.fxml");
 	}
 
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
 
-	/**
-	 * 
-	 * @param al
-	 */
-	public AddControllerListerner(ActionListener al){
-
-	}
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public UpdateViewState(String name){
+	public void UpdateViewState(String name){
 
 	}
 

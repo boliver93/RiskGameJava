@@ -1,15 +1,19 @@
 package Controller;
 
-import View.RiskAddPlayerView;
-import View.RiskAttackView;
-import View.RiskRiskCardView;
-import View.RiskMainView;
+import View.JFXMainView;
+import View.JFXAddPlayerView;
+import View.JFXAttackView;
+import View.JFXRiskCardView;
+import View.JFXMainView;
+import View.JFXTransferView;
 
 import java.awt.event.ActionEvent;
 import java.util.Observable;
 
 import Model.RiskGameModel;
-import View.RiskTransferView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Az MVC architektura Controller reszet megvalosíto osztalya. A Controller a
@@ -22,16 +26,18 @@ import View.RiskTransferView;
  */
 public class RiskGameController extends java.util.Observable implements java.awt.event.ActionListener, java.util.Observer {
 
-	private RiskAddPlayerView addPlayerView;
-	private RiskAttackView attackView;
-	private RiskRiskCardView cardView;
-	private RiskMainView mainView;
+	private final Stage primaryStage;
+	private JFXMainView mainView;
+	private JFXAddPlayerView addPlayerView;
+	private JFXAttackView attackView;
+	private JFXRiskCardView cardView;
+	private JFXTransferView transferView;
+	
 	private RiskGameModel model;
-	private RiskTransferView transferView;
-
-	public RiskGameController(){
-		mainView = new View.JFXMainView();
-		mainView.AddControllerListener(this);
+	
+	
+	public RiskGameController(Stage primaryStage){
+		this.primaryStage = primaryStage;
 	}
 
 	public void finalize() throws Throwable {
@@ -46,6 +52,16 @@ public class RiskGameController extends java.util.Observable implements java.awt
 	public void actionPerformed(ActionEvent e){
 
 	}
+	
+    public void showMainView() {
+    	mainView = new JFXMainView();
+    	mainView.AddControllerListener(this);
+    	
+    	Parent root = mainView.getRoot();
+    	
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
 	/**
 	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire

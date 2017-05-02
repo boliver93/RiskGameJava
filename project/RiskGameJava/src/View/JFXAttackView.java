@@ -9,10 +9,10 @@ import Model.AttackResult;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:48
  */
-public class JFXAttackView extends RiskAttackView {
+public class JFXAttackView extends JFXViewBase {
 
 	public JFXAttackView(){
-
+		LoadFXML("AttackView.fxml");
 	}
 
 	public void finalize() throws Throwable {
@@ -21,17 +21,9 @@ public class JFXAttackView extends RiskAttackView {
 
 	/**
 	 * 
-	 * @param controller
-	 */
-	public AddControllerListener(ActionListener controller){
-
-	}
-
-	/**
-	 * 
 	 * @param attackResult
 	 */
-	public UpdateViewState(AttackResult attackResult){
+	public void UpdateViewState(AttackResult attackResult){
 
 	}
 
