@@ -11,6 +11,7 @@ public class Territory {
 
 	private int owner;
 	private int units;
+	private int id;
 
 
 
@@ -18,8 +19,14 @@ public class Territory {
 
 	}
 
-	public Territory(){
-
+	public Territory(int id){
+		this.id = id;
+		owner = -1;
+		units = -1;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public int getOwner(){

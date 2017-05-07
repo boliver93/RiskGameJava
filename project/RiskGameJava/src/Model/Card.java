@@ -13,9 +13,29 @@ public class Card {
 	private Unit type;
 	private int value;
 
-	public Card(){
-
+	public Card(Territory territory, Unit type, int value){
+		this.territory = territory;
+		this.type = type;
+		this.value = value;
 	}
+
+	public Territory getTerritory() {
+		return territory;
+	}
+
+
+
+	public Unit getType() {
+		return type;
+	}
+
+
+
+	public int getValue() {
+		return value;
+	}
+
+
 
 	public void finalize() throws Throwable {
 

@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A jatekos adatait adja meg.
@@ -9,18 +12,29 @@ package Model;
  */
 public class Player {
 
-	private Card cardsList;
+	private List<Card> cardsList;
 	private Color color;
 	private String name;
+	private Deck deck;
 	/**
 	 * Az elõzõ körben beváltott kártyákból kapott bónusz, kézben tartott egységek
 	 * száma
 	 */
-	private byte reinforcementBonus;
+	private int reinforcementBonus;
 	private int territoryCount;
 
-	public Player(){
+	public int getTerritoryCount() {
+		return territoryCount;
+	}
 
+	public Player(Color color, String name,Deck deck) {
+		super();
+		this.cardsList = new ArrayList<Card>();
+		this.color = color;
+		this.name = name;
+		this.reinforcementBonus = 0;
+		this.territoryCount = 0;
+		this.deck = deck;
 	}
 
 	public void finalize() throws Throwable {
@@ -32,37 +46,128 @@ public class Player {
 	 * 
 	 * @param troopCount
 	 */
-	public addReinforcements(byte troopCount){
-
+	public void addReinforcements(int troopCount){
+		reinforcementBonus += troopCount;
+	}
+	
+	public int getReinforcementBonus() {
+		return reinforcementBonus;
 	}
 
-	public addTerritory(){
-
+	public void addTerritory(){
+		territoryCount++;
+	}
+	
+	public Color getColor(){
+		return color;
 	}
 
 	/**
 	 * Ha a játékosnak van 3 beváltható kártyája, ezeket elveszi tõle, majd a
 	 * kártyákhoz tartozó erõsítési értékkel tér vissza. Ha a beváltás nem sikeres, 0-
 	 * val tér vissza.
+	 * @throws Exception 
 	 */
-	public byte exchangeCardsIfPossible(){
-		return 0;
+	public int exchangeCardsIfPossible() throws Exception{
+		if(cardsList.size() < 3) return 0;
+		int i1 = 0,i2 = 0,i3 = 0;
+		for (Card card : cardsList) {
+			switch(card.getType()) {
+			case INFANTRY:
+				i1++;
+				break;
+			case CAVALRY:
+				i2++;
+				break;
+			case ARTILLERY:
+				i3++;
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid Unit Type");
+					
+			}
+			
+		}
+		if(i1 == 3) {
+			cardsList.forEach(x -> {
+				if (x.getType() == Unit.INFANTRY) {
+					deck.Put(x);
+				}
+			});
+			cardsList.removeIf(x -> x.getType() == Unit.INFANTRY );
+			return 4;
+		}
+		else if(i2 == 3) {
+			cardsList.forEach(x -> {
+				if (x.getType() == Unit.CAVALRY) {
+					deck.Put(x);
+				}
+			});
+			cardsList.removeIf(x -> x.getType() == Unit.CAVALRY );
+			return 6;
+		}
+		else if(i3 == 3) {
+			cardsList.forEach(x -> {
+				if (x.getType() == Unit.ARTILLERY) {
+					deck.Put(x);
+				}
+			});
+			cardsList.removeIf(x -> x.getType() == Unit.ARTILLERY );
+			return 8;
+		}
+		else if(i1 > 0 && i2 > 0 && i3 > 0) {
+			Boolean b1 = false,b2 = false,b3 = false; //was unit type removed yet
+			for (Card card : cardsList) {
+				switch(card.getType()) {
+				case INFANTRY:
+					if(!b1) {
+						deck.Put(card);
+						cardsList.remove(card);
+						b1 = true;
+					}
+					break;
+				case CAVALRY:
+					if(!b2) {
+						deck.Put(card);
+						cardsList.remove(card);
+						b2 = true;
+					}
+					break;
+				case ARTILLERY:
+					if(!b3) {
+						deck.Put(card);
+						cardsList.remove(card);
+						b3 = true;
+					}
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid unit type");
+				}
+				
+					
+			}
+			return 10;
+		}
+		throw new Exception("Card exchange failed");
+		
+
 	}
 
-	public Card getcards(){
-		return cards;
+	public List<Card> getcards(){
+		return cardsList;
 	}
 
 	/**
 	 * 
 	 * @param card
 	 */
-	public putcard(Card card){
-
+	public Player putcard(Card card){
+		cardsList.add(card);
+		return this;
 	}
 
-	public removeTerritory(){
-
+	public void removeTerritory(){
+		territoryCount--;
 	}
 
 }
