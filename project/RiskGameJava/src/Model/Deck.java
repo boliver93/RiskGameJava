@@ -14,7 +14,7 @@ public class Deck {
 
 	private Set<Card> cardsSet;
 
-	public Deck(){
+	public Deck() {
 		cardsSet = new HashSet<Card>();
 	}
 
@@ -22,15 +22,14 @@ public class Deck {
 	 * 
 	 * @exception Throwable
 	 */
-	public void finalize()
-	  throws Throwable{
+	public void finalize() throws Throwable {
 
 	}
 
 	/**
 	 * A kihuzott kartya eltunik a paklibol
 	 */
-	public Card Draw(){
+	public Card Draw() {
 		Card currentDraw = cardsSet.stream().skip(r.nextInt(cardsSet.size())).findFirst().get();
 		cardsSet.remove(currentDraw);
 		return currentDraw;
@@ -38,9 +37,10 @@ public class Deck {
 
 	/**
 	 * 
-	 * @param kartya    kartya
+	 * @param kartya
+	 *            kartya
 	 */
-	public Deck Put(Card card){
+	public Deck Put(Card card) {
 		cardsSet.add(card);
 		return this;
 	}

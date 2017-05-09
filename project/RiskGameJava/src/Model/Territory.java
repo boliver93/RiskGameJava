@@ -1,8 +1,8 @@
 package Model;
 
-
 /**
  * Az adott terulet adatait adja meg.
+ * 
  * @author Szabi
  * @version 1.0
  * @created 19-ápr.-2017 23:11:55
@@ -13,43 +13,43 @@ public class Territory {
 	private int units;
 	private int id;
 
-
-
 	public void finalize() throws Throwable {
 
 	}
 
-	public Territory(int id){
+	public Territory(int id) {
 		this.id = id;
 		owner = -1;
 		units = -1;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
 
-	public int getOwner(){
+	public int getOwner() {
 		return owner;
 	}
 
-	public int getUnits(){
+	public int getUnits() {
 		return units;
 	}
 
 	/**
 	 * 
-	 * @param newVal    newVal
+	 * @param newVal
+	 *            newVal
 	 */
-	public void setOwner(int newVal){
+	public void setOwner(int newVal) {
 		owner = newVal;
 	}
 
 	/**
 	 * 
-	 * @param newVal    newVal
+	 * @param newVal
+	 *            newVal
 	 */
-	public void setUnits(int newVal){
+	public void setUnits(int newVal) {
 		units = newVal;
 	}
 
