@@ -9,9 +9,9 @@ import javafx.scene.Parent;
 public class JFXViewBase {
 
 	protected Parent root;
-	
 	protected RiskGameController controller;
 	
+	public JFXViewBase() {}
 	
 	protected void LoadFXML(String resourceName)
 	{
@@ -21,7 +21,6 @@ public class JFXViewBase {
         try {
 	        root = fxmlLoader.load();
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

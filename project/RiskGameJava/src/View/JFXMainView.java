@@ -19,10 +19,29 @@ import javafx.scene.Parent;
  */
 public class JFXMainView extends JFXViewBase {
 	
+	World world;
+	
 	public JFXMainView(){
-		LoadFXML("MainView.fxml");
+		// LoadFXML("MainView.fxml");
+		
+		world = WorldBuilder.create()
+				/*
+        		.mousePressHandler(evt -> {
+                	CountryPath countryPath = (CountryPath) evt.getSource();
+                	System.out.println(countryPath.getName());
+                	System.out.println(countryPath.getContent());
+                })
+                */
+        		.hoverEnabled(true)
+        		.selectionEnabled(true)
+                .build();
 	}
-
+	
+	@Override
+	public Parent getRoot(){
+		return world;
+	}
+	
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

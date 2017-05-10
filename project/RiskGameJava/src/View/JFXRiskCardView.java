@@ -16,12 +16,4 @@ public class JFXRiskCardView extends JFXViewBase {
 		super.finalize();
 	}
 
-	public actionPerformed(){
-
-	}
-
-	public deleteView(){
-
-	}
-
 }
