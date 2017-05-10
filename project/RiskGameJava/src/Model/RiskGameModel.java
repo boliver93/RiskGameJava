@@ -36,6 +36,10 @@ public class RiskGameModel extends java.util.Observable {
 		capturedThisTurn = false;
 		map = new Map();
 	}
+	
+	public Phase getPhase() {
+		return phase;
+	}
 
 	/**
 	 * 
@@ -57,6 +61,7 @@ public class RiskGameModel extends java.util.Observable {
 	 *            attackUnits
 	 * @throws Exception
 	 */
+	//TODO: public boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits) kellene a controllernek 
 	public Boolean attackTerritory(Territory defender, Territory attacker, int defendUnits, int attackUnits)
 			throws Exception {
 		if (phase != phase.Battle)
@@ -101,6 +106,8 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param attackerUnits
 	 *            attackerUnits
 	 */
+	//TODO: public boolean checkAttackPossible(int defenderID, int attackerID) kellene a controllernek 
+	//			csak a szomszédosságot és terület birtokosokat kellene ellenőriznie, unitCount-ot még nem
 	public Boolean checkAttackPossible(Territory defender, Territory attacker, int defendUnits, int attackUnits) {
 		return (attacker.getOwner() == currentPlayer && Map.IsNeighbour(attacker, defender)
 				&& defender.getUnits() >= defendUnits && attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3
@@ -153,6 +160,7 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param from
 	 * @param to
 	 */
+	//TODO: public boolean checkTransferPossible(int fromID, int toID) kellene a controllernek 
 	public boolean checkTransferPossible(Territory from, Territory to) {
 		return Map.IsNeighbour(from, to) && from.getOwner() == currentPlayer && to.getOwner() == currentPlayer;
 	}
@@ -300,6 +308,7 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param units
 	 * @throws Exception
 	 */
+	//TODO: public boolean transfer(int fromID, int toID, int units) kellene a controllernek 
 	public Boolean transfer(Territory from, Territory to, int units) throws Exception {
 		if (phase != Phase.Transfer)
 			throw new Exception("Not in Transfer Phase");

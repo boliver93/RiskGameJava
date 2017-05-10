@@ -1,6 +1,7 @@
 package Controller;
 
 import View.JFXMainView;
+import View.Country;
 import View.JFXAddPlayerView;
 import View.JFXAttackView;
 import View.JFXRiskCardView;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.Observable;
 
 import Model.RiskGameModel;
+import Model.Territory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,7 +26,7 @@ import javafx.stage.Stage;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:42
  */
-public class RiskGameController extends java.util.Observable implements java.awt.event.ActionListener, java.util.Observer {
+public class RiskGameController extends java.util.Observable implements java.util.Observer {
 
 	private final Stage primaryStage;
 	private JFXMainView mainView;
@@ -35,24 +37,24 @@ public class RiskGameController extends java.util.Observable implements java.awt
 	
 	private RiskGameModel model;
 	
+	private int previouslySelectedTerritory = -1;
+	
 	
 	public RiskGameController(Stage primaryStage){
 		this.primaryStage = primaryStage;
 	}
-
-	public void finalize() throws Throwable {
-
-	}
-
+	
 	/**
-	 * A nezeten tortent esemenyeket (button click, stb) a controller kezeli le.
-	 * 
-	 * @param e
+	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire
+	 * @param model
 	 */
-	public void actionPerformed(ActionEvent e){
-
+	public void setModel(RiskGameModel model){
+		this.model = model;
+		this.model.addObserver(this);
 	}
 	
+	
+	//Main View
     public void showMainView() {
     	mainView = new JFXMainView();
     	mainView.AddControllerListener(this);
@@ -62,24 +64,81 @@ public class RiskGameController extends java.util.Observable implements java.awt
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+    
+    public void countrySelected(Country country) {
+    	int territoryID = convertToTerritoryID(country);
+    	System.out.println("Controller - Territory selected: " + country.getName() + "/" + territoryID);
+    	
+    	try {
+        	switch(model.getPhase())
+        	{
+    		case Reinforcement:
+    			if (model.reinforce(territoryID))
+    				addLog(country.getName() + " reinforced!");
+				else
+					addLog(country.getName() + " is occupied by another player!");
+    			break;
+    			
+    			
+    		case Battle:
+    			if (previouslySelectedTerritory != -1)
+    			{
+					//if (model.checkAttackPossible(territoryID, previouslySelectedTerritory))
+    				if (false)
+					{
+						addLog("Attacking " + country.getName() + "!");
+						showAttackView(territoryID, previouslySelectedTerritory);
+					}
+					else
+						addLog(country.getName() + " cannot be attacked!");
+					previouslySelectedTerritory = -1;
+				}
+    			else previouslySelectedTerritory = territoryID;
+    			break;
+    			
+    			
+    		case Transfer:
+    			if (previouslySelectedTerritory != -1)
+    			{
+					//if (model.checkTransferPossible(previouslySelectedTerritory, territoryID))
+    				if (false)
+					{
+						addLog("Transferring units to " + country.getName() + "!");
+						showTransferView(previouslySelectedTerritory, territoryID);
+					}
+					else
+						addLog("Can't transfer units to " + country.getName() + "!");
+					previouslySelectedTerritory = -1;
+				}
+    			else previouslySelectedTerritory = territoryID;
+    			break;
+    			
+    			
+    		case Preparation:
+    			if (model.reinforce(territoryID))
+    				addLog(country.getName() + " reinforced!");
+				else
+					addLog(country.getName() + " is occupied by another player!");
+    			break;
+        	}
+		} catch (Exception e) {
+			addLog(e.getMessage());
+		}
+    }
 
-	/**
-	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire
-	 * @param model
-	 */
-	public void setModel(RiskGameModel model){
-		this.model = model;
-		this.model.addObserver(this);
-	}
-
-	private void showAttackView(){
+    //Attack View
+	private void showAttackView(int defenderID, int attackerID){
 		attackView = new View.JFXAttackView();
 		attackView.AddControllerListener(this);
+		//attackView.UpdateViewState(defender, attacker);
 	}
 
-	private void showTransferView(){
+	
+	//Transfer View
+	private void showTransferView(int fromID, int toID){
 		transferView = new View.JFXTransferView();
 		transferView.AddControllerListener(this);
+		//transferView.UpdateViewState(from, to);
 	}
 
 	/**
@@ -91,6 +150,20 @@ public class RiskGameController extends java.util.Observable implements java.awt
 	 */
 	public void update(Observable obs, Object obj){
 
+	}
+	
+	//A fõablak naplójába küld egy új bejegyzést
+	public void addLog(String log) {
+		
+	}
+	
+	
+	private int convertToTerritoryID(Country country) {
+		return country.ordinal();
+	}
+	
+	private Country convertToCountry(int ID) {
+		return Country.values()[ID];
 	}
 
 }

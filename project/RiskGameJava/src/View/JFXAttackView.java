@@ -1,6 +1,7 @@
 package View;
 
 import Model.AttackResult;
+import Model.Territory;
 
 /**
  * Ezen a View-en keresztul jelolheti meg az egyik jatekos a masik jatekos
@@ -25,6 +26,10 @@ public class JFXAttackView extends JFXViewBase {
 	 */
 	public void UpdateViewState(AttackResult attackResult){
 
+	}
+	
+	public void UpdateViewState(Territory defender, Territory attacker) {
+		
 	}
 
 }

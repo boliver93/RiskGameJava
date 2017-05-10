@@ -25,13 +25,12 @@ public class JFXMainView extends JFXViewBase {
 		// LoadFXML("MainView.fxml");
 		
 		world = WorldBuilder.create()
-				/*
         		.mousePressHandler(evt -> {
                 	CountryPath countryPath = (CountryPath) evt.getSource();
-                	System.out.println(countryPath.getName());
-                	System.out.println(countryPath.getContent());
+                	//System.out.println(countryPath.getName());
+                	//System.out.println(countryPath.getContent());
+                	controller.countrySelected(Country.valueOf(countryPath.getName()));
                 })
-                */
         		.hoverEnabled(true)
         		.selectionEnabled(true)
                 .build();
