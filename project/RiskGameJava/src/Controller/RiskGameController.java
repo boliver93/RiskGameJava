@@ -2,6 +2,7 @@ package Controller;
 
 import View.JFXMainView;
 import View.Country;
+import View.CountryPath;
 import View.JFXAddPlayerView;
 import View.JFXAttackView;
 import View.JFXRiskCardView;
@@ -13,8 +14,10 @@ import java.util.Observable;
 
 import Model.RiskGameModel;
 import Model.Territory;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -56,12 +59,30 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	
 	//Main View
     public void showMainView() {
-    	mainView = new JFXMainView();
+    	mainView = new JFXMainView(primaryStage);
     	mainView.AddControllerListener(this);
     	
     	Parent root = mainView.getRoot();
     	
-    	Scene mainScene = new Scene(root);
+    	
+    	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+    	
+    	double ratio = 815.0/600;
+    	double ratio2 = 1183.0/883;
+    	
+    	final double bound = 0.9;
+    	final double height = screenBounds.getHeight() * bound;
+    	final double width = height * ratio2;
+    	
+    	Scene mainScene = new Scene(root, width, height);
+
+    	/* resolution check... ah those filthy pixels....
+    	mainView.getWorld().setMouseEnterHandler(evt -> {
+                	System.out.println(mainScene.getHeight() + " " + mainScene.getWidth());
+                });
+        */
+    	
+    	// Scene mainScene = new Scene(root);
     	// mainScene.getStylesheets().add("View/res/world.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();

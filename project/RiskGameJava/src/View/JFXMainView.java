@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Controller.RiskGameController;
 import Model.Player;
 import Model.Territory;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * Az MVC architektura View reszet megvalosíto osztalya. Ez a View a jatek
@@ -23,18 +25,20 @@ import javafx.scene.layout.StackPane;
  */
 public class JFXMainView extends JFXViewBase {
 	
-	
 	@FXML private ImageView imageView;
 	@FXML private ImageView imageViewL;
 	@FXML private ImageView imageViewR;
 	@FXML private BorderPane borderPane;
 	@FXML private StackPane centerStackPane;
 	
+	private Stage stage;
 	private World world;
     private GraphicsContext gc;
 	
-	public JFXMainView(){
+	public JFXMainView(Stage stage){
 
+		this.stage = stage;
+		
 		world = WorldBuilder.create()
         		.mousePressHandler(evt -> {
                 	CountryPath countryPath = (CountryPath) evt.getSource();
@@ -60,23 +64,24 @@ public class JFXMainView extends JFXViewBase {
 		
 		centerStackPane.getStyleClass().add("root");
 		centerStackPane.setAlignment(Pos.CENTER);
+		centerStackPane.getChildren().addAll(world);
 		
-		imageView.fitWidthProperty().bind(centerStackPane.widthProperty());
-		imageView.fitHeightProperty().bind(centerStackPane.heightProperty());
+		imageView.setCache(true);
+		imageView.fitWidthProperty().bind(stage.widthProperty());
+		imageView.fitHeightProperty().bind(stage.heightProperty());
 		
-		centerStackPane.getChildren().add(world);
+		world.maxWidthProperty().bind(stage.widthProperty());
+		world.maxHeightProperty().bind(stage.heightProperty());
 		
-		world.prefWidthProperty().bind(centerStackPane.widthProperty());
-		world.prefHeightProperty().bind(centerStackPane.heightProperty());
-
-		// imageViewL.fitHeightProperty().bind(centerStackPane.heightProperty());
-		// imageViewR.fitHeightProperty().bind(centerStackPane.heightProperty());
 	}
 	
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
 	
+	public World getWorld() {
+		return world;
+	}
 
 	/**
 	 * 

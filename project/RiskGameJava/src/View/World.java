@@ -72,7 +72,7 @@ public class World extends Region {
     private        final StyleableProperty<Color>        pressedColor;
     private static final CssMetaData<World, Color>       SELECTED_COLOR = FACTORY.createColorCssMetaData("-selected-color", s-> s.selectedColor, Color.web("#00802b"), false);
     private        final StyleableProperty<Color>        selectedColor;
-    private static final double							 OPACITY = 0.3d;;
+    private static final double							 OPACITY = 0.3d;
     
     /*
      * 	SVG and country  specific fields
