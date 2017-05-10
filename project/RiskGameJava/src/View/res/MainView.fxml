@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane 
+	fx:id="borderPane"
+	xmlns:fx="http://javafx.com/fxml/1"     
+	xmlns="http://javafx.com/javafx/8">
+	
+	<center>
+  		
+  		<StackPane fx:id="centerStackPane">
+  		
+	        <children>
+	        
+				<ImageView fx:id="imageView" 
+		    		fitHeight="600.0" 
+		    		fitWidth="815.0" 
+		    		layoutX="0.0" 
+		    		layoutY="0.0" 
+		    		pickOnBounds="true" 
+					preserveRatio="true">
+					<image>
+						<Image url="@world_map.jpg" />
+					</image>
+				</ImageView>
+				
+			</children>
+			
+    	</StackPane>
+	
+	</center>
+	
+	<!--
+	<right>
+		<ImageView fx:id="imageViewR" 
+		    	fitHeight="600.0" 
+		    	layoutX="0.0" 
+		    	layoutY="0.0" 
+		    	pickOnBounds="true" 
+				preserveRatio="true">
+				<image>
+					<Image url="@filler.jpg" />
+				</image>
+		</ImageView>
+	</right>
+	
+	<left>
+		<ImageView fx:id="imageViewL" 
+		    	fitHeight="600.0" 
+		    	layoutX="0.0" 
+		    	layoutY="0.0" 
+		    	pickOnBounds="true" 
+				preserveRatio="true">
+				<image>
+					<Image url="@filler2.jpg" />
+				</image>
+		</ImageView>
+	</left>
+	-->
+</BorderPane>

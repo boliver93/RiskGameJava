@@ -1,5 +1,6 @@
 
 .world {
+	-fx-opacity		 : 0.8;
     -background-color: #000066;
     -fill-color      : #e6e6ff;
     -stroke-color    : #000000;
@@ -7,4 +8,8 @@
     -pressed-color   : #789dff;
     -selected-color  : #009900;
     -location-color  : #FF0000;
+}
+
+.root {
+	-fx-background-color: #009900;
 }

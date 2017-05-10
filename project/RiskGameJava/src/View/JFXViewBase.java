@@ -1,12 +1,15 @@
 package View;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import Controller.RiskGameController;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
-public class JFXViewBase {
+public abstract class JFXViewBase implements Initializable {
 
 	protected Parent root;
 	protected RiskGameController controller;
@@ -33,6 +36,10 @@ public class JFXViewBase {
 	 */
 	public void AddControllerListener(RiskGameController controller){
 		this.controller = controller;
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
 	
 }

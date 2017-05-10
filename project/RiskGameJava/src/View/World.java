@@ -47,7 +47,7 @@ public class World extends Region {
 	/*
 	 * 	Window specific fields
 	 */
-	private static final String 	lowResProperties 	= "View/lowResSvg.properties";
+	private static final String 	lowResProperties 	= "View/res/lowResSvg.properties";
 	private static final double 	preferredWidth 		= 815;
 	private static final double 	preferredHeight 	= 600;
     private static final double     aspectRatio     	= preferredHeight / preferredWidth;
@@ -72,6 +72,7 @@ public class World extends Region {
     private        final StyleableProperty<Color>        pressedColor;
     private static final CssMetaData<World, Color>       SELECTED_COLOR = FACTORY.createColorCssMetaData("-selected-color", s-> s.selectedColor, Color.web("#00802b"), false);
     private        final StyleableProperty<Color>        selectedColor;
+    private static final double							 OPACITY = 0.3d;;
     
     /*
      * 	SVG and country  specific fields
@@ -225,10 +226,11 @@ public class World extends Region {
         });
 
         group.getChildren().add(pane);
+        group.setOpacity(OPACITY);
 
         getChildren().setAll(group);
 
-        setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        // setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     /*

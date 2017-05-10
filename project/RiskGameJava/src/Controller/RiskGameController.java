@@ -61,7 +61,9 @@ public class RiskGameController extends java.util.Observable implements java.uti
     	
     	Parent root = mainView.getRoot();
     	
-        primaryStage.setScene(new Scene(root));
+    	Scene mainScene = new Scene(root);
+    	// mainScene.getStylesheets().add("View/res/world.css");
+        primaryStage.setScene(mainScene);
         primaryStage.show();
     }
     
