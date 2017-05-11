@@ -10,7 +10,7 @@ package View;
 public class JFXAddPlayerView extends JFXViewBase {
 
 	public JFXAddPlayerView(){
-		LoadFXML("AddPlayerView.fxml");
+		LoadFXML("/View/fxml/AddPlayerView.fxml");
 	}
 
 	public void finalize() throws Throwable {

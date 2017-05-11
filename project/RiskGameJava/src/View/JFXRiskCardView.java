@@ -9,7 +9,8 @@ package View;
 public class JFXRiskCardView extends JFXViewBase {
 
 	public JFXRiskCardView(){
-		LoadFXML("RiskCardView.fxml");
+		// skip task
+		LoadFXML("/View/fxml/RiskCardView.fxml");
 	}
 
 	public void finalize() throws Throwable {

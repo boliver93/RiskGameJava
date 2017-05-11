@@ -12,7 +12,7 @@ import Model.Territory;
 public class JFXTransferView extends JFXViewBase {
 
 	public JFXTransferView(){
-		LoadFXML("TransferView.fxml");
+		LoadFXML("/View/fxml/TransferView.fxml");
 	}
 
 	public void finalize() throws Throwable {

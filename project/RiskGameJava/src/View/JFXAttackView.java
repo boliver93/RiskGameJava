@@ -13,7 +13,7 @@ import Model.Territory;
 public class JFXAttackView extends JFXViewBase {
 
 	public JFXAttackView(){
-		LoadFXML("AttackView.fxml");
+		LoadFXML("/View/fxml/AttackView.fxml");
 	}
 
 	public void finalize() throws Throwable {

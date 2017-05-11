@@ -24,7 +24,7 @@
 		    		pickOnBounds="true" 
 					preserveRatio="true">
 					<image>
-						<Image url="@world_map.jpg" />
+						<Image url="@../img/world_map.jpg" />
 					</image>
 				</ImageView>
 				
@@ -43,7 +43,7 @@
 		    	pickOnBounds="true" 
 				preserveRatio="true">
 				<image>
-					<Image url="@filler.jpg" />
+					<Image url="@../img/filler.jpg" />
 				</image>
 		</ImageView>
 	</right>
@@ -56,7 +56,7 @@
 		    	pickOnBounds="true" 
 				preserveRatio="true">
 				<image>
-					<Image url="@filler2.jpg" />
+					<Image url="@../img/filler2.jpg" />
 				</image>
 		</ImageView>
 	</left>

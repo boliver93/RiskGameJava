@@ -50,7 +50,7 @@ public class JFXMainView extends JFXViewBase {
         		.selectionEnabled(true)
                 .build();
 		
-		LoadFXML("/View/res/MainView.fxml");
+		LoadFXML("/View/fxml/MainView.fxml");
 		
 	}
 	

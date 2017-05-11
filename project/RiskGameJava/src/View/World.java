@@ -47,7 +47,7 @@ public class World extends Region {
 	/*
 	 * 	Window specific fields
 	 */
-	private static final String 	lowResProperties 	= "View/res/lowResSvg.properties";
+	private static final String 	lowResProperties 	= "View/svg/lowResSvg.properties";
 	private static final double 	preferredWidth 		= 815;
 	private static final double 	preferredHeight 	= 600;
     private static final double     aspectRatio     	= preferredHeight / preferredWidth;
