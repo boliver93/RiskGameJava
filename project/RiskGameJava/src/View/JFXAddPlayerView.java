@@ -13,6 +13,7 @@ public class JFXAddPlayerView extends JFXViewBase {
 		LoadFXML("/View/fxml/AddPlayerView.fxml");
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

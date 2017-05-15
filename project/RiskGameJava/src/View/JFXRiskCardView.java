@@ -13,6 +13,7 @@ public class JFXRiskCardView extends JFXViewBase {
 		LoadFXML("/View/fxml/RiskCardView.fxml");
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

@@ -15,6 +15,7 @@ public class JFXTransferView extends JFXViewBase {
 		LoadFXML("/View/fxml/TransferView.fxml");
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

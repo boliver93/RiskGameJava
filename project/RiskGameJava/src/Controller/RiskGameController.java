@@ -2,18 +2,14 @@ package Controller;
 
 import View.JFXMainView;
 import View.Country;
-import View.CountryPath;
 import View.JFXAddPlayerView;
 import View.JFXAttackView;
 import View.JFXRiskCardView;
-import View.JFXMainView;
 import View.JFXTransferView;
 
-import java.awt.event.ActionEvent;
 import java.util.Observable;
 
 import Model.RiskGameModel;
-import Model.Territory;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -171,6 +167,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * @param obs
 	 * @param obj
 	 */
+	@Override
 	public void update(Observable obs, Object obj){
 
 	}

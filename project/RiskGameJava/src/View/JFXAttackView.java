@@ -16,6 +16,7 @@ public class JFXAttackView extends JFXViewBase {
 		LoadFXML("/View/fxml/AttackView.fxml");
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

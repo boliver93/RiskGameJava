@@ -34,7 +34,7 @@ public class RiskGameModel extends java.util.Observable {
 		deck = new Deck();
 		playersList = new ArrayList<>();
 		capturedThisTurn = false;
-		map = new Map();
+		map = Map.getInstance();
 	}
 	
 	public Phase getPhase() {
@@ -64,7 +64,7 @@ public class RiskGameModel extends java.util.Observable {
 	//DONE: public boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits) kellene a controllernek 
 	public Boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits)
 			throws Exception {
-		if (phase != phase.Battle)
+		if (phase != Phase.Battle)
 			throw new Exception("Game is not in Battle phase");
 		Territory attacker = map.getTerritory(attackerID);
 		Territory defender = map.getTerritory(defenderID);

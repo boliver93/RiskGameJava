@@ -18,6 +18,7 @@ public class AttackResult {
 
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 
 	}

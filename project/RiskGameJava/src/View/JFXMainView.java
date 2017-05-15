@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Controller.RiskGameController;
 import Model.Player;
 import Model.Territory;
 import javafx.fxml.FXML;
@@ -44,6 +43,42 @@ public class JFXMainView extends JFXViewBase {
                 	CountryPath countryPath = (CountryPath) evt.getSource();
                 	//System.out.println(countryPath.getName());
                 	//System.out.println(countryPath.getContent());
+                	
+                	/*
+                	 * 	neighborhood file generation
+                	 */
+            		/*
+                	final EventType<? extends MouseEvent> eventType = evt.getEventType();
+                	if (MOUSE_PRESSED == eventType) {
+                		
+        				String fileName = "neighborhood.properties";
+                		if (evt.isPrimaryButtonDown()){
+                			try {
+                				String msg = "" + Country.valueOf(countryPath.getName()).ordinal() + " ";
+                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                			    System.out.println("add");
+                			} catch (Exception e) {
+                				System.out.println("add error");
+                			}
+                		} else if (evt.isSecondaryButtonDown()) {
+                			try {
+                				String msg = "\n";
+                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                			    System.out.println("new entry");
+                			} catch (Exception e) {
+                				System.out.println("new entry error");
+                			}
+                		} else if (evt.isMiddleButtonDown()) {
+                			try {
+                				String msg = "fuck";
+                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                			    System.out.println("io");
+                			} catch (Exception e) {
+                				System.out.println("fuck error");
+                			}
+                		}
+                	}
+                	*/
                 	controller.countrySelected(Country.valueOf(countryPath.getName()));
                 })
         		.hoverEnabled(true)
@@ -75,6 +110,7 @@ public class JFXMainView extends JFXViewBase {
 		
 	}
 	
+	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
 	}

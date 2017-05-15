@@ -13,6 +13,7 @@ public class Territory {
 	private int units;
 	private int id;
 
+	@Override
 	public void finalize() throws Throwable {
 
 	}
