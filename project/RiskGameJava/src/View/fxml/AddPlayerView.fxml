@@ -30,22 +30,22 @@
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="288.0" prefWidth="123.0" spacing="20.0">
                      <children>
-                        <Label text="1. Player" />
-                        <Label text="2. Player" />
-                        <Label text="3. Player" />
-                        <Label text="4. Player" />
-                        <Label text="5. Player" />
+                        <Label text="1. Player:" />
+                        <Label text="2. Player:" />
+                        <Label text="3. Player:" />
+                        <Label text="4. Player:" />
+                        <Label text="5. Player:" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0" spacing="11.0">
+                  <VBox alignment="CENTER" prefHeight="288.0" prefWidth="163.0" spacing="11.0">
                      <children>
-                        <TextField />
-                        <TextField />
-                        <TextField />
-                        <TextField />
-                        <TextField />
+                        <TextField fx:id="tfPlayer1" />
+                        <TextField fx:id="tfPlayer2" />
+                        <TextField fx:id="tfPlayer3" />
+                        <TextField fx:id="tfPlayer4" />
+                        <TextField fx:id="tfPlayer5" />
                      </children>
                   </VBox>
                </children>
@@ -65,7 +65,7 @@
          <bottom>
             <AnchorPane prefHeight="112.0" prefWidth="295.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="82.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="164.0" stylesheets="@../css/reinforce.css" text="Ready!" />
+                  <Button fx:id="btnReady" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#readyOnAction" prefHeight="40.0" prefWidth="164.0" stylesheets="@../css/reinforce.css" text="Ready!" />
                </children>
             </AnchorPane>
          </bottom>

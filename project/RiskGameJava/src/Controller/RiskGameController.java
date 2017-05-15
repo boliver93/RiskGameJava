@@ -27,7 +27,15 @@ import javafx.stage.Stage;
  */
 public class RiskGameController extends java.util.Observable implements java.util.Observer {
 
-	private final Stage primaryStage;
+	/*
+	 * 	Stages
+	 */
+	private final Stage preStage;
+	private Stage primaryStage;
+	
+	/*
+	 * 	View objects
+	 */
 	private JFXMainView mainView;
 	private JFXAddPlayerView addPlayerView;
 	private JFXAttackView attackView;
@@ -35,12 +43,11 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	private JFXTransferView transferView;
 	
 	private RiskGameModel model;
-	
 	private int previouslySelectedTerritory = -1;
 	
-	
-	public RiskGameController(Stage primaryStage){
-		this.primaryStage = primaryStage;
+	public RiskGameController(Stage stage){
+		this.preStage = stage;
+		this.primaryStage = new Stage();
 	}
 	
 	/**
@@ -52,38 +59,6 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		this.model.addObserver(this);
 	}
 	
-	
-	//Main View
-    public void showMainView() {
-    	mainView = new JFXMainView(primaryStage);
-    	mainView.AddControllerListener(this);
-    	
-    	Parent root = mainView.getRoot();
-    	
-    	
-    	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-    	
-    	double ratio = 815.0/600;
-    	double ratio2 = 1183.0/883;
-    	
-    	final double bound = 0.9;
-    	final double height = screenBounds.getHeight() * bound;
-    	final double width = height * ratio2;
-    	
-    	Scene mainScene = new Scene(root, width, height);
-
-    	/* resolution check... ah those filthy pixels....
-    	mainView.getWorld().setMouseEnterHandler(evt -> {
-                	System.out.println(mainScene.getHeight() + " " + mainScene.getWidth());
-                });
-        */
-    	
-    	// Scene mainScene = new Scene(root);
-    	// mainScene.getStylesheets().add("View/res/world.css");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-    }
-    
     public void countrySelected(Country country) {
     	int territoryID = convertToTerritoryID(country);
     	System.out.println("Controller - Territory selected: " + country.getName() + "/" + territoryID);
@@ -115,7 +90,6 @@ public class RiskGameController extends java.util.Observable implements java.uti
     			else previouslySelectedTerritory = territoryID;
     			break;
     			
-    			
     		case Transfer:
     			if (previouslySelectedTerritory != -1)
     			{
@@ -145,21 +119,80 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		}
     }
 
-    //Attack View
+	/*
+	 * 	Main View
+	 */
+    public void showMainView() {
+    	
+    	mainView = new JFXMainView(primaryStage);
+    	mainView.AddControllerListener(this);
+    	
+    	Parent root = mainView.getRoot();
+    	
+    	
+    	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+    	
+    	double ratio = 815.0/600;
+    	double ratio2 = 1183.0/883;
+    	
+    	final double bound = 0.9;
+    	final double height = screenBounds.getHeight() * bound;
+    	final double width = height * ratio2;
+    	
+    	Scene mainScene = new Scene(root, width, height);
+
+    	/* resolution check... ah those filthy pixels....
+    	mainView.getWorld().setMouseEnterHandler(evt -> {
+                	System.out.println(mainScene.getHeight() + " " + mainScene.getWidth());
+                });
+        */
+    	
+    	// Scene mainScene = new Scene(root);
+    	// mainScene.getStylesheets().add("View/res/world.css");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
+    
+    /*
+     * 	Attack View
+     */
 	private void showAttackView(int defenderID, int attackerID){
 		attackView = new View.JFXAttackView();
 		attackView.AddControllerListener(this);
 		//attackView.UpdateViewState(defender, attacker);
 	}
 
-	
-	//Transfer View
+	/*
+	 * 	Transfer View
+	 */
 	private void showTransferView(int fromID, int toID){
 		transferView = new View.JFXTransferView();
 		transferView.AddControllerListener(this);
 		//transferView.UpdateViewState(from, to);
 	}
 
+	/*
+	 * 	Add player view
+	 */
+	public void showAddPlayerView(){
+		addPlayerView = new View.JFXAddPlayerView(preStage);
+		addPlayerView.AddControllerListener(this);
+		
+    	Parent root = addPlayerView.getRoot();
+    	Scene mainScene = new Scene(root);
+    	preStage.setScene(mainScene);
+    	preStage.show();
+	}
+
+	/*
+	 * 	Stage switch
+	 * 	Pre -> Main
+	 */
+	public void switchToMain(){
+		preStage.close();
+		showMainView();
+	}
+	
 	/**
 	 * Model hivja meg mikor befejezte a feldolgozast. A Controller az uj adatokat
 	 * tovabbitja a nezetnek.

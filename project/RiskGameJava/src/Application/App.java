@@ -14,7 +14,8 @@ public class App extends Application {
     	RiskGameController controller = new RiskGameController(primaryStage);
 
     	controller.setModel(model);
-    	controller.showMainView();
+    	controller.showAddPlayerView();
+    	
     }
 
     public static void main(String[] args) {
