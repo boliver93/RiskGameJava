@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:55
  */
-public class Map {
+public static class Map {
 
 	private List<Territory> territoriesList;
 	private static Boolean[][] neighbourhood = new Boolean[42][42]; // TODO what
@@ -37,6 +37,10 @@ public class Map {
 	 */
 	public static boolean IsNeighbour(Territory first, Territory second) {
 		return neighbourhood[first.getId()][second.getId()];
+	}
+	
+	public static boolean IsNeighbour(int fst, int snd) {
+		return neighbourhood[fst][snd];
 	}
 
 	public Territory getTerritory(int id) {

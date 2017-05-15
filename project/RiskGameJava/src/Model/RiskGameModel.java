@@ -61,11 +61,13 @@ public class RiskGameModel extends java.util.Observable {
 	 *            attackUnits
 	 * @throws Exception
 	 */
-	//TODO: public boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits) kellene a controllernek 
-	public Boolean attackTerritory(Territory defender, Territory attacker, int defendUnits, int attackUnits)
+	//DONE: public boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits) kellene a controllernek 
+	public Boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits)
 			throws Exception {
 		if (phase != phase.Battle)
 			throw new Exception("Game is not in Battle phase");
+		Territory attacker = map.getTerritory(attackerID);
+		Territory defender = map.getTerritory(defenderID);
 		if (!checkAttackPossible(defender, attacker, defendUnits, attackUnits))
 			return false;
 		List<Integer> attackRolls = new ArrayList<Integer>();
@@ -106,12 +108,16 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param attackerUnits
 	 *            attackerUnits
 	 */
-	//TODO: public boolean checkAttackPossible(int defenderID, int attackerID) kellene a controllernek 
+	//DONE: public boolean checkAttackPossible(int defenderID, int attackerID) kellene a controllernek 
 	//			csak a szomszédosságot és terület birtokosokat kellene ellenőriznie, unitCount-ot még nem
 	public Boolean checkAttackPossible(Territory defender, Territory attacker, int defendUnits, int attackUnits) {
-		return (attacker.getOwner() == currentPlayer && Map.IsNeighbour(attacker, defender)
+		return (checkAttackPossible(defender.getId(),attacker.getId())
 				&& defender.getUnits() >= defendUnits && attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3
 				&& attackUnits >= 1 && defendUnits <= 2 && defendUnits >= 1);
+	}
+	
+	public boolean checkAttackPossible(int defenderID, int attackerID) {
+		return map.getTerritory(attackerID).getOwner() == currentPlayer && Map.IsNeighbour(attackerID, defenderID);
 	}
 
 	/**
@@ -160,9 +166,9 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param from
 	 * @param to
 	 */
-	//TODO: public boolean checkTransferPossible(int fromID, int toID) kellene a controllernek 
-	public boolean checkTransferPossible(Territory from, Territory to) {
-		return Map.IsNeighbour(from, to) && from.getOwner() == currentPlayer && to.getOwner() == currentPlayer;
+	//public boolean checkTransferPossible(int fromID, int toID) kellene a controllernek 
+	public boolean checkTransferPossible(int from, int to) {
+		return Map.IsNeighbour(map.getTerritory(from), map.getTerritory(to)) && map.getTerritory(from).getOwner() == currentPlayer && map.getTerritory(to).getOwner() == currentPlayer;
 	}
 
 	/**
