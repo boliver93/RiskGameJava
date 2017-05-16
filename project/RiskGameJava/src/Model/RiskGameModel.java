@@ -299,7 +299,7 @@ public class RiskGameModel extends java.util.Observable {
 				if(territory.getOwner() != currentPlayer) return false;
 				territory.setUnits(territory.getUnits()+1);
 			}
-			currentPlayer = currentPlayer+1 % 5;
+			currentPlayer = (currentPlayer+1) % 5;
 			if(playersList.get(currentPlayer).getReinforcementBonus() == 0) nextPlayer();
 			return true;
 			}
