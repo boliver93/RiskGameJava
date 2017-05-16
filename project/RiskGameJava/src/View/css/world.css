@@ -29,3 +29,7 @@
 .cardPanel5 {
 	-fx-background-color: #19e64d;
 }
+
+.text-area *.text {
+    -fx-text-alignment: center;
+}

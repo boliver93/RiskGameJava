@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Dimension;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -42,6 +45,7 @@ public class JFXMainView extends JFXViewBase {
 	@FXML private Pane panePlayerColor4;
 	@FXML private Label lblPlayerName5;
 	@FXML private Pane panePlayerColor5;
+	@FXML private TextArea taLog; 
 	
 	
 	private Stage stage;
@@ -50,6 +54,8 @@ public class JFXMainView extends JFXViewBase {
     final private double BASE_WIDTH = 815;
     private ArrayList<Label> lblPlayerNameList;
     private ArrayList<Pane> panePlayerColorList;
+    boolean isLogOpened;
+    Dimension dimLog;
 	
 	public JFXMainView(Stage stage){
 
@@ -103,7 +109,7 @@ public class JFXMainView extends JFXViewBase {
                 .build();
 		
 		LoadFXML("/View/fxml/MainView.fxml");
-		
+		isLogOpened = false;
 	}
 	
 	@Override
@@ -132,6 +138,7 @@ public class JFXMainView extends JFXViewBase {
 	    
 	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
 	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
+	    
 	}
 	
 	@Override
@@ -173,45 +180,76 @@ public class JFXMainView extends JFXViewBase {
 
 	public void fit(double height, double width) {
 		
+		/*
+		 * 	Resize the most painful shits to fit stage
+		 */
 		imageView.setFitHeight(height);
 		imageView.setFitWidth(width);
 		world.setMaxHeight(height);
 		world.setMaxWidth(width);
 		pain.setPrefHeight(height);
 		pain.setPrefWidth(width);
-		
+
+		/*
+		 * 	Base ratio
+		 */
 		double ratioX = width / BASE_WIDTH;
 		double ratioY = height / BASE_HEIGHT;
-		
+
+		/*
+		 * 	Resize player colors
+		 */
 		for (Pane pane : panePlayerColorList) {
 
-			double cardNewHeight = pane.getPrefHeight()*ratioY;
-			double cardNewWidth = pane.getPrefWidth()*ratioX;
 			double newRatioX = pane.getLayoutX() / BASE_WIDTH;
 			double newRatioY = pane.getLayoutY() / BASE_HEIGHT;
-			double newPosX = width * newRatioX;
-			double newPosY = height * newRatioY;
-			pane.setLayoutX(newPosX);
-			pane.setLayoutY(newPosY);
 			
-			pane.setPrefHeight(cardNewHeight);
-			pane.setPrefWidth(cardNewWidth);
+			pane.setLayoutX(width * newRatioX);
+			pane.setLayoutY(height * newRatioY);
+			pane.setPrefHeight(pane.getPrefHeight()*ratioY);
+			pane.setPrefWidth(pane.getPrefWidth()*ratioX);
 			
 		}
 
+		/*
+		 * 	Resize player names
+		 */
 		for (Label label : lblPlayerNameList) {
 
-			double nameNewHeight = label.getPrefHeight() * ratioY;
-			double nameNewWidth = label.getPrefWidth()* ratioX;
-			double nameLayoutY = label.getLayoutY()* ratioY;
-			double nameLayoutX = label.getLayoutX()* ratioX;
-			
-			label.setPrefHeight(nameNewHeight);
-			label.setPrefWidth(nameNewWidth);
-			label.setLayoutX(nameLayoutX);
-			label.setLayoutY(nameLayoutY);
+			label.setPrefHeight(label.getPrefHeight() * ratioY);
+			label.setPrefWidth(label.getPrefWidth()* ratioX);
+			label.setLayoutX(label.getLayoutX()* ratioX);
+			label.setLayoutY(label.getLayoutY()* ratioY);
 			
 		}
+
+		/*
+		 * 	Resize Log TextArea and button
+		 */
+		taLog.setLayoutX(width * (taLog.getLayoutX() / BASE_WIDTH));
+		taLog.setLayoutY(height * (taLog.getLayoutY() / BASE_HEIGHT));
+		taLog.setPrefWidth(taLog.getPrefWidth()* ratioX);
+		taLog.setPrefHeight(taLog.getPrefHeight()* ratioY);
+		dimLog = new Dimension((int) taLog.getPrefWidth(), (int) taLog.getPrefHeight());
+	}
+
+	public void appendLog(String s){
+		taLog.appendText("\n");
+		taLog.appendText(s);
+	}
+	
+	public boolean isLogOpened() {
+		return isLogOpened;
+	}
+
+	public void closeLog() {
+		taLog.setPrefHeight(dimLog.getHeight());
+		isLogOpened = false;
+	}
+
+	public void openLog() {
+		taLog.setPrefHeight(stage.getHeight()*0.6);
+		isLogOpened = true;
 	}
 
 }

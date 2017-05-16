@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -53,6 +54,11 @@
                   <Pane fx:id="panePlayerColor3" layoutX="779.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel3" />
                   <Pane fx:id="panePlayerColor5" layoutX="242.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel5" />
                   <Pane fx:id="panePlayerColor4" layoutX="779.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel4" />
+                  <TextArea fx:id="taLog" editable="false" layoutX="90.0" layoutY="531.0" minHeight="10.0" opacity="0.68" prefHeight="18.0" prefWidth="637.0" styleClass="text-area" stylesheets="@../css/world.css" text="Ready!">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </TextArea>
                </children>
             </Pane>
 				

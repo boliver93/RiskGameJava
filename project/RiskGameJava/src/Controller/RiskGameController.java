@@ -14,9 +14,12 @@ import java.util.stream.Collectors;
 
 import Model.Color;
 import Model.RiskGameModel;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -55,6 +58,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		
 		stage.setResizable(false);
 		primaryStage.setResizable(false);
+		
 	}
 	
 	/**
@@ -128,7 +132,6 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * 	Main View
 	 */
     public void showMainView() {
-
     	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
     	double ratio = 815.0/600;
     	final double bound = 0.9;
@@ -142,9 +145,28 @@ public class RiskGameController extends java.util.Observable implements java.uti
     	Parent root = mainView.getRoot();
     	Scene mainScene = new Scene(root, width, height);
 
+    	// TODO Nem kapja el SPACE lenyomásának eseményét. felkúrt
+    	mainScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+    		
+    		public void handle(final KeyEvent keyEvent) {
+    			
+    			if (keyEvent.getCode() == KeyCode.SPACE) {
+    				
+        			System.out.println("space hit");
+    				if (mainView.isLogOpened()) {
+    					mainView.closeLog();
+    				} else {
+    					mainView.openLog();
+    				}
+    				keyEvent.consume();
+    			}
+	    	}
+	    });
+    	
     	// mainScene.getStylesheets().add("View/res/world.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
+
     }
     
     /*
@@ -253,8 +275,8 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	//A fõablak naplójába küld egy új bejegyzést
 	public void addLog(String log) {
 		System.out.println(log);
+		mainView.appendLog(log);
 	}
-	
 	
 	private int convertToTerritoryID(Country country) {
 		return country.ordinal();
