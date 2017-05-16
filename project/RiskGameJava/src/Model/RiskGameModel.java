@@ -40,6 +40,22 @@ public class RiskGameModel extends java.util.Observable {
 	public Phase getPhase() {
 		return phase;
 	}
+	
+	private Phase nextPhase(Phase phase) throws Exception
+	{
+		if(phase == Phase.PlayerRegistration)
+			return phase = Phase.Preparation;
+		if(phase == Phase.Preparation)
+			return phase = Phase.Reinforcement;
+		if(phase == Phase.Reinforcement)
+			return phase = Phase.Battle;
+		if(phase == Phase.Battle)
+			return phase = Phase.Transfer;
+		if(phase == Phase.Transfer)
+			return phase = Phase.Reinforcement;
+		else
+			throw new Exception("Not valid phase");
+	}
 
 	/**
 	 * 
@@ -288,10 +304,10 @@ public class RiskGameModel extends java.util.Observable {
 
 	/**
 	 * 
-	 * @param player
+	 * @param List<Player> list
 	 */
-	public void selectStartingPlayer(Player player) {
-		currentPlayer = playersList.indexOf(player);
+	public Player selectStartingPlayer(List<Player> list) {
+		return list.get(r.nextInt(list.size()));
 	}
 
 	// /**
