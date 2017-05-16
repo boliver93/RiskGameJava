@@ -7,8 +7,10 @@ import View.JFXAttackView;
 import View.JFXRiskCardView;
 import View.JFXTransferView;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.stream.Collectors;
 
 import Model.Color;
 import Model.RiskGameModel;
@@ -50,6 +52,9 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	public RiskGameController(Stage stage){
 		this.preStage = stage;
 		this.primaryStage = new Stage();
+		
+		stage.setResizable(false);
+		primaryStage.setResizable(false);
 	}
 	
 	/**
@@ -125,31 +130,20 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * 	Main View
 	 */
     public void showMainView() {
+
+    	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+    	double ratio = 815.0/600;
+    	final double bound = 0.9;
+    	final double height = Math.ceil(screenBounds.getHeight() * bound);
+    	final double width = Math.ceil(height * ratio);
     	
     	mainView = new JFXMainView(primaryStage);
     	mainView.AddControllerListener(this);
+    	mainView.fit(height, width);
     	
     	Parent root = mainView.getRoot();
-    	
-    	
-    	Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-    	
-    	double ratio = 815.0/600;
-    	double ratio2 = 1183.0/883;
-    	
-    	final double bound = 0.9;
-    	final double height = screenBounds.getHeight() * bound;
-    	final double width = height * ratio2;
-    	
     	Scene mainScene = new Scene(root, width, height);
 
-    	/* resolution check... ah those filthy pixels....
-    	mainView.getWorld().setMouseEnterHandler(evt -> {
-                	System.out.println(mainScene.getHeight() + " " + mainScene.getWidth());
-                });
-        */
-    	
-    	// Scene mainScene = new Scene(root);
     	// mainScene.getStylesheets().add("View/res/world.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
@@ -190,18 +184,20 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * 	Stage switch
 	 * 	Pre -> Main
 	 */
-	public void switchToMain(Map<String, Color> map){
+	public void switchToMain(Map<Color, String> map){
 		preStage.hide();
 		try {
 			model.addPlayerToPlayerList(map);
-
-			System.out.println(map.toString());
 		} catch (Exception e) {
-			System.err.println("oh boy");
 			e.printStackTrace();
 		}
 		preStage.close();
 		showMainView();
+
+		List<String> result = map.entrySet().stream()
+                .map(x -> x.getValue())
+                .collect(Collectors.toList());
+		mainView.UpdateConnectedPlayer(result);
 	}
 	
 	/**

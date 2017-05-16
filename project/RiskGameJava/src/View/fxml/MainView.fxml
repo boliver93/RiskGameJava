@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane 
-	fx:id="borderPane"
-	xmlns:fx="http://javafx.com/fxml/1"     
-	xmlns="http://javafx.com/javafx/8">
+<BorderPane fx:id="borderPane" stylesheets="@../css/world.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	
 	<center>
   		
@@ -16,17 +16,45 @@
   		
 	        <children>
 	        
-				<ImageView fx:id="imageView" 
-		    		fitHeight="600.0" 
-		    		fitWidth="815.0" 
-		    		layoutX="0.0" 
-		    		layoutY="0.0" 
-		    		pickOnBounds="true" 
-					preserveRatio="true">
+				<ImageView fx:id="imageView" fitHeight="600.0" fitWidth="815.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../img/world_map.jpg" />
 					</image>
 				</ImageView>
+            <Pane fx:id="pain" layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0">
+               <children>
+                  <Label fx:id="lblPlayerName1" alignment="CENTER" layoutX="63.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Pane fx:id="panePlayerColor1" layoutX="242.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel1" />
+                  <Label fx:id="lblPlayerName2" alignment="CENTER" layoutX="338.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayerName3" alignment="CENTER" layoutX="601.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayerName4" alignment="CENTER" layoutX="63.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayerName5" alignment="CENTER" layoutX="601.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Pane fx:id="panePlayerColor2" layoutX="510.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel2" />
+                  <Pane fx:id="panePlayerColor3" layoutX="779.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel3" />
+                  <Pane fx:id="panePlayerColor5" layoutX="242.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel5" />
+                  <Pane fx:id="panePlayerColor4" layoutX="779.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel4" />
+               </children>
+            </Pane>
 				
 			</children>
 			

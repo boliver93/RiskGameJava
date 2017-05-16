@@ -10,6 +10,22 @@
     -location-color  : #FF0000;
 }
 
-.root {
-	-fx-background-color: #009900;
+.cardPanel1 {
+	-fx-background-color: #ff4000;
+}
+
+.cardPanel2 {
+	-fx-background-color: #0040ff;
+}
+
+.cardPanel3 {
+	-fx-background-color: #cc5933;
+}
+
+.cardPanel4 {
+	-fx-background-color: #f2f20d;
+}
+
+.cardPanel5 {
+	-fx-background-color: #19e64d;
 }

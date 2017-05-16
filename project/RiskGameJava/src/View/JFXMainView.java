@@ -1,6 +1,8 @@
 package View;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -25,14 +29,27 @@ import javafx.stage.Stage;
 public class JFXMainView extends JFXViewBase {
 	
 	@FXML private ImageView imageView;
-	@FXML private ImageView imageViewL;
-	@FXML private ImageView imageViewR;
 	@FXML private BorderPane borderPane;
 	@FXML private StackPane centerStackPane;
+	@FXML private Pane pain;
+	@FXML private Label lblPlayerName1;
+	@FXML private Pane panePlayerColor1;
+	@FXML private Label lblPlayerName2;
+	@FXML private Pane panePlayerColor2;
+	@FXML private Label lblPlayerName3;
+	@FXML private Pane panePlayerColor3;
+	@FXML private Label lblPlayerName4;
+	@FXML private Pane panePlayerColor4;
+	@FXML private Label lblPlayerName5;
+	@FXML private Pane panePlayerColor5;
+	
 	
 	private Stage stage;
 	private World world;
-    private GraphicsContext gc;
+    final private double BASE_HEIGHT = 600;
+    final private double BASE_WIDTH = 815;
+    private ArrayList<Label> lblPlayerNameList;
+    private ArrayList<Pane> panePlayerColorList;
 	
 	public JFXMainView(Stage stage){
 
@@ -101,13 +118,20 @@ public class JFXMainView extends JFXViewBase {
 		centerStackPane.setAlignment(Pos.CENTER);
 		centerStackPane.getChildren().addAll(world);
 		
+		/*
 		imageView.setCache(true);
 		imageView.fitWidthProperty().bind(stage.widthProperty());
 		imageView.fitHeightProperty().bind(stage.heightProperty());
+		*/
 		
-		world.maxWidthProperty().bind(stage.widthProperty());
-		world.maxHeightProperty().bind(stage.heightProperty());
+		// world.maxWidthProperty().bind(stage.widthProperty());
+		// world.maxHeightProperty().bind(stage.heightProperty());
 		
+	    lblPlayerNameList = new ArrayList<>();
+	    panePlayerColorList = new ArrayList<>();
+	    
+	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
+	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
 	}
 	
 	@Override
@@ -123,8 +147,12 @@ public class JFXMainView extends JFXViewBase {
 	 * 
 	 * @param playerList
 	 */
-	public void UpdateConnectedPlayer(List<Player> playerList){
+	public void UpdateConnectedPlayer(List<String> playerList){
 
+		for (int i = 0; i < playerList.size(); i += 1) {
+			lblPlayerNameList.get(i).setText(playerList.get(i));
+		}
+		
 	}
 
 	/**
@@ -141,6 +169,49 @@ public class JFXMainView extends JFXViewBase {
 	 */
 	public void UpdateViewState(Territory territories){
 
+	}
+
+	public void fit(double height, double width) {
+		
+		imageView.setFitHeight(height);
+		imageView.setFitWidth(width);
+		world.setMaxHeight(height);
+		world.setMaxWidth(width);
+		pain.setPrefHeight(height);
+		pain.setPrefWidth(width);
+		
+		double ratioX = width / BASE_WIDTH;
+		double ratioY = height / BASE_HEIGHT;
+		
+		for (Pane pane : panePlayerColorList) {
+
+			double cardNewHeight = pane.getPrefHeight()*ratioY;
+			double cardNewWidth = pane.getPrefWidth()*ratioX;
+			double newRatioX = pane.getLayoutX() / BASE_WIDTH;
+			double newRatioY = pane.getLayoutY() / BASE_HEIGHT;
+			double newPosX = width * newRatioX;
+			double newPosY = height * newRatioY;
+			pane.setLayoutX(newPosX);
+			pane.setLayoutY(newPosY);
+			
+			pane.setPrefHeight(cardNewHeight);
+			pane.setPrefWidth(cardNewWidth);
+			
+		}
+
+		for (Label label : lblPlayerNameList) {
+
+			double nameNewHeight = label.getPrefHeight() * ratioY;
+			double nameNewWidth = label.getPrefWidth()* ratioX;
+			double nameLayoutY = label.getLayoutY()* ratioY;
+			double nameLayoutX = label.getLayoutX()* ratioX;
+			
+			label.setPrefHeight(nameNewHeight);
+			label.setPrefWidth(nameNewWidth);
+			label.setLayoutX(nameLayoutX);
+			label.setLayoutY(nameLayoutY);
+			
+		}
 	}
 
 }

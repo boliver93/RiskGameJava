@@ -44,14 +44,14 @@ public class JFXAddPlayerView extends JFXViewBase {
 		
 		ArrayList<Color> colorList = new ArrayList<>();
 		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BROWN, Color.YELLOW, Color.GREEN);
-		Map<String, Color> map = new LinkedHashMap<String, Color>();
+		Map<Color, String> map = new LinkedHashMap<Color, String>();
 		
 		for (int i = 0; i < tfList.size(); i += 1){
 			String playerName = tfList.get(i).getText();
 			if (playerName.isEmpty()) 
-				map.put("Dummy" + i, colorList.get(i)); 
+				map.put(colorList.get(i),"Dummy" + i); 
 			else 
-				map.put(playerName, colorList.get(i));
+				map.put(colorList.get(i), playerName);
 		}
 		
 		controller.switchToMain(map);

@@ -71,9 +71,9 @@ public class RiskGameModel extends java.util.Observable {
 	/*
 	 * 	Pairs overload
 	 */
-	public void addPlayerToPlayerList(java.util.Map<String, Color> map) throws Exception {
-		for (java.util.Map.Entry<String, Color> entry : map.entrySet()) {
-			addPlayerToPlayerList(new Player(entry.getValue(), entry.getKey(), new Deck()));
+	public void addPlayerToPlayerList(java.util.Map<Color, String> map) throws Exception {
+		for (java.util.Map.Entry<Color, String> entry : map.entrySet()) {
+			addPlayerToPlayerList(new Player(entry.getKey(), entry.getValue(), new Deck()));
 		}
 	}
 	
