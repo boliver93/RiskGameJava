@@ -38,12 +38,12 @@ public class JFXAttackView extends JFXViewBase {
 
 	}
 	
-	public void UpdateViewState(Territory defender, Territory attacker) {
+	public void UpdateViewState(String defenderName, String attackerName, Territory defender, Territory attacker) {
 		lblCountryDefender.setText(Country.values()[defender.getId()].toString());
 		lblCountryAttacker.setText(Country.values()[attacker.getId()].toString());
 		
-		//lblDefenderName.setText(defender.getOwner());
-		//lblAttackerName.setText(attacker.getOwner());
+		lblDefenderName.setText(defenderName);
+		lblAttackerName.setText(attackerName);
 		
 		lblDefenderAlive.setText(Integer.toString(defender.getUnits()));
 		lblAttackerAlive.setText(Integer.toString(attacker.getUnits()));

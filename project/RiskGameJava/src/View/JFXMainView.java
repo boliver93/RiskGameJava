@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Model.Phase;
 import Model.Player;
 import Model.Territory;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +48,11 @@ public class JFXMainView extends JFXViewBase {
 	@FXML private Label lblPlayerName5;
 	@FXML private Pane panePlayerColor5;
 	@FXML private TextArea taLog; 
+	
+	@FXML private Button btnReinforcePhase;
+	@FXML private Button btnBattlePhase;
+	@FXML private Button btnTransferPhase;
+	@FXML private Button btnNextPlayer;
 	
 	
 	private Stage stage;
@@ -138,7 +145,6 @@ public class JFXMainView extends JFXViewBase {
 	    
 	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
 	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
-	    
 	}
 	
 	@Override
@@ -166,15 +172,51 @@ public class JFXMainView extends JFXViewBase {
 	 * 
 	 * @param player
 	 */
-	public void UpdateStartingPlayer(Player player){
+	public void UpdateCurrentPlayer(int playerID){
+		lblPlayerName1.setTextFill(Color.WHITE);
+		lblPlayerName2.setTextFill(Color.WHITE);
+		lblPlayerName3.setTextFill(Color.WHITE);
+		lblPlayerName4.setTextFill(Color.WHITE);
+		lblPlayerName5.setTextFill(Color.WHITE);
+		
+		switch (playerID) {
+		case 0: lblPlayerName1.setTextFill(Color.RED); break;
+		case 1: lblPlayerName2.setTextFill(Color.RED); break;
+		case 2: lblPlayerName3.setTextFill(Color.RED); break;
+		case 3: lblPlayerName4.setTextFill(Color.RED); break;
+		case 4: lblPlayerName5.setTextFill(Color.RED); break;
+		}
+	}
+	
+	public void UpdateCurrentPhase(Phase phase) {
+		btnReinforcePhase.setTextFill(Color.BLACK);
+		btnBattlePhase.setTextFill(Color.BLACK);
+		btnTransferPhase.setTextFill(Color.BLACK);
+		
+		switch (phase) {
+		case Reinforcement:
+			btnReinforcePhase.setTextFill(Color.RED);
+			break;
+		case Battle:
+			btnBattlePhase.setTextFill(Color.RED);
+			break;
+		case Transfer:
+			btnTransferPhase.setTextFill(Color.RED);
+			break;
 
+		default:
+			break;
+		}
 	}
 
 	/**
 	 * 
 	 * @param territories
 	 */
-	public void UpdateViewState(Territory territories){
+	public void UpdateViewState(Territory territory){
+
+	}
+	public void UpdateViewState(List<Territory> territories){
 
 	}
 

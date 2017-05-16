@@ -56,8 +56,8 @@ public class JFXTransferView extends JFXViewBase {
 	 * @param from
 	 * @param to
 	 */
-	public void UpdateViewState(Territory from, Territory to){
-		//lblPlayerName.setText(from.getOwner());
+	public void UpdateViewState(String player, Territory from, Territory to){
+		lblPlayerName.setText(player);
 		
 		lblFromCountryName.setText(Country.values()[from.getId()].toString());
 		lblToCountryName.setText(Country.values()[to.getId()].toString());

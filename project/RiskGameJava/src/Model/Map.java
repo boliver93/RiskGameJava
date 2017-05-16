@@ -75,6 +75,7 @@ public class Map {
 		    }      
         } catch (Exception e) {
 			System.out.println("Can't find neighbourhood.properties!");
+			e.printStackTrace();
 		}
 	}
 

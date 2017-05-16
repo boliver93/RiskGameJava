@@ -92,6 +92,10 @@ public class RiskGameModel extends java.util.Observable {
 		nextPhase();
 	}
 	
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
 
 	/**
 	 * 
@@ -294,10 +298,12 @@ public class RiskGameModel extends java.util.Observable {
 				territory.setOwner(currentPlayer);
 				territory.setUnits(1);
 				--miscnumber;
+				playersList.get(currentPlayer).addReinforcements(-1);
 			}
 			else {
 				if(territory.getOwner() != currentPlayer) return false;
 				territory.setUnits(territory.getUnits()+1);
+				playersList.get(currentPlayer).addReinforcements(-1);
 			}
 			currentPlayer = (currentPlayer+1) % 5;
 			if(playersList.get(currentPlayer).getReinforcementBonus() == 0) nextPlayer();
@@ -401,6 +407,19 @@ public class RiskGameModel extends java.util.Observable {
 	
 	public String getPlayerName(int id) {
 		return playersList.get(id).getName();
+	}
+	
+	public int getUnitsLeftToReinforce() {
+		switch (phase) {
+		case Preparation:
+			return playersList.get(currentPlayer).getReinforcementBonus();
+		case Reinforcement:
+			return unitsLeftToReinforce;
+
+		default:
+			return 0;
+		}
+		
 	}
  
 }

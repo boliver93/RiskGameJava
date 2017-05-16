@@ -4,16 +4,17 @@ import View.JFXMainView;
 import View.Country;
 import View.JFXAddPlayerView;
 import View.JFXAttackView;
-import View.JFXRiskCardView;
+//import View.JFXRiskCardView;
 import View.JFXTransferView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.stream.Collectors;
 
 import Model.Color;
 import Model.RiskGameModel;
+import Model.Territory;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -32,7 +33,7 @@ import javafx.stage.Stage;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:42
  */
-public class RiskGameController extends java.util.Observable implements java.util.Observer {
+public class RiskGameController extends java.util.Observable {
 
 	/*
 	 * 	Stages
@@ -46,7 +47,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	private JFXMainView mainView;
 	private JFXAddPlayerView addPlayerView;
 	private JFXAttackView attackView;
-	private JFXRiskCardView cardView;
+	//private JFXRiskCardView cardView;
 	private JFXTransferView transferView;
 	
 	private RiskGameModel model;
@@ -67,21 +68,18 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 */
 	public void setModel(RiskGameModel model){
 		this.model = model;
-		this.model.addObserver(this);
+		//this.model.addObserver(this);
 	}
 	
     public void countrySelected(Country country) {
     	int territoryID = convertToTerritoryID(country);
-    	System.out.println("Controller - Territory selected: " + country.getName() + "/" + territoryID);
+    	//System.out.println("Controller - Territory selected: " + country.getName() + "/" + territoryID);
     	
     	try {
         	switch(model.getPhase())
         	{
     		case Reinforcement:
-    			if (model.reinforce(territoryID))
-    				addLog(country.getName() + " reinforced!");
-				else
-					addLog(country.getName() + " is occupied by another player!");
+    			reinforce(territoryID, country.getName());
     			break;
     			
     			
@@ -117,15 +115,25 @@ public class RiskGameController extends java.util.Observable implements java.uti
     			
     			
     		case Preparation:
-    			if (model.reinforce(territoryID))
-    				addLog(country.getName() + " reinforced!");
-				else
-					addLog(country.getName() + " is occupied by another player!");
+    			reinforce(territoryID, country.getName());
+    			mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
     			break;
+    			
+			default:
+				break;
         	}
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}
+    }
+    
+    private void reinforce(int territoryID, String country) throws Exception {
+    	if (model.reinforce(territoryID)) {
+			addLog(country + " reinforced! Units left: " + model.getUnitsLeftToReinforce());
+			UpdateTerritoryOnMap(territoryID);
+		}
+		else
+			addLog(country + " is occupied by another player!");
     }
 
 	/*
@@ -175,7 +183,12 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	private void showAttackView(int defenderID, int attackerID){
 		attackView = new View.JFXAttackView();
 		attackView.AddControllerListener(this);
-		//attackView.UpdateViewState(defender, attacker);
+		
+		Territory defender = model.getTerritory(defenderID);
+		Territory attacker = model.getTerritory(attackerID);
+		String defenderPlayer = model.getPlayerName(defender.getOwner());
+		String attackerPlayer = model.getPlayerName(attacker.getOwner());
+		attackView.UpdateViewState(defenderPlayer, attackerPlayer, defender, attacker);
 	}
 	
 	public void attackAccepted(int defender, int attacker, int defenderUnits, int attackerUnits) {
@@ -201,7 +214,11 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	private void showTransferView(int fromID, int toID){
 		transferView = new View.JFXTransferView();
 		transferView.AddControllerListener(this);
-		//transferView.UpdateViewState(from, to);
+		
+		Territory from = model.getTerritory(fromID);
+		Territory to = model.getTerritory(toID);
+		String player = model.getPlayerName(from.getOwner());
+		transferView.UpdateViewState(player, from, to);
 	}
 	
 	public void transferAccepted(int from, int to, int units) {
@@ -209,8 +226,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		Country toCountry = convertToCountry(to);
 		
 		try {
-			//if (model.transfer(from, to, units))
-			if (false) {
+			if (model.transfer(from, to, units)) {
 				addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
 				//transferView.dieSomehow(); //TODO: Hide transfer window
 			}
@@ -256,27 +272,34 @@ public class RiskGameController extends java.util.Observable implements java.uti
                 .map(x -> x.getValue())
                 .collect(Collectors.toList());
 		mainView.UpdateConnectedPlayer(result);
-
-	}
-
-	
-	/**
-	 * Model hivja meg mikor befejezte a feldolgozast. A Controller az uj adatokat
-	 * tovabbitja a nezetnek.
-	 * 
-	 * @param obs
-	 * @param obj
-	 */
-	@Override
-	public void update(Observable obs, Object obj){
-
+    	UpdateAllTerritoriesOnMap();
+    	mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
+    	System.out.println(model.getPhase());
+    	mainView.UpdateCurrentPhase(model.getPhase());
 	}
 	
+	private void UpdateTerritoryOnMap(int territoryID) {
+		Territory territory = model.getTerritory(territoryID);
+		mainView.UpdateViewState(territory);
+		
+		addLog(convertToCountry(territoryID).getName() + ": " + model.getPlayerName(territory.getOwner()) + " - " + territory.getUnits());
+	}
+	
+	private void UpdateAllTerritoriesOnMap() {
+		List<Territory> territories = new ArrayList<Territory>();
+		for (int i = 0; i < 42; i++)
+			territories.add(model.getTerritory(i));
+		
+		mainView.UpdateViewState(territories);
+	}
+
 	//A fõablak naplójába küld egy új bejegyzést
 	public void addLog(String log) {
 		System.out.println(log);
 		mainView.appendLog(log);
 	}
+	
+	
 	
 	private int convertToTerritoryID(Country country) {
 		return country.ordinal();
