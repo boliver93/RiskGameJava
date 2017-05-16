@@ -7,8 +7,10 @@ import View.JFXAttackView;
 import View.JFXRiskCardView;
 import View.JFXTransferView;
 
+import java.util.Map;
 import java.util.Observable;
 
+import Model.Color;
 import Model.RiskGameModel;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -188,7 +190,16 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * 	Stage switch
 	 * 	Pre -> Main
 	 */
-	public void switchToMain(){
+	public void switchToMain(Map<String, Color> map){
+		preStage.hide();
+		try {
+			model.addPlayerToPlayerList(map);
+
+			System.out.println(map.toString());
+		} catch (Exception e) {
+			System.err.println("oh boy");
+			e.printStackTrace();
+		}
 		preStage.close();
 		showMainView();
 	}

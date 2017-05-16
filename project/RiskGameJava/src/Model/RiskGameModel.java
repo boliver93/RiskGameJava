@@ -51,6 +51,16 @@ public class RiskGameModel extends java.util.Observable {
 			throw new Exception("Not in PlayerRegistration phase");
 		playersList.add(player);
 	}
+	
+	/*
+	 * 	Pairs overload
+	 */
+	public void addPlayerToPlayerList(java.util.Map<String, Color> map) throws Exception {
+		for (java.util.Map.Entry<String, Color> entry : map.entrySet()) {
+			addPlayerToPlayerList(new Player(entry.getValue(), entry.getKey(), new Deck()));
+		}
+	}
+	
 
 	/**
 	 * 

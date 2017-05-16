@@ -1,17 +1,17 @@
 package View;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import Model.Color;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -30,8 +30,10 @@ public class JFXAddPlayerView extends JFXViewBase {
 	@FXML private Button btnReady;
 	
 	private Stage stage;
+	private ArrayList<TextField> tfList;
 	
 	public JFXAddPlayerView(Stage stage){
+		tfList = new ArrayList<TextField>();
 		
 		this.stage = stage;
 		LoadFXML("/View/fxml/AddPlayerView.fxml");
@@ -39,11 +41,25 @@ public class JFXAddPlayerView extends JFXViewBase {
 	}
 	
 	@FXML protected void readyOnAction(ActionEvent event){
-		controller.switchToMain();
+		
+		ArrayList<Color> colorList = new ArrayList<>();
+		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BROWN, Color.YELLOW, Color.GREEN);
+		Map<String, Color> map = new LinkedHashMap<String, Color>();
+		
+		for (int i = 0; i < tfList.size(); i += 1){
+			String playerName = tfList.get(i).getText();
+			if (playerName.isEmpty()) 
+				map.put("Dummy" + i, colorList.get(i)); 
+			else 
+				map.put(playerName, colorList.get(i));
+		}
+		
+		controller.switchToMain(map);
 	}
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
+		Collections.addAll(tfList, tfPlayer1, tfPlayer2, tfPlayer3, tfPlayer4, tfPlayer5);
 	}
 	
 	@Override
