@@ -58,6 +58,12 @@ public class RiskGameModel extends java.util.Observable {
 		else
 			throw new Exception("Not valid phase");
 	}
+	
+	public Boolean endBattlePhase() throws Exception {
+		if(phase != Phase.Battle) throw new Exception("Not even battle phase");
+		nextPhase();
+		return true;
+	}
 
 	/**
 	 * 
@@ -385,6 +391,7 @@ public class RiskGameModel extends java.util.Observable {
 			return false;
 		from.setUnits(from.getUnits() - units);
 		to.setUnits(to.getUnits() + units);
+		endTurn();
 		return true;
 	}
 	
