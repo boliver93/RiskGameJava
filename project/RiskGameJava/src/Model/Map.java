@@ -27,7 +27,7 @@ public class Map {
 		
 		for (int i = 0; i < neighbourhood.length; i++) {
 			for (int j = 0; j < neighbourhood[i].length; j++) {
-				neighbourhood[i][j] = false; // TODO replace this with useful values
+				neighbourhood[i][j] = false;
 			}
 		}
 		readTerritories();
@@ -57,7 +57,7 @@ public class Map {
 	private void readTerritories() {
 		String line;
 		
-		String fullPath = System.getProperty("user.dir") + "\\src\\Model\\res\\neighborhood.properties";
+		String fullPath = System.getProperty("user.dir") + "\\src\\Model\\res\\neighbourhood.properties";
 		java.nio.file.Path path = java.nio.file.Paths.get(fullPath);
 		
 		try (

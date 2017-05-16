@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 /**
  * A tamadas eredmenyet megado fuggveny.
  * 
@@ -9,13 +11,16 @@ package Model;
  */
 public class AttackResult {
 
-	private int attackerDicesList;
+	private List<Integer> attackerDicesList;
 	private int attackerSurvivedUnits;
-	private int defenderDicesList;
+	private List<Integer> defenderDicesList;
 	private int defenderSurvivedUnits;
 
-	public AttackResult() {
-
+	public AttackResult(int survivedAtt,int survivedDef, List<Integer> aDiceList, List<Integer> bDiceList) {
+		attackerDicesList = aDiceList;
+		attackerSurvivedUnits = survivedAtt;
+		defenderDicesList = bDiceList;
+		defenderSurvivedUnits = survivedDef;
 	}
 
 	@Override

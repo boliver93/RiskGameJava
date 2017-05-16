@@ -23,6 +23,7 @@ public class RiskGameModel extends java.util.Observable {
 	private Random r = new Random();
 	private Phase phase;
 	private Territory[] waitForUnitsTemp = new Territory[2];
+	private int miscnumber;
 	/**
 	 * The amount of Units left to Place in the Reinforcement Stage of the
 	 * current Player's current turn.
@@ -41,7 +42,7 @@ public class RiskGameModel extends java.util.Observable {
 		return phase;
 	}
 	
-	private Phase nextPhase(Phase phase) throws Exception
+	private Phase nextPhase() throws Exception
 	{
 		if(phase == Phase.PlayerRegistration)
 			return phase = Phase.Preparation;
@@ -52,7 +53,8 @@ public class RiskGameModel extends java.util.Observable {
 		if(phase == Phase.Battle)
 			return phase = Phase.Transfer;
 		if(phase == Phase.Transfer)
-			return phase = Phase.Reinforcement;
+			throw new Exception("Press next player instead.");
+			//return phase = Phase.Reinforcement;
 		else
 			throw new Exception("Not valid phase");
 	}
@@ -62,10 +64,15 @@ public class RiskGameModel extends java.util.Observable {
 	 * @param player
 	 * @throws Exception
 	 */
+	/**
+	 * @param player
+	 * @throws Exception
+	 */
 	public void addPlayerToPlayerList(Player player) throws Exception {
 		if (phase != Phase.PlayerRegistration)
 			throw new Exception("Not in PlayerRegistration phase");
 		playersList.add(player);
+		player.addReinforcements(25);
 	}
 	
 	/*
@@ -73,8 +80,10 @@ public class RiskGameModel extends java.util.Observable {
 	 */
 	public void addPlayerToPlayerList(java.util.Map<Color, String> map) throws Exception {
 		for (java.util.Map.Entry<Color, String> entry : map.entrySet()) {
-			addPlayerToPlayerList(new Player(entry.getKey(), entry.getValue(), new Deck()));
+			addPlayerToPlayerList(new Player(entry.getKey(), entry.getValue(), deck));
 		}
+		miscnumber = 42;
+		nextPhase();
 	}
 	
 
@@ -227,6 +236,7 @@ public class RiskGameModel extends java.util.Observable {
 	public int endTurn() {
 		if (capturedThisTurn) {
 			playersList.get(currentPlayer).putcard(deck.Draw());
+			capturedThisTurn = false;
 		}
 
 		currentPlayer = (currentPlayer + 1) % playersList.size();
@@ -261,14 +271,35 @@ public class RiskGameModel extends java.util.Observable {
 	 * @throws Exception
 	 */
 	public Boolean reinforce(int territoryId) throws Exception {
-		if (phase != Phase.Reinforcement)
-			throw new Exception("Reinforce in non-reinforcement phase");
-		Territory territory = map.getTerritory(territoryId);
-		if (territory.getOwner() != currentPlayer)
-			return false;
-		territory.setUnits(territory.getUnits() + 1);
-		unitsLeftToReinforce--;
-		return true;
+		switch (phase) {
+		case Reinforcement: {
+			Territory territory = map.getTerritory(territoryId);
+			if (territory.getOwner() != currentPlayer)
+				return false;
+			territory.setUnits(territory.getUnits() + 1);
+			unitsLeftToReinforce--;
+			if(unitsLeftToReinforce == 0) nextPhase();
+			return true;
+			}
+		case Preparation: {
+			Territory territory = map.getTerritory(territoryId);
+			if(miscnumber != 0) {
+				if (territory.getOwner() != -1) return false;
+				territory.setOwner(currentPlayer);
+				territory.setUnits(1);
+				--miscnumber;
+			}
+			else {
+				if(territory.getOwner() != currentPlayer) return false;
+				territory.setUnits(territory.getUnits()+1);
+			}
+			currentPlayer = currentPlayer+1 % 5;
+			if(playersList.get(currentPlayer).getReinforcementBonus() == 0) nextPlayer();
+			return true;
+			}
+		default:
+			throw new Exception("You are not in a reinforcement phase!");
+		}
 	}
 
 	/*
@@ -341,6 +372,11 @@ public class RiskGameModel extends java.util.Observable {
 	 * @throws Exception
 	 */
 	//TODO: public boolean transfer(int fromID, int toID, int units) kellene a controllernek 
+	public boolean transfer(int fromID, int toID, int units) throws Exception {
+		return transfer(map.getTerritory(fromID),map.getTerritory(toID),units);
+	}
+	
+	
 	public Boolean transfer(Territory from, Territory to, int units) throws Exception {
 		if (phase != Phase.Transfer)
 			throw new Exception("Not in Transfer Phase");
@@ -351,5 +387,13 @@ public class RiskGameModel extends java.util.Observable {
 		to.setUnits(to.getUnits() + units);
 		return true;
 	}
-
+	
+	public Territory getTerritory(int id) {
+		return map.getTerritory(id);
+	}
+	
+	public String getPlayerName(int id) {
+		return playersList.get(id).getName();
+	}
+ 
 }
