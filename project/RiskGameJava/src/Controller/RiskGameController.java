@@ -84,8 +84,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
     		case Battle:
     			if (previouslySelectedTerritory != -1)
     			{
-					//if (model.checkAttackPossible(territoryID, previouslySelectedTerritory))
-    				if (false)
+					if (model.checkAttackPossible(territoryID, previouslySelectedTerritory))
 					{
 						addLog("Attacking " + country.getName() + "!");
 						showAttackView(territoryID, previouslySelectedTerritory);
@@ -100,8 +99,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
     		case Transfer:
     			if (previouslySelectedTerritory != -1)
     			{
-					//if (model.checkTransferPossible(previouslySelectedTerritory, territoryID))
-    				if (false)
+					if (model.checkTransferPossible(previouslySelectedTerritory, territoryID))
 					{
 						addLog("Transferring units to " + country.getName() + "!");
 						showTransferView(previouslySelectedTerritory, territoryID);
@@ -157,6 +155,23 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		attackView.AddControllerListener(this);
 		//attackView.UpdateViewState(defender, attacker);
 	}
+	
+	public void attackAccepted(int defender, int attacker, int defenderUnits, int attackerUnits) {
+		Country defenderCountry = convertToCountry(defender);
+		Country attackerCountry = convertToCountry(attacker);
+		
+		try {
+			if (model.attackTerritory(defender, attacker, defenderUnits, attackerUnits))
+			{
+				addLog(attackerCountry.getName() + " attacked " + defenderCountry.getName() + "!");
+				//attackView.UpdateViewState(attackResult);
+			}
+			else
+				addLog(attackerCountry.getName() + " failed to attack " + defenderCountry.getName() + "!");
+		} catch (Exception e) {
+			addLog(e.getMessage());
+		}
+	}
 
 	/*
 	 * 	Transfer View
@@ -165,6 +180,23 @@ public class RiskGameController extends java.util.Observable implements java.uti
 		transferView = new View.JFXTransferView();
 		transferView.AddControllerListener(this);
 		//transferView.UpdateViewState(from, to);
+	}
+	
+	public void transferAccepted(int from, int to, int units) {
+		Country fromCountry = convertToCountry(from);
+		Country toCountry = convertToCountry(to);
+		
+		try {
+			//if (model.transfer(from, to, units))
+			if (false) {
+				addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+				//transferView.dieSomehow(); //TODO: Hide transfer window
+			}
+			else
+				addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+		} catch (Exception e) {
+			addLog(e.getMessage());
+		}
 	}
 
 	/*
@@ -184,13 +216,17 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	 * 	Stage switch
 	 * 	Pre -> Main
 	 */
+
 	public void switchToMain(Map<Color, String> map){
+		
 		preStage.hide();
+		
 		try {
 			model.addPlayerToPlayerList(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		preStage.close();
 		showMainView();
 
@@ -198,7 +234,9 @@ public class RiskGameController extends java.util.Observable implements java.uti
                 .map(x -> x.getValue())
                 .collect(Collectors.toList());
 		mainView.UpdateConnectedPlayer(result);
+
 	}
+
 	
 	/**
 	 * Model hivja meg mikor befejezte a feldolgozast. A Controller az uj adatokat
@@ -214,7 +252,7 @@ public class RiskGameController extends java.util.Observable implements java.uti
 	
 	//A fõablak naplójába küld egy új bejegyzést
 	public void addLog(String log) {
-		
+		System.out.println(log);
 	}
 	
 	
