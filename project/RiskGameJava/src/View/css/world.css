@@ -33,3 +33,11 @@
 .text-area *.text {
     -fx-text-alignment: center;
 }
+
+.button {
+	-fx-background-color: #ffc638;
+	-fx-text-fill: #000000;
+	-fx-border-color: #9e7000;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

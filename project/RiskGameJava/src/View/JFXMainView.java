@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import Model.Phase;
 import Model.Player;
 import Model.Territory;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -48,7 +50,8 @@ public class JFXMainView extends JFXViewBase {
 	@FXML private Label lblPlayerName5;
 	@FXML private Pane panePlayerColor5;
 	@FXML private TextArea taLog; 
-	
+
+	@FXML private Button btnLog; 
 	@FXML private Button btnReinforcePhase;
 	@FXML private Button btnBattlePhase;
 	@FXML private Button btnTransferPhase;
@@ -61,6 +64,7 @@ public class JFXMainView extends JFXViewBase {
     final private double BASE_WIDTH = 815;
     private ArrayList<Label> lblPlayerNameList;
     private ArrayList<Pane> panePlayerColorList;
+    private ArrayList<Button> btnControlList;
     boolean isLogOpened;
     Dimension dimLog;
 	
@@ -142,9 +146,11 @@ public class JFXMainView extends JFXViewBase {
 		
 	    lblPlayerNameList = new ArrayList<>();
 	    panePlayerColorList = new ArrayList<>();
+	    btnControlList = new ArrayList<>();
 	    
 	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
 	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
+	    Collections.addAll(btnControlList, btnBattlePhase, btnReinforcePhase, btnTransferPhase, btnNextPlayer, btnLog);
 	}
 	
 	@Override
@@ -208,7 +214,14 @@ public class JFXMainView extends JFXViewBase {
 			break;
 		}
 	}
+	
+	@FXML
+	 private void handleLogButton(ActionEvent event) {
 
+		if (isLogOpened()) closeLog(); else openLog();
+		
+	}
+		
 	/**
 	 * 
 	 * @param territories
@@ -273,6 +286,19 @@ public class JFXMainView extends JFXViewBase {
 		taLog.setPrefWidth(taLog.getPrefWidth()* ratioX);
 		taLog.setPrefHeight(taLog.getPrefHeight()* ratioY);
 		dimLog = new Dimension((int) taLog.getPrefWidth(), (int) taLog.getPrefHeight());
+		
+		/*
+		 * 	Control buttons
+		 */
+		for (Button button : btnControlList) {
+
+			button.setPrefHeight(button.getPrefHeight() * ratioY);
+			button.setPrefWidth(button.getPrefWidth()* ratioX);
+			button.setLayoutX(button.getLayoutX()* ratioX);
+			button.setLayoutY(button.getLayoutY()* ratioY);
+			
+		}
+
 	}
 
 	public void appendLog(String s){
@@ -286,11 +312,13 @@ public class JFXMainView extends JFXViewBase {
 
 	public void closeLog() {
 		taLog.setPrefHeight(dimLog.getHeight());
+		taLog.setLayoutY(taLog.getLayoutY()+stage.getHeight()*0.6);
 		isLogOpened = false;
 	}
 
 	public void openLog() {
 		taLog.setPrefHeight(stage.getHeight()*0.6);
+		taLog.setLayoutY(taLog.getLayoutY()-stage.getHeight()*0.6);
 		isLogOpened = true;
 	}
 

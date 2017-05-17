@@ -154,6 +154,7 @@ public class RiskGameController extends java.util.Observable {
     	Scene mainScene = new Scene(root, width, height);
 
     	// TODO Nem kapja el SPACE lenyomásának eseményét. felkúrt
+    	// OH GOD.... CTRL + Space meg megy. szomorúvá tett
     	mainScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
     		
     		public void handle(final KeyEvent keyEvent) {

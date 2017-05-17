@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
@@ -8,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Button?>
 
 <BorderPane fx:id="borderPane" stylesheets="@../css/world.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	
@@ -41,12 +41,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayerName4" alignment="CENTER" layoutX="63.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="lblPlayerName5" alignment="CENTER" layoutX="63.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayerName5" alignment="CENTER" layoutX="601.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="lblPlayerName4" alignment="CENTER" layoutX="601.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -55,17 +55,34 @@
                   <Pane fx:id="panePlayerColor3" layoutX="779.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel3" />
                   <Pane fx:id="panePlayerColor5" layoutX="242.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel5" />
                   <Pane fx:id="panePlayerColor4" layoutX="779.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel4" />
-                  <TextArea fx:id="taLog" editable="false" layoutX="90.0" layoutY="531.0" minHeight="10.0" opacity="0.68" prefHeight="18.0" prefWidth="637.0" styleClass="text-area" stylesheets="@../css/world.css" text="Ready!">
+                  <TextArea fx:id="taLog" editable="false" layoutX="90.0" layoutY="531.0" minHeight="10.0" opacity="0.76" prefHeight="18.0" prefWidth="637.0" styleClass="text-area" stylesheets="@../css/world.css" text="Ready!">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </TextArea>
                   
-                  <Button fx:id="btnReinforcePhase" alignment="CENTER" layoutX="440.0" layoutY="870.0" prefHeight="24.0" prefWidth="120.0" text="Reinforcement" />
-                  <Button fx:id="btnBattlePhase" alignment="CENTER" layoutX="570.0" layoutY="870.0" prefHeight="24.0" prefWidth="120.0" text="Battle" />
-                  <Button fx:id="btnTransferPhase" alignment="CENTER" layoutX="700.0" layoutY="870.0" prefHeight="24.0" prefWidth="120.0" text="Transfer" />
+                  <Button fx:id="btnReinforcePhase" alignment="CENTER" layoutX="269.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="92.0" stylesheets="@../css/world.css" text="Reinforcement" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Button>
+                  <Button fx:id="btnBattlePhase" alignment="CENTER" layoutX="361.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="89.0" stylesheets="@../css/world.css" text="Battle">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Button>
+                  <Button fx:id="btnTransferPhase" alignment="CENTER" layoutX="450.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="87.0" stylesheets="@../css/world.css" text="Transfer">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Button>
                   
-                  <Button fx:id="btnNextPlayer" alignment="CENTER" layoutX="460.0" layoutY="900.0" prefHeight="24.0" prefWidth="340.0" text="Next Player" />
+                  <Button fx:id="btnNextPlayer" alignment="CENTER" layoutX="270.0" layoutY="576.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="267.0" stylesheets="@../css/world.css" text="Next Player">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Button>
+                  <Button fx:id="btnLog" layoutX="730.0" layoutY="528.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLogButton" prefHeight="23.0" prefWidth="40.0" text="Log">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
 				

@@ -229,7 +229,7 @@ public class World extends Region {
         group.setOpacity(OPACITY);
 
         getChildren().setAll(group);
-
+        this.setPickOnBounds(false);
         // setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
@@ -350,8 +350,10 @@ public class World extends Region {
             }
         }
 
+        
         if (null != eventHandler) eventHandler.handle(event);
     }
+    
     
     /*
      * 	Fill and stroke the countries
