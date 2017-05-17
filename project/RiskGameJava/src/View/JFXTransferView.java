@@ -28,6 +28,9 @@ public class JFXTransferView extends JFXViewBase {
 	
 	@FXML private Slider sldSoilderQuantity;
 	@FXML private Button btnAccept;
+	
+	private int fromID;
+	private int toID;
 
 	public JFXTransferView(){
 		LoadFXML("/View/fxml/TransferView.fxml");
@@ -42,11 +45,9 @@ public class JFXTransferView extends JFXViewBase {
     public void initialize(URL location, ResourceBundle resources) {
 		
 		btnAccept.setOnMouseClicked(evt -> {
-			int from = Integer.parseInt(lblFromCountryName.getText());
-			int to = Integer.parseInt(lblToCountryName.getText());
 			Double amount = sldSoilderQuantity.getValue();
 			
-			controller.transferAccepted(from, to, amount.intValue());
+			controller.transferAccepted(fromID, toID, amount.intValue());
 		});
 		
 	}
@@ -61,6 +62,8 @@ public class JFXTransferView extends JFXViewBase {
 		
 		lblFromCountryName.setText(Country.values()[from.getId()].toString());
 		lblToCountryName.setText(Country.values()[to.getId()].toString());
+		fromID = from.getId();
+		toID = to.getId();
 		
 		lblFromQuantity.setText(Integer.toString(from.getUnits()));
 		lblToQuantity.setText(Integer.toString(to.getUnits()));

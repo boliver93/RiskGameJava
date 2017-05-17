@@ -78,7 +78,8 @@ public class RiskGameModel extends java.util.Observable {
 		if (phase != Phase.PlayerRegistration)
 			throw new Exception("Not in PlayerRegistration phase");
 		playersList.add(player);
-		player.addReinforcements(25);
+		//player.addReinforcements(25);
+		player.addReinforcements(9);
 	}
 	
 	/*
@@ -409,10 +410,10 @@ public class RiskGameModel extends java.util.Observable {
 		return playersList.get(id).getName();
 	}
 	
-	public int getUnitsLeftToReinforce() {
+	public int getUnitsLeftToReinforce(int playerID) {
 		switch (phase) {
 		case Preparation:
-			return playersList.get(currentPlayer).getReinforcementBonus();
+			return playersList.get(playerID).getReinforcementBonus();
 		case Reinforcement:
 			return unitsLeftToReinforce;
 

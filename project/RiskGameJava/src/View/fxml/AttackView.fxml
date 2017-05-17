@@ -97,7 +97,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label fx:id="lblAttackerAlive" text="DummyNumber" />
-                  <ProgressBar prefWidth="200.0" progress="0.54">
+                  <ProgressBar fx:id="barUnits" prefWidth="200.0" progress="0.54">
                      <padding>
                         <Insets left="50.0" right="50.0" />
                      </padding>
@@ -105,6 +105,12 @@
                   <Label fx:id="lblDefenderAlive" text="DummyNumber" />
                </children>
             </HBox>
+            
+            <Button fx:id="btnAttack" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" stylesheets="@../css/reinforce.css" text="Attack" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="btnRetreat" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" stylesheets="@../css/reinforce.css" text="Retreat" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="20.0" />

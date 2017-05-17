@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import Model.Color;
+import Model.Phase;
 import Model.RiskGameModel;
 import Model.Territory;
 import javafx.event.EventHandler;
@@ -40,6 +41,7 @@ public class RiskGameController extends java.util.Observable {
 	 */
 	private final Stage preStage;
 	private Stage primaryStage;
+	private Stage popupStage;
 	
 	/*
 	 * 	View objects
@@ -52,10 +54,13 @@ public class RiskGameController extends java.util.Observable {
 	
 	private RiskGameModel model;
 	private int previouslySelectedTerritory = -1;
+	private Phase lastPhaseUpdate;
+	private int lastPlayerUpdate;
 	
 	public RiskGameController(Stage stage){
 		this.preStage = stage;
 		this.primaryStage = new Stage();
+		this.popupStage = new Stage();
 		
 		stage.setResizable(false);
 		primaryStage.setResizable(false);
@@ -68,6 +73,8 @@ public class RiskGameController extends java.util.Observable {
 	 */
 	public void setModel(RiskGameModel model){
 		this.model = model;
+		lastPhaseUpdate = model.getPhase();
+		lastPlayerUpdate = model.getCurrentPlayer();
 		//this.model.addObserver(this);
 	}
 	
@@ -116,7 +123,6 @@ public class RiskGameController extends java.util.Observable {
     			
     		case Preparation:
     			reinforce(territoryID, country.getName());
-    			mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
     			break;
     			
 			default:
@@ -125,15 +131,40 @@ public class RiskGameController extends java.util.Observable {
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}
+    	
+    	UpdateCurrentPlayer();
     }
     
     private void reinforce(int territoryID, String country) throws Exception {
     	if (model.reinforce(territoryID)) {
-			addLog(country + " reinforced! Units left: " + model.getUnitsLeftToReinforce());
+    		Territory territory = model.getTerritory(territoryID);
+			addLog(country + " reinforced by " + model.getPlayerName(territory.getOwner()) + "! Units guarding: " + territory.getUnits() + "\nUnits left to reinforce: " + model.getUnitsLeftToReinforce(territory.getOwner()));
 			UpdateTerritoryOnMap(territoryID);
 		}
 		else
 			addLog(country + " is occupied by another player!");
+    }
+    
+    public void transferPhaseSelected() {
+    	closePopupWindow();
+    	
+    	try {
+			model.endBattlePhase();
+			UpdateCurrentPlayer();
+		} catch (Exception e) {
+			addLog(e.getMessage());
+		}
+    }
+    
+    public void nextPlayerSelected() {
+    	closePopupWindow();
+    	
+    	try {
+			model.endTurn();
+			UpdateCurrentPlayer();
+		} catch (Exception e) {
+			addLog(e.getMessage());
+		}
     }
 
 	/*
@@ -184,6 +215,10 @@ public class RiskGameController extends java.util.Observable {
 	private void showAttackView(int defenderID, int attackerID){
 		attackView = new View.JFXAttackView();
 		attackView.AddControllerListener(this);
+		Parent root = attackView.getRoot();
+    	Scene attackScene = new Scene(root);
+		popupStage.setScene(attackScene);
+		popupStage.show();
 		
 		Territory defender = model.getTerritory(defenderID);
 		Territory attacker = model.getTerritory(attackerID);
@@ -215,6 +250,10 @@ public class RiskGameController extends java.util.Observable {
 	private void showTransferView(int fromID, int toID){
 		transferView = new View.JFXTransferView();
 		transferView.AddControllerListener(this);
+		Parent root = transferView.getRoot();
+    	Scene transferScene = new Scene(root);
+		popupStage.setScene(transferScene);
+		popupStage.show();
 		
 		Territory from = model.getTerritory(fromID);
 		Territory to = model.getTerritory(toID);
@@ -274,16 +313,14 @@ public class RiskGameController extends java.util.Observable {
                 .collect(Collectors.toList());
 		mainView.UpdateConnectedPlayer(result);
     	UpdateAllTerritoriesOnMap();
-    	mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
-    	System.out.println(model.getPhase());
-    	mainView.UpdateCurrentPhase(model.getPhase());
+    	UpdateCurrentPlayer();
 	}
 	
 	private void UpdateTerritoryOnMap(int territoryID) {
 		Territory territory = model.getTerritory(territoryID);
 		mainView.UpdateViewState(territory);
 		
-		addLog(convertToCountry(territoryID).getName() + ": " + model.getPlayerName(territory.getOwner()) + " - " + territory.getUnits());
+		//addLog(convertToCountry(territoryID).getName() + ": " + model.getPlayerName(territory.getOwner()) + " - " + territory.getUnits());
 	}
 	
 	private void UpdateAllTerritoriesOnMap() {
@@ -292,6 +329,27 @@ public class RiskGameController extends java.util.Observable {
 			territories.add(model.getTerritory(i));
 		
 		mainView.UpdateViewState(territories);
+	}
+	
+	private void UpdateCurrentPlayer() {	
+		mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
+		UpdateCurrentPhase();
+	}
+	
+	private void UpdateCurrentPhase() {
+		if (lastPhaseUpdate != model.getPhase() || lastPlayerUpdate != model.getCurrentPlayer())
+			addLog("\nPlayer: " + model.getPlayerName(model.getCurrentPlayer()) + " - " + model.getPhase());
+		
+		mainView.UpdateCurrentPhase(model.getPhase());
+		lastPhaseUpdate = model.getPhase();
+		lastPlayerUpdate = model.getCurrentPlayer();
+	}
+	
+	private void closePopupWindow() {
+		if (popupStage.isShowing()) {
+	    	popupStage.hide();
+	    	popupStage.close();
+    	}
 	}
 
 	//A fõablak naplójába küld egy új bejegyzést

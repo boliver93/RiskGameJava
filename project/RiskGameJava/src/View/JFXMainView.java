@@ -151,6 +151,15 @@ public class JFXMainView extends JFXViewBase {
 	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
 	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
 	    Collections.addAll(btnControlList, btnBattlePhase, btnReinforcePhase, btnTransferPhase, btnNextPlayer, btnLog);
+	    
+	    
+	    btnTransferPhase.setOnMouseClicked(evt -> {
+	    	controller.transferPhaseSelected();
+	    });
+	    
+	    btnNextPlayer.setOnMouseClicked(evt -> {
+	    	controller.nextPlayerSelected();
+	    });
 	}
 	
 	@Override
