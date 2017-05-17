@@ -49,7 +49,7 @@ public class JFXAddPlayerView extends JFXViewBase {
 		for (int i = 0; i < tfList.size(); i += 1){
 			String playerName = tfList.get(i).getText();
 			if (playerName.isEmpty()) 
-				map.put(colorList.get(i),"Dummy" + i); 
+				map.put(colorList.get(i),"Dummy" + (i+1)); 
 			else 
 				map.put(colorList.get(i), playerName);
 		}

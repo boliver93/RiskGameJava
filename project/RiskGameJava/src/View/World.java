@@ -8,6 +8,7 @@ import static javafx.scene.input.MouseEvent.MOUSE_RELEASED;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class World extends Region {
 	private static final double 	preferredHeight 	= 600;
     private static final double     aspectRatio     	= preferredHeight / preferredWidth;
 	private Pane pane;
+	private Pane unitPane;
 	private Group group;
 	private double width;
 	private double height;
@@ -68,11 +70,11 @@ public class World extends Region {
     private        final StyleableProperty<Color>        strokeColor;
     private static final CssMetaData<World, Color>       HOVER_COLOR = FACTORY.createColorCssMetaData("-hover-color", s -> s.hoverColor, Color.web("#d9f2e5"), false);
     private        final StyleableProperty<Color>        hoverColor;
-    private static final CssMetaData<World, Color>       PRESSED_COLOR = FACTORY.createColorCssMetaData("-pressed-color", s -> s.pressedColor, Color.web("#00802b"), false);
+    private static final CssMetaData<World, Color>       PRESSED_COLOR = FACTORY.createColorCssMetaData("-pressed-color", s -> s.pressedColor, Color.web("#ff9900"), false);
     private        final StyleableProperty<Color>        pressedColor;
-    private static final CssMetaData<World, Color>       SELECTED_COLOR = FACTORY.createColorCssMetaData("-selected-color", s-> s.selectedColor, Color.web("#00802b"), false);
+    private static final CssMetaData<World, Color>       SELECTED_COLOR = FACTORY.createColorCssMetaData("-selected-color", s-> s.selectedColor, Color.web("#ff9900"), false);
     private        final StyleableProperty<Color>        selectedColor;
-    private static final double							 OPACITY = 0.3d;
+    private static final double							 OPACITY = 0.4d;
     
     /*
      * 	SVG and country  specific fields
@@ -171,6 +173,7 @@ public class World extends Region {
          * 	Create panes
          */
         pane                 = new Pane();
+        unitPane             = new Pane();
         group                = new Group();
 
         /*
@@ -205,7 +208,7 @@ public class World extends Region {
 
         Color fill   = getFillColor();
         Color stroke = getStrokeColor();
-
+        
         countryPaths.forEach((name, pathList) -> {
         	
             Country country = Country.valueOf(name);
@@ -219,6 +222,9 @@ public class World extends Region {
                 path.setOnMousePressed(new WeakEventHandler<>(_mousePressHandler));
                 path.setOnMouseReleased(new WeakEventHandler<>(_mouseReleaseHandler));
                 path.setOnMouseExited(new WeakEventHandler<>(_mouseExitHandler));
+                
+                unitPane.getChildren().add(path.getText());
+                path.updateUnitPosition();
             });
             
             pane.getChildren().addAll(pathList);
@@ -226,13 +232,26 @@ public class World extends Region {
         });
 
         group.getChildren().add(pane);
+        // group.getChildren().add(unitPane);
         group.setOpacity(OPACITY);
 
         getChildren().setAll(group);
         this.setPickOnBounds(false);
+        unitPane.setPickOnBounds(false);
         // setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    // alternative
+    public void updateUnitPosition() {
+    	
+    	countryPaths.forEach((name, pathList) -> {
+        	
+            pathList.forEach(path -> { path.updateUnitPosition(); });
+            
+        });
+    	
+    }
+    
     /*
      * 	Property listeners
      */
@@ -260,13 +279,20 @@ public class World extends Region {
             pane.setCache(true);
             pane.setCacheHint(CacheHint.SCALE);
 
+            unitPane.setCache(true);
+            unitPane.setCacheHint(CacheHint.SCALE);
+            
             pane.setScaleX(width / preferredWidth);
             pane.setScaleY(height / preferredHeight);
 
+            unitPane.setScaleX(width / preferredWidth);
+            unitPane.setScaleY(height / preferredHeight);
+            
             group.resize(width, height);
             group.relocate((getWidth() - width) * 0.5, (getHeight() - height) * 0.5);
 
             pane.setCache(false);
+            unitPane.setCache(false);
             
         }
     }
@@ -275,12 +301,14 @@ public class World extends Region {
      * 	Mouse event listener
      */
     private void handleMouseEvent(final MouseEvent event, final EventHandler<MouseEvent> eventHandler) {
+        setFillAndStroke();
+        
         final CountryPath       countryPath 	= (CountryPath) event.getSource();
         final String            countryName 	= countryPath.getName();
         final Country           country      	= Country.valueOf(countryName);
         final List<CountryPath> paths        	= countryPaths.get(countryName);
         final EventType<? extends MouseEvent> eventType = event.getEventType();
-        
+
         if (MOUSE_ENTERED == eventType) {
         	
             if (isHoverEnabled()) {
@@ -332,6 +360,8 @@ public class World extends Region {
                 color = getHoverColor();
                 
             }
+
+            setFillAndStroke();
             
             if (isHoverEnabled()) {
             	
@@ -348,21 +378,63 @@ public class World extends Region {
 	                path.setFill(null == country.getColor() || country == getSelectedCountry() ? color : country.getColor());
 	            }
             }
+            
         }
-
+        
         
         if (null != eventHandler) eventHandler.handle(event);
     }
-    
     
     /*
      * 	Fill and stroke the countries
      */
     private void setFillAndStroke() {
+    	
+    	List<Model.Territory> data = Controller.RiskGameController.getTerritoryData();
+    	ArrayList<Color> colorList = new ArrayList<>();
+		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BROWN, Color.YELLOW, Color.GREEN);
+    	
+		/*
         countryPaths.keySet().forEach(name -> {
             Country country = Country.valueOf(name);
+            
+            for (Model.Territory t : data) {
+            	if (country.ordinal() == t.getId()) {
+            		if (t.getOwner() != -1) country.setColor(
+            	            country == getSelectedCountry() ? getSelectedColor() : colorList.get(t.getOwner()));
+            		
+            		country.setPopulation(t.getUnits());
+            		
+            		break;
+            	}
+            }
+            
             setCountryFillAndStroke(country, null == country.getColor() ? getFillColor() : country.getColor(), getStrokeColor());
         });
+        */
+        
+		countryPaths.forEach((name, pathList) -> {
+            Country country = Country.valueOf(name);
+            
+            for (Model.Territory t : data) {
+            	if (country.ordinal() == t.getId()) {
+            		if (t.getOwner() != -1) country.setColor(
+            	            country == getSelectedCountry() ? getSelectedColor() : colorList.get(t.getOwner()));
+            		
+            		country.setPopulation(t.getUnits());
+            		
+            		pathList.forEach(path -> {
+            			path.setUnits(t.getUnits());
+            		});
+            		
+            		break;
+            	}
+            	
+            }
+            
+            setCountryFillAndStroke(country, null == country.getColor() ? getFillColor() : country.getColor(), getStrokeColor());
+        });
+		
     }
     
     /*
@@ -374,6 +446,7 @@ public class World extends Region {
             path.setFill(fillColor);
             path.setStroke(strokeColor);
         }
+        
     }
     
     /*
@@ -403,7 +476,7 @@ public class World extends Region {
             String            name     = key.toString();
             List<CountryPath> pathList = new ArrayList<>();
             
-            for (String path : value.toString().split(";")) { pathList.add(new CountryPath(name, path)); }
+            for (String path : value.toString().split(";")) { pathList.add(new CountryPath(name, path, 0)); }
             
             countryPaths.put(name, pathList);
         });

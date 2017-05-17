@@ -54,6 +54,10 @@ public class Map {
 		return territoriesList.get(id);
 	}
 	
+	public static List<Territory> getTerritoryList(){
+		return territoriesList;
+	}
+	
 	private void readTerritories() {
 		String line;
 		

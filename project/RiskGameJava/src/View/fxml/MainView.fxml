@@ -63,24 +63,24 @@
                   
                   <Button fx:id="btnReinforcePhase" alignment="CENTER" layoutX="269.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="92.0" stylesheets="@../css/world.css" text="Reinforcement" textFill="WHITE">
                      <font>
-                        <Font size="10.0" />
+                        <Font size="11.0" />
                      </font></Button>
                   <Button fx:id="btnBattlePhase" alignment="CENTER" layoutX="361.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="89.0" stylesheets="@../css/world.css" text="Battle">
                      <font>
-                        <Font size="10.0" />
+                        <Font size="11.0" />
                      </font></Button>
                   <Button fx:id="btnTransferPhase" alignment="CENTER" layoutX="450.0" layoutY="552.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="87.0" stylesheets="@../css/world.css" text="Transfer">
                      <font>
-                        <Font size="10.0" />
+                        <Font size="11.0" />
                      </font></Button>
                   
                   <Button fx:id="btnNextPlayer" alignment="CENTER" layoutX="270.0" layoutY="576.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="267.0" stylesheets="@../css/world.css" text="Next Player">
                      <font>
-                        <Font size="10.0" />
+                        <Font size="11.0" />
                      </font></Button>
                   <Button fx:id="btnLog" layoutX="730.0" layoutY="528.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLogButton" prefHeight="23.0" prefWidth="40.0" text="Log">
                      <font>
-                        <Font size="10.0" />
+                        <Font size="11.0" />
                      </font>
                   </Button>
                </children>

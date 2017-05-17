@@ -28,9 +28,11 @@ public enum Country {
 	YAKUTSK;
 
     private Color color;
+    private int population;
 
     Country() {
         color = null;
+        population = 0;
     }
 
     public String getName() {
@@ -41,8 +43,16 @@ public enum Country {
     	return color;
     }
     
+    public int getPopulation() {
+		return population;
+	}
+    
     public void setColor(final Color color) {
     	this.color = color;
     }
+    
+    public void setPopulation(int population) {
+		this.population = population;
+	}
     
 }

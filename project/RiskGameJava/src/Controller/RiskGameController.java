@@ -8,12 +8,14 @@ import View.JFXAttackView;
 import View.JFXTransferView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import Model.Color;
 import Model.Phase;
+import Model.Player;
 import Model.RiskGameModel;
 import Model.Territory;
 import javafx.event.EventHandler;
@@ -56,7 +58,7 @@ public class RiskGameController extends java.util.Observable {
 	private int previouslySelectedTerritory = -1;
 	private Phase lastPhaseUpdate;
 	private int lastPlayerUpdate;
-	
+
 	public RiskGameController(Stage stage){
 		this.preStage = stage;
 		this.primaryStage = new Stage();
@@ -184,8 +186,6 @@ public class RiskGameController extends java.util.Observable {
     	Parent root = mainView.getRoot();
     	Scene mainScene = new Scene(root, width, height);
 
-    	// TODO Nem kapja el SPACE lenyomásának eseményét. felkúrt
-    	// OH GOD.... CTRL + Space meg megy. szomorúvá tett
     	mainScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
     		
     		public void handle(final KeyEvent keyEvent) {
@@ -358,7 +358,9 @@ public class RiskGameController extends java.util.Observable {
 		mainView.appendLog(log);
 	}
 	
-	
+	public static List<Territory> getTerritoryData(){
+		return Model.Map.getTerritoryList();
+	}
 	
 	private int convertToTerritoryID(Country country) {
 		return country.ordinal();

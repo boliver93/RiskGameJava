@@ -12,6 +12,7 @@ import Model.Player;
 import Model.Territory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -77,42 +79,6 @@ public class JFXMainView extends JFXViewBase {
                 	CountryPath countryPath = (CountryPath) evt.getSource();
                 	//System.out.println(countryPath.getName());
                 	//System.out.println(countryPath.getContent());
-                	
-                	/*
-                	 * 	neighborhood file generation
-                	 */
-            		/*
-                	final EventType<? extends MouseEvent> eventType = evt.getEventType();
-                	if (MOUSE_PRESSED == eventType) {
-                		
-        				String fileName = "neighborhood.properties";
-                		if (evt.isPrimaryButtonDown()){
-                			try {
-                				String msg = "" + Country.valueOf(countryPath.getName()).ordinal() + " ";
-                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
-                			    System.out.println("add");
-                			} catch (Exception e) {
-                				System.out.println("add error");
-                			}
-                		} else if (evt.isSecondaryButtonDown()) {
-                			try {
-                				String msg = "\n";
-                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
-                			    System.out.println("new entry");
-                			} catch (Exception e) {
-                				System.out.println("new entry error");
-                			}
-                		} else if (evt.isMiddleButtonDown()) {
-                			try {
-                				String msg = "fuck";
-                				java.nio.file.Files.write(java.nio.file.Paths.get(fileName), msg.getBytes(), java.nio.file.StandardOpenOption.APPEND);
-                			    System.out.println("io");
-                			} catch (Exception e) {
-                				System.out.println("fuck error");
-                			}
-                		}
-                	}
-                	*/
                 	controller.countrySelected(Country.valueOf(countryPath.getName()));
                 })
         		.hoverEnabled(true)
@@ -236,10 +202,9 @@ public class JFXMainView extends JFXViewBase {
 	 * @param territories
 	 */
 	public void UpdateViewState(Territory territory){
-
 	}
+	
 	public void UpdateViewState(List<Territory> territories){
-
 	}
 
 	public void fit(double height, double width) {
@@ -251,6 +216,7 @@ public class JFXMainView extends JFXViewBase {
 		imageView.setFitWidth(width);
 		world.setMaxHeight(height);
 		world.setMaxWidth(width);
+		world.updateUnitPosition();
 		pain.setPrefHeight(height);
 		pain.setPrefWidth(width);
 
