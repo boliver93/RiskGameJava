@@ -67,6 +67,8 @@ public class JFXTransferView extends JFXViewBase {
 		
 		lblFromQuantity.setText(Integer.toString(from.getUnits()));
 		lblToQuantity.setText(Integer.toString(to.getUnits()));
+		
+		sldSoilderQuantity.setMax(from.getUnits() - 1);
 	}
 
 }

@@ -46,11 +46,11 @@ public class JFXAttackView extends JFXViewBase {
     public void initialize(URL location, ResourceBundle resources) {
 		btnAttack.setOnMouseClicked(evt -> {
 			//TODO: slider? 
-			//controller.attackAccepted(defenderID, attackerID, 1, 1);
+			controller.attackAccepted(defenderID, attackerID, 1, 2);
 		});
 		
 		btnRetreat.setOnMouseClicked(evt -> {
-			//TODO: die somehow window...
+			controller.attackRetreat();
 		});
 	}
 	

@@ -235,13 +235,23 @@ public class RiskGameController extends java.util.Observable {
 			if (model.attackTerritory(defender, attacker, defenderUnits, attackerUnits))
 			{
 				addLog(attackerCountry.getName() + " attacked " + defenderCountry.getName() + "!");
-				//attackView.UpdateViewState(attackResult);
+				//TODO: attackView.UpdateViewState(attackResult);
+				//Temporal code instead:
+				Territory defenderTerritory = model.getTerritory(defender);
+				Territory attackerTerritory = model.getTerritory(attacker);
+				String defenderPlayer = model.getPlayerName(defenderTerritory.getOwner());
+				String attackerPlayer = model.getPlayerName(attackerTerritory.getOwner());
+				attackView.UpdateViewState(defenderPlayer, attackerPlayer, defenderTerritory, attackerTerritory);
 			}
 			else
 				addLog(attackerCountry.getName() + " failed to attack " + defenderCountry.getName() + "!");
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}
+	}
+	
+	public void attackRetreat() {
+		closePopupWindow();
 	}
 
 	/*
@@ -268,7 +278,7 @@ public class RiskGameController extends java.util.Observable {
 		try {
 			if (model.transfer(from, to, units)) {
 				addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
-				//transferView.dieSomehow(); //TODO: Hide transfer window
+				closePopupWindow();
 			}
 			else
 				addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
