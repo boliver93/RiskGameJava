@@ -64,7 +64,7 @@ public class World extends Region {
 	private static final StyleablePropertyFactory<World> FACTORY          = new StyleablePropertyFactory<>(Region.getClassCssMetaData());
 	private static final CssMetaData<World, Color>       BACKGROUND_COLOR = FACTORY.createColorCssMetaData("-background-color", s -> s.backgroundColor, Color.web("#000066"), false);
     private        final StyleableProperty<Color>        backgroundColor;
-    private static final CssMetaData<World, Color>       FILL_COLOR = FACTORY.createColorCssMetaData("-fill-color", s -> s.fillColor, Color.web("#8cd9b1"), false);
+    private static final CssMetaData<World, Color>       FILL_COLOR = FACTORY.createColorCssMetaData("-fill-color", s -> s.fillColor, Color.web("#FFFFFF"), false);
     private        final StyleableProperty<Color>        fillColor;
     private static final CssMetaData<World, Color>       STROKE_COLOR = FACTORY.createColorCssMetaData("-stroke-color", s -> s.strokeColor, Color.BLACK, false);
     private        final StyleableProperty<Color>        strokeColor;
@@ -392,7 +392,7 @@ public class World extends Region {
     	
     	List<Model.Territory> data = Controller.RiskGameController.getTerritoryData();
     	ArrayList<Color> colorList = new ArrayList<>();
-		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BROWN, Color.YELLOW, Color.GREEN);
+		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.LIME);
     	
 		/*
         countryPaths.keySet().forEach(name -> {

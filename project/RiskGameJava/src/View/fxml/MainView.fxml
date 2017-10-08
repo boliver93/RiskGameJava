@@ -20,7 +20,7 @@
 	        
 				<ImageView fx:id="imageView" fitHeight="600.0" fitWidth="815.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="@../img/world_map.jpg" />
+						<Image url="@../img/world_map_contrasted.jpg" />
 					</image>
 				</ImageView>
             <Pane fx:id="pain" layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0">

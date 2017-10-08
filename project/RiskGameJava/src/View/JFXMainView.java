@@ -81,8 +81,8 @@ public class JFXMainView extends JFXViewBase {
                 	//System.out.println(countryPath.getContent());
                 	controller.countrySelected(Country.valueOf(countryPath.getName()));
                 })
-        		.hoverEnabled(true)
-        		.selectionEnabled(true)
+        		.hoverEnabled(false)
+        		.selectionEnabled(false)
                 .build();
 		
 		LoadFXML("/View/fxml/MainView.fxml");
