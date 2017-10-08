@@ -12,6 +12,10 @@
 - országokon belül körbe írom majd a számokat, hogy mennyi egység van rajta
 - mentés betöltés
 - A transfer ablaknál miután megtörtént a transfer frissíteni kellene az ablakban az adatokat (contro's job) vagy megölni az ablakot
+- Támadó/védekező egységek száma (Max 3 támadó, max 2 védekező)
+- A modellben: checkTransferPossible nem nézi meg, hogy ahonnan át akarunk rakni egységeket, ott több egység van-e 1-nél.
+- Területfoglalás utáni ablak létrehozása: mennyi egységet transferelhet az új területre
+- Nextplayer: feltétel vizsgálat kiegészítés (PREP: ha még nem foglalt el területet az előző játékos, ha az új elfoglalt területre még nem transferelt át egységeket)
 ---
 # Extra:
 - nem tudjuk hogy éppen melyik fázis jön, kéne egy csík felülre ami ilyen csúszóablakos, hogy előreláthassunk 4-5 állapotot
