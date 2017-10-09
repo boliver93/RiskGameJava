@@ -1,5 +1,6 @@
 package View;
 
+import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
@@ -23,10 +24,16 @@ public class CountryPath extends SVGPath {
         super();
         this.name    = name;
         this.tooltip = new Tooltip(name);
-        this.units = new Text();
+        
         Tooltip.install(this, tooltip);
-        if (null == content) return;
+        // if (null == content) return;
         setContent(content);
+
+        Bounds bb = this.getLayoutBounds();
+		double x = bb.getMinX() + bb.getWidth()/2.0;
+		double y = bb.getMinY() + bb.getHeight()/2.0;
+        this.units = new Text(x, y, Integer.toString(0));
+        
         setUnits(unit);
     }
 
@@ -39,14 +46,17 @@ public class CountryPath extends SVGPath {
     }
     
     public void setUnits(int u){
-        units.setText(Integer.toString(u));
         int cu = (u == -1) ? 0 : u;
+        units.setText(Integer.toString(cu));
         tooltip.setText(name + " (" + Integer.toString(cu) + " unit)");
         updateUnitPosition();
     }
     
     public void updateUnitPosition(){
-        units.setLayoutX(this.getLayoutX() + this.getLayoutBounds().getWidth()/2);
-        units.setLayoutY(this.getLayoutY() + this.getLayoutBounds().getHeight()/2);
+        Bounds bb = this.getLayoutBounds();
+		double x = bb.getMinX() + bb.getWidth()/2.0;
+		double y = bb.getMinY() + bb.getHeight()/2.0;
+		units.setX(x);
+		units.setY(y);
     }
 }

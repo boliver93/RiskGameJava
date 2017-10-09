@@ -26,6 +26,8 @@ import javafx.css.StyleablePropertyFactory;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.event.WeakEventHandler;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
 import javafx.scene.Group;
@@ -36,14 +38,16 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Text;
 
 /*
  * 	Parent view object
  * 	@author fodorad
  * 	@version 1.0
  */
-public class World extends Region {
+public class World extends Pane {
 	
 	/*
 	 * 	Window specific fields
@@ -64,7 +68,7 @@ public class World extends Region {
 	private static final StyleablePropertyFactory<World> FACTORY          = new StyleablePropertyFactory<>(Region.getClassCssMetaData());
 	private static final CssMetaData<World, Color>       BACKGROUND_COLOR = FACTORY.createColorCssMetaData("-background-color", s -> s.backgroundColor, Color.web("#000066"), false);
     private        final StyleableProperty<Color>        backgroundColor;
-    private static final CssMetaData<World, Color>       FILL_COLOR = FACTORY.createColorCssMetaData("-fill-color", s -> s.fillColor, Color.web("#8cd9b1"), false);
+    private static final CssMetaData<World, Color>       FILL_COLOR = FACTORY.createColorCssMetaData("-fill-color", s -> s.fillColor, Color.web("#FFFFFF"), false);
     private        final StyleableProperty<Color>        fillColor;
     private static final CssMetaData<World, Color>       STROKE_COLOR = FACTORY.createColorCssMetaData("-stroke-color", s -> s.strokeColor, Color.BLACK, false);
     private        final StyleableProperty<Color>        strokeColor;
@@ -222,8 +226,15 @@ public class World extends Region {
                 path.setOnMousePressed(new WeakEventHandler<>(_mousePressHandler));
                 path.setOnMouseReleased(new WeakEventHandler<>(_mouseReleaseHandler));
                 path.setOnMouseExited(new WeakEventHandler<>(_mouseExitHandler));
+
+                Circle circle = new Circle(path.getText().getX()+3, path.getText().getY()-3, 12);
+                circle.setFill(Color.WHITE);
+                circle.setStrokeWidth(1);
+                circle.setStroke(Color.BLACK);
                 
+                unitPane.getChildren().add(circle);
                 unitPane.getChildren().add(path.getText());
+                
                 path.updateUnitPosition();
             });
             
@@ -232,9 +243,11 @@ public class World extends Region {
         });
 
         group.getChildren().add(pane);
-        // group.getChildren().add(unitPane);
-        group.setOpacity(OPACITY);
-
+        group.getChildren().add(unitPane);
+        //group.setOpacity(OPACITY);
+        pane.setOpacity(OPACITY);
+        unitPane.setOpacity(1d);
+        
         getChildren().setAll(group);
         this.setPickOnBounds(false);
         unitPane.setPickOnBounds(false);
@@ -392,7 +405,7 @@ public class World extends Region {
     	
     	List<Model.Territory> data = Controller.RiskGameController.getTerritoryData();
     	ArrayList<Color> colorList = new ArrayList<>();
-		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BROWN, Color.YELLOW, Color.GREEN);
+		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.LIME);
     	
 		/*
         countryPaths.keySet().forEach(name -> {
