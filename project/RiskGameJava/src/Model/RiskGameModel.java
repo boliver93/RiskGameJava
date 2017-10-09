@@ -287,20 +287,23 @@ public class RiskGameModel extends java.util.Observable {
 	 * Kor vege Returns next player's id
 	 * 
 	 * @return int
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public int endTurn() throws Exception {
-		if (phase != Phase.Preparation)
-		{
-		if (capturedThisTurn) {
-			playersList.get(currentPlayer).putcard(deck.Draw());
-			capturedThisTurn = false;
-		}
+		if (phase != Phase.Preparation) {
+			if (playersList.get(currentPlayer).getReinforceUnits() == 0) {
+				if (capturedThisTurn) {
+					playersList.get(currentPlayer).putcard(deck.Draw());
+					capturedThisTurn = false;
+				}
 
-		currentPlayer = (currentPlayer + 1) % playersList.size();
-		nextPlayer();
-		}
-		else {
+				currentPlayer = (currentPlayer + 1) % playersList.size();
+				nextPlayer();
+			} else {
+				throw new Exception("Can't do nextplayer because you have "+playersList.get(currentPlayer).getReinforceUnits()+" reinforcement units!");
+			}
+
+		} else {
 			throw new Exception("Can't do nextplayer because you're in PREPARATION phase!");
 		}
 		return currentPlayer;
