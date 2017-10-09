@@ -5,8 +5,6 @@ import java.util.ResourceBundle;
 
 import Model.Territory;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.AmbientLight;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;

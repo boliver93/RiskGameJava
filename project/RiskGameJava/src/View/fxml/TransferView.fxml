@@ -35,7 +35,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="55.0" prefWidth="400.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Button fx:id="btnAccept" mnemonicParsing="false" prefWidth="90.0" stylesheets="@reinforce.css" text="Reinforce" />
+            <Button fx:id="btnAccept" mnemonicParsing="false" prefWidth="90.0" stylesheets="@../css/reinforce.css" text="Reinforce" />
          </children>
       </HBox>
    </bottom>

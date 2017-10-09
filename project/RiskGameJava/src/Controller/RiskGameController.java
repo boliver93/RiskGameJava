@@ -8,14 +8,12 @@ import View.JFXAttackView;
 import View.JFXTransferView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import Model.Color;
 import Model.Phase;
-import Model.Player;
 import Model.RiskGameModel;
 import Model.Territory;
 import javafx.event.EventHandler;
