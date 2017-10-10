@@ -22,8 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -130,6 +130,9 @@ public class JFXMainView extends JFXViewBase {
 	    	 */
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Save game...");
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+ "/Desktop"));
+	    	fileChooser.setInitialFileName("1.risksave");
+	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showSaveDialog(stage);
 	    	if (file != null) {
                 controller.saveGame(file);
@@ -143,6 +146,8 @@ public class JFXMainView extends JFXViewBase {
 	            
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Open save file...");
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+ "/Desktop"));
+	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showOpenDialog(stage);
 	    	if (file != null) {
 	    		controller.loadGame(file);

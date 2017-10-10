@@ -2,6 +2,7 @@ package Model;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +15,11 @@ import java.util.Random;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:55
  */
-public class RiskGameModel extends java.util.Observable {
+public class RiskGameModel extends java.util.Observable implements Serializable {
 
+	/**
+	 * 
+	 */
 	private Deck deck;
 	private Map map;
 	private List<Player> playersList;
@@ -431,9 +435,10 @@ public class RiskGameModel extends java.util.Observable {
 		data.deck = this.deck;
 		data.playersList = this.playersList;
 		data.capturedThisTurn = this.capturedThisTurn;
-		data.map = this.map;
+		data.map = Map.getInstance();
 		data.currentPlayer = this.currentPlayer;
 		data.waitForUnitsTemp = this.waitForUnitsTemp;
+		data.territoriesList = Map.getTerritoryList();
 
 		try {
 			ResourceManager.save(data, file.getAbsolutePath());
@@ -461,6 +466,7 @@ public class RiskGameModel extends java.util.Observable {
 			this.map = data.map;
 			this.currentPlayer = data.currentPlayer;
 			this.waitForUnitsTemp = data.waitForUnitsTemp;
+			this.map.setTerrytoryList(data.territoriesList);
 
 		} catch (Exception e) {
 			throw new Exception(e);

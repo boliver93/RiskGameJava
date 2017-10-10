@@ -13,4 +13,5 @@ public class SaveData implements java.io.Serializable {
 	public Map map;
 	public int currentPlayer;
 	public Territory[] waitForUnitsTemp;
+	public List<Territory> territoriesList;
 }

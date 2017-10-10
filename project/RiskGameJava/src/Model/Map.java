@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,12 @@ import java.util.List;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:55
  */
-public class Map {
+public class Map implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static Map map = new Map();
 	
@@ -56,6 +62,11 @@ public class Map {
 	
 	public static List<Territory> getTerritoryList(){
 		return territoriesList;
+	}
+	
+	protected void setTerrytoryList(List<Territory> territoriesList)
+	{
+		Map.territoriesList = territoriesList;
 	}
 	
 	private void readTerritories() {
