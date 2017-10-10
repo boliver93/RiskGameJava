@@ -419,10 +419,11 @@ public class RiskGameModel extends java.util.Observable {
 	/**
 	 * Save data method
 	 * 
-	 * @return boolean
+	 * @param file
+	 * @return
 	 * @throws IOException
 	 */
-	public boolean saveGame() throws IOException {
+	public boolean saveGame(File file) throws IOException {
 
 		SaveData data = new SaveData();
 
@@ -435,15 +436,7 @@ public class RiskGameModel extends java.util.Observable {
 		data.waitForUnitsTemp = this.waitForUnitsTemp;
 
 		try {
-			int i = 0;
-			String filename = i + ".risksav";
-			File f = new File(filename);
-			while (!f.exists()) {
-				i = i++;
-				filename = i + ".risksav";
-				f = new File(filename);
-			}
-			ResourceManager.save(data, filename);
+			ResourceManager.save(data, file.getAbsolutePath());
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
@@ -453,13 +446,13 @@ public class RiskGameModel extends java.util.Observable {
 	/**
 	 * Load data method
 	 * 
-	 * @param filename
+	 * @param file
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public boolean loadGame(String filename) throws Exception {
+	public boolean loadGame(File file) throws Exception {
 		try {
-			SaveData data = (SaveData) ResourceManager.load(filename);
+			SaveData data = (SaveData) ResourceManager.load(file.getAbsolutePath());
 
 			this.phase = data.phase;
 			this.deck = data.deck;
