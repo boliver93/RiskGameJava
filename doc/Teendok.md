@@ -6,7 +6,6 @@
 - működjön 3 és max 6(5?) player esetén is
 - mentés betöltés (részben kész)
 - A transfer ablaknál miután megtörtént a transfer frissíteni kellene az ablakban az adatokat (contro's job) vagy megölni az ablakot
-- A modellben: checkTransferPossible nem nézi meg, hogy ahonnan át akarunk rakni egységeket, ott több egység van-e 1-nél.
 - Területfoglalás utáni ablak létrehozása: mennyi egységet transferelhet az új területre
 ---
 # Extra:
