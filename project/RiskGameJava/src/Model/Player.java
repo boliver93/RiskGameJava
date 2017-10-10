@@ -23,7 +23,7 @@ public class Player {
 	private int reinforcementBonus;
 	private int territoryCount;
 	
-	private int unitsLeftToReinforce;
+	protected int unitsLeftToReinforce=3;
 
 	public int getTerritoryCount() {
 		return territoryCount;
@@ -37,7 +37,6 @@ public class Player {
 		this.reinforcementBonus = 0;
 		this.territoryCount = 0;
 		this.deck = deck;
-		this.unitsLeftToReinforce=3;
 	}
 
 	/**
@@ -182,12 +181,12 @@ public class Player {
 	
 	public void setReinforceUnits(int units)
 	{
-		unitsLeftToReinforce=units;
+		this.unitsLeftToReinforce=units;
 	}
 	
 	public int getReinforceUnits()
 	{
-		return unitsLeftToReinforce;
+		return this.unitsLeftToReinforce;
 	}
 
 }

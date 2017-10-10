@@ -232,6 +232,7 @@ public class RiskGameModel extends java.util.Observable {
 			return false;
 		waitForUnitsTemp[0].setUnits(waitForUnitsTemp[0].getUnits() - units);
 		waitForUnitsTemp[1].setUnits(units);
+		phase = Phase.Battle;
 		return true;
 	}
 
@@ -302,7 +303,13 @@ public class RiskGameModel extends java.util.Observable {
 
 				currentPlayer = (currentPlayer + 1) % playersList.size();
 				nextPlayer();
-			} else {
+			}
+			if(phase == Phase.Transfer)
+			{
+				nextPlayer();
+			}
+			
+			if (phase == Phase.Preparation && playersList.get(currentPlayer).getReinforceUnits()>0){
 				throw new Exception("Can't do nextplayer because you have "
 						+ playersList.get(currentPlayer).getReinforceUnits() + " reinforcement units!");
 			}
@@ -325,17 +332,18 @@ public class RiskGameModel extends java.util.Observable {
 					.setReinforceUnits(calculatedVal + playersList.get(currentPlayer).getReinforcementBonus());
 			phase = Phase.Reinforcement;
 		}
+		
+		if(phase == Phase.Battle && hasreinforcementUnitsLeft())
+		{
+			phase = Phase.Reinforcement;
+		}
 
 		if (phase == Phase.Preparation && playersList.get(currentPlayer).getReinforcementBonus() == 0) {
 			currentPlayer = (currentPlayer + 1) % playersList.size();
 		}
-
-		if (phase == Phase.Reinforcement && playersList.get(currentPlayer).getReinforceUnits() == 0) {
-			phase = Phase.Battle;
-		}
-
-		if (phase == Phase.Transfer && this.hasTransferred) {
-			currentPlayer = (currentPlayer + 1) % playersList.size();
+		
+		if (phase == Phase.Transfer && hasTransferred) {
+			phase=Phase.Battle;
 		}
 	}
 
@@ -353,6 +361,13 @@ public class RiskGameModel extends java.util.Observable {
 		return false;
 	}
 
+	public boolean hasreinforcementUnitsLeft() {
+		if (playersList.get(currentPlayer).getReinforceUnits() > 0)
+			return true;
+		else
+			return false;
+	}
+
 	/**
 	 * Reinforce method
 	 * 
@@ -366,13 +381,13 @@ public class RiskGameModel extends java.util.Observable {
 			Territory territory = map.getTerritory(territoryId);
 			if (territory.getOwner() != currentPlayer)
 				return false;
-			if (playersList.get(currentPlayer).getReinforceUnits() == 0) {
-				// nextPhase();
-				nextPlayer();
-				return true;
+
+			if (hasreinforcementUnitsLeft()) {
+				territory.setUnits(territory.getUnits() + 1);
+				playersList.get(currentPlayer)
+						.setReinforceUnits(playersList.get(currentPlayer).getReinforceUnits() - 1);
+				if (playersList.get(currentPlayer).getReinforceUnits() == 0) nextPhase();
 			}
-			territory.setUnits(territory.getUnits() + 1);
-			playersList.get(currentPlayer).setReinforceUnits(playersList.get(currentPlayer).getReinforceUnits() - 1);
 			return true;
 		}
 		case Preparation: {
@@ -493,11 +508,7 @@ public class RiskGameModel extends java.util.Observable {
 	 * @throws Exception
 	 */
 	public boolean transfer(int fromID, int toID, int units) throws Exception {
-		hasTransferred = false;
-		if (units > 0) {
-			return transfer(map.getTerritory(fromID), map.getTerritory(toID), units) & (hasTransferred = true);
-		} else
-			return false;
+			return transfer(map.getTerritory(fromID), map.getTerritory(toID), units);
 	}
 
 	/**
@@ -510,6 +521,7 @@ public class RiskGameModel extends java.util.Observable {
 	 * @throws Exception
 	 */
 	public boolean transfer(Territory from, Territory to, int units) throws Exception {
+		hasTransferred = false;
 		if (phase != Phase.Transfer)
 			throw new Exception("Not in Transfer Phase");
 		if (from.getOwner() != currentPlayer || from.getUnits() < units + 1 || to.getOwner() != currentPlayer
@@ -517,6 +529,7 @@ public class RiskGameModel extends java.util.Observable {
 			return false;
 		from.setUnits(from.getUnits() - units);
 		to.setUnits(to.getUnits() + units);
+		hasTransferred = true;
 		endTurn();
 		return true;
 	}
