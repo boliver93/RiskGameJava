@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -53,6 +56,9 @@ public class JFXMainView extends JFXViewBase {
 	@FXML private Button btnBattlePhase;
 	@FXML private Button btnTransferPhase;
 	@FXML private Button btnNextPlayer;
+	@FXML private Button btnSettings;
+	@FXML private Button btnSave;
+	@FXML private Button btnLoad;
 	
 	
 	private Stage stage;
@@ -63,6 +69,7 @@ public class JFXMainView extends JFXViewBase {
     private ArrayList<Pane> panePlayerColorList;
     private ArrayList<Button> btnControlList;
     boolean isLogOpened;
+    boolean isSLOpened;
     Dimension dimLog;
 	
 	public JFXMainView(Stage stage){
@@ -82,6 +89,7 @@ public class JFXMainView extends JFXViewBase {
 		
 		LoadFXML("/View/fxml/MainView.fxml");
 		isLogOpened = false;
+		isSLOpened = false;
 	}
 	
 	@Override
@@ -109,10 +117,43 @@ public class JFXMainView extends JFXViewBase {
 	    panePlayerColorList = new ArrayList<>();
 	    btnControlList = new ArrayList<>();
 	    
+	    btnSave.setVisible(false);
+	    btnLoad.setVisible(false);
+	    
 	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
 	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
-	    Collections.addAll(btnControlList, btnBattlePhase, btnReinforcePhase, btnTransferPhase, btnNextPlayer, btnLog);
+	    Collections.addAll(btnControlList, btnBattlePhase, btnReinforcePhase, btnTransferPhase, btnNextPlayer, btnLog, btnSettings, btnSave, btnLoad);
 	    
+	    btnSave.setOnMouseClicked(evt -> {
+	    	/*
+	    	 * 	controller fele
+	    	 */
+	    	FileChooser fileChooser = new FileChooser();
+	    	fileChooser.setTitle("Save game...");
+	    	File file = fileChooser.showOpenDialog(stage);
+	    	if (file != null) {
+                /*
+                 *  Ide kell a hivas
+                 */
+	    		// controller.saveFile(file);
+            }
+	    });
+	    
+	    btnLoad.setOnMouseClicked(evt -> {
+	    	/*
+	    	 * 	controller fele
+	    	 */
+	            
+	    	FileChooser fileChooser = new FileChooser();
+	    	fileChooser.setTitle("Open save file...");
+	    	File file = fileChooser.showOpenDialog(stage);
+	    	if (file != null) {
+                /*
+                 *  Ide kell a hivas
+                 */
+	    		// controller.loadFile(file);
+            }
+	    });
 	    
 	    btnTransferPhase.setOnMouseClicked(evt -> {
 	    	controller.transferPhaseSelected();
@@ -190,6 +231,26 @@ public class JFXMainView extends JFXViewBase {
 
 		if (isLogOpened()) closeLog(); else openLog();
 		
+	}
+	
+	@FXML
+	 private void hangleSettingsButton(ActionEvent event) {
+		
+		if (isSLOpened()) isSLOpened = false; else isSLOpened = true;
+		
+	    btnSave.setVisible(isSLOpened);
+	    btnLoad.setVisible(isSLOpened);
+	    
+	}
+	
+	@FXML
+	 private void hangleSaveButton(ActionEvent event) {
+		// Initialize handles this
+	}
+	
+	@FXML
+	 private void hangleLoadButton(ActionEvent event) {
+		// Initialize handles this
 	}
 		
 	/**
@@ -280,6 +341,10 @@ public class JFXMainView extends JFXViewBase {
 		return isLogOpened;
 	}
 
+	public boolean isSLOpened(){
+		return isSLOpened;
+	}
+	
 	public void closeLog() {
 		taLog.setPrefHeight(dimLog.getHeight());
 		taLog.setLayoutY(taLog.getLayoutY()+stage.getHeight()*0.6);

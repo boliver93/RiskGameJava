@@ -47,7 +47,7 @@ import javafx.scene.text.Text;
  * 	@author fodorad
  * 	@version 1.0
  */
-public class World extends Pane {
+public class World extends Region {
 	
 	/*
 	 * 	Window specific fields
@@ -227,13 +227,18 @@ public class World extends Pane {
                 path.setOnMouseReleased(new WeakEventHandler<>(_mouseReleaseHandler));
                 path.setOnMouseExited(new WeakEventHandler<>(_mouseExitHandler));
 
-                Circle circle = new Circle(path.getText().getX()+3, path.getText().getY()-3, 12);
+                Circle circle = new Circle(path.getText().getX()+2, path.getText().getY()-5, 12);
                 circle.setFill(Color.WHITE);
                 circle.setStrokeWidth(1);
                 circle.setStroke(Color.BLACK);
-                
+                circle.setPickOnBounds(false);
+                circle.setMouseTransparent(true);
                 unitPane.getChildren().add(circle);
-                unitPane.getChildren().add(path.getText());
+                
+                Text text = path.getText();
+                text.setPickOnBounds(false);
+                text.setMouseTransparent(true);
+                unitPane.getChildren().add(text);
                 
                 path.updateUnitPosition();
             });
@@ -250,6 +255,7 @@ public class World extends Pane {
         
         getChildren().setAll(group);
         this.setPickOnBounds(false);
+        pane.setPickOnBounds(false);
         unitPane.setPickOnBounds(false);
         // setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
     }

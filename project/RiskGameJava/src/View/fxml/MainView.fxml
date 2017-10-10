@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
+
 <BorderPane fx:id="borderPane" stylesheets="@../css/world.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	
 	<center>
@@ -78,11 +79,50 @@
                      <font>
                         <Font size="11.0" />
                      </font></Button>
+                     
                   <Button fx:id="btnLog" layoutX="730.0" layoutY="528.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLogButton" prefHeight="23.0" prefWidth="40.0" text="Log">
                      <font>
                         <Font size="11.0" />
+                     </font></Button>
+                  
+                  
+                  <fx:define>
+				     <Image fx:id="imgSettings" url="@../img/settings_menu_icon.png" />
+				  </fx:define>
+                  <fx:define>
+				     <Image fx:id="imgSave" url="@../img/save2_menu_icon.png" />
+				  </fx:define>
+                  <fx:define>
+				     <Image fx:id="imgLoad" url="@../img/load_menu_icon.png" />
+				  </fx:define>
+				  
+                  <Button fx:id="btnSettings" layoutX="20" layoutY="55" prefHeight="35" prefWidth="35" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#hangleSettingsButton" stylesheets="@../css/world.css">
+                     <font>
+                        <Font size="11.0" />
                      </font>
+                     <graphic>
+				        <ImageView image="$imgSettings" fitHeight="65" fitWidth="65" pickOnBounds="true" preserveRatio="true" />
+				     </graphic>
                   </Button>
+                  
+                  <Button fx:id="btnSave" layoutX="70" layoutY="60" prefHeight="30" prefWidth="30" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#hangleSaveButton" stylesheets="@../css/world.css">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <graphic>
+				        <ImageView image="$imgSave" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true" />
+				     </graphic>
+                  </Button>
+                  
+                  <Button fx:id="btnLoad" layoutX="110" layoutY="60" prefHeight="30" prefWidth="30" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#hangleLoadButton" stylesheets="@../css/world.css">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <graphic>
+				        <ImageView image="$imgLoad" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true" />
+				     </graphic>
+                  </Button>
+                  
                </children>
             </Pane>
 				
