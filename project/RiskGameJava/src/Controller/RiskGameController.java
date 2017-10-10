@@ -7,6 +7,8 @@ import View.JFXAttackView;
 //import View.JFXRiskCardView;
 import View.JFXTransferView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -404,4 +406,22 @@ public class RiskGameController extends java.util.Observable {
 		return Country.values()[ID];
 	}
 
+	
+	public void saveGame(File saveFile) {
+		if (saveFile != null)
+			try {
+				model.saveGame(saveFile);
+			} catch (IOException e) {
+				addLog("Save error! " + e.getLocalizedMessage());
+			}
+	}
+	public void loadGame(File loadFile) {
+		if (loadFile != null)
+			try {
+				model.loadGame(loadFile);
+			} catch (Exception e) {
+				addLog("Load error! " + e.getLocalizedMessage());
+			}
+	}
+	
 }

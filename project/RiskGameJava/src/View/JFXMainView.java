@@ -130,12 +130,9 @@ public class JFXMainView extends JFXViewBase {
 	    	 */
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Save game...");
-	    	File file = fileChooser.showOpenDialog(stage);
+	    	File file = fileChooser.showSaveDialog(stage);
 	    	if (file != null) {
-                /*
-                 *  Ide kell a hivas
-                 */
-	    		// controller.saveFile(file);
+                controller.saveGame(file);
             }
 	    });
 	    
@@ -148,10 +145,7 @@ public class JFXMainView extends JFXViewBase {
 	    	fileChooser.setTitle("Open save file...");
 	    	File file = fileChooser.showOpenDialog(stage);
 	    	if (file != null) {
-                /*
-                 *  Ide kell a hivas
-                 */
-	    		// controller.loadFile(file);
+	    		controller.loadGame(file);
             }
 	    });
 	    
