@@ -264,9 +264,12 @@ public class RiskGameModel extends java.util.Observable {
 	 * @return boolean
 	 */
 	public boolean checkTransferPossible(int from, int to) {
-		return Map.IsNeighbour(map.getTerritory(from), map.getTerritory(to))
-				&& map.getTerritory(from).getOwner() == currentPlayer
-				&& map.getTerritory(to).getOwner() == currentPlayer;
+		if (map.getTerritory(from).getUnits() > 0) {
+			return Map.IsNeighbour(map.getTerritory(from), map.getTerritory(to))
+					&& map.getTerritory(from).getOwner() == currentPlayer
+					&& map.getTerritory(to).getOwner() == currentPlayer;
+		} else
+			return false;
 	}
 
 	/**
@@ -300,7 +303,8 @@ public class RiskGameModel extends java.util.Observable {
 				currentPlayer = (currentPlayer + 1) % playersList.size();
 				nextPlayer();
 			} else {
-				throw new Exception("Can't do nextplayer because you have "+playersList.get(currentPlayer).getReinforceUnits()+" reinforcement units!");
+				throw new Exception("Can't do nextplayer because you have "
+						+ playersList.get(currentPlayer).getReinforceUnits() + " reinforcement units!");
 			}
 
 		} else {
