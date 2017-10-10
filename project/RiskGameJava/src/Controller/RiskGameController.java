@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -64,6 +65,12 @@ public class RiskGameController extends java.util.Observable {
 		
 		stage.setResizable(false);
 		primaryStage.setResizable(false);
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.setOnCloseRequest(evt -> {
+			//Dont't let th User close the Transfer window when waiting for Unit Count
+			if (model.getPhase() == Phase.WaitForUnitCount)
+				evt.consume();
+		});
 		
 	}
 	
@@ -102,7 +109,11 @@ public class RiskGameController extends java.util.Observable {
 						addLog(country.getName() + " cannot be attacked!");
 					previouslySelectedTerritory = -1;
 				}
-    			else previouslySelectedTerritory = territoryID;
+    			else
+				{
+    				addLog("Attacking from " + country.getName() + "...");
+    				previouslySelectedTerritory = territoryID;
+				}
     			break;
     			
     		case Transfer:
@@ -240,6 +251,9 @@ public class RiskGameController extends java.util.Observable {
 				String defenderPlayer = model.getPlayerName(defenderTerritory.getOwner());
 				String attackerPlayer = model.getPlayerName(attackerTerritory.getOwner());
 				attackView.UpdateViewState(defenderPlayer, attackerPlayer, defenderTerritory, attackerTerritory);
+				
+				if (model.getPhase() == Phase.WaitForUnitCount)
+					showTransferView(attacker, defender);
 			}
 			else
 				addLog(attackerCountry.getName() + " failed to attack " + defenderCountry.getName() + "!");
@@ -274,12 +288,24 @@ public class RiskGameController extends java.util.Observable {
 		Country toCountry = convertToCountry(to);
 		
 		try {
-			if (model.transfer(from, to, units)) {
-				addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
-				closePopupWindow();
+			if (model.getPhase() == Phase.WaitForUnitCount)
+			{
+				if (model.moveUnits(units)) {
+					addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+					closePopupWindow();
+				}
+				else
+					addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
 			}
 			else
-				addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+			{
+				if (model.transfer(from, to, units)) {
+					addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+					closePopupWindow();
+				}
+				else
+					addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
+			}
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}
