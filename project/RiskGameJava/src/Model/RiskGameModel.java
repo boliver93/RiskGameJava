@@ -346,9 +346,18 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			currentPlayer = (currentPlayer + 1) % playersList.size();
 		}
 		
-		if (phase == Phase.Transfer && hasTransferred) {
-			phase=Phase.Battle;
+		if (phase == Phase.Transfer && !hasTransferred) {
+			
+			if(!hasreinforcementUnitsLeft()) phase=Phase.Battle;
+			else phase=Phase.Reinforcement;
 		}
+		
+		if(phase == Phase.Transfer && hasTransferred)
+		{
+			if(hasreinforcementUnitsLeft()) phase=Phase.Reinforcement;
+			else phase=Phase.Battle;
+		}
+		
 	}
 
 	/**
