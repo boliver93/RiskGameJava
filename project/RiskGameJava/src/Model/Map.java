@@ -64,7 +64,7 @@ public class Map implements Serializable{
 		return territoriesList;
 	}
 	
-	protected void setTerrytoryList(List<Territory> territoriesList)
+	protected void setTerritoryList(List<Territory> territoriesList)
 	{
 		Map.territoriesList = territoriesList;
 	}

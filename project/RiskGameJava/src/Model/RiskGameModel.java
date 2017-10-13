@@ -17,19 +17,17 @@ import java.util.Random;
  */
 public class RiskGameModel extends java.util.Observable implements Serializable {
 
-	/**
-	 * 
-	 */
 	private Deck deck;
 	private Map map;
 	private List<Player> playersList;
 	private int currentPlayer;
-	private boolean hasTransferred;
 	private Boolean capturedThisTurn;
 	private Random r = new Random();
 	private Phase phase;
 	private Territory[] waitForUnitsTemp = new Territory[2];
 	private int miscnumber;
+	private int circlenumber;
+	private boolean hasTransferred;
 
 	/**
 	 * The amount of Units left to Place in the Reinforcement Stage of the current
@@ -61,7 +59,6 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			return phase = Phase.Transfer;
 		if (phase == Phase.Transfer)
 			throw new Exception("Press next player instead.");
-		// return phase = Phase.Reinforcement;
 		else
 			throw new Exception("Not valid phase");
 	}
@@ -90,7 +87,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			throw new Exception("Not in PlayerRegistration phase");
 		playersList.add(player);
 		// player.addReinforcements(25);
-		player.addReinforcements(9);
+		//player.addReinforcements(9);
 	}
 
 	/**
@@ -204,7 +201,8 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * @return
 	 */
 	public boolean checkAttackPossible(int defenderID, int attackerID) {
-		return map.getTerritory(attackerID).getOwner() == currentPlayer && Map.IsNeighbour(attackerID, defenderID);
+		return map.getTerritory(attackerID).getOwner() == currentPlayer && Map.IsNeighbour(attackerID, defenderID)
+				&& map.getTerritory(defenderID).getOwner() != currentPlayer;
 	}
 
 	/**
@@ -216,7 +214,6 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	public boolean checkIfCapturedAndConquer(Territory defender) {
 		if (checkIfTerrotiryIsEmpty(defender)) {
 			defender.setOwner(currentPlayer);
-
 			return true;
 		}
 		return false;
@@ -298,87 +295,33 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * @throws Exception
 	 */
 	public int endTurn() throws Exception {
-		if (phase != Phase.Preparation) {
-			if (playersList.get(currentPlayer).getReinforceUnits() == 0) {
-				if (capturedThisTurn) {
-					playersList.get(currentPlayer).putcard(deck.Draw());
-					capturedThisTurn = false;
-				}
-
-				currentPlayer = (currentPlayer + 1) % playersList.size();
-				nextPlayer();
-			}
-			if(phase == Phase.Transfer)
-			{
-				nextPlayer();
-			}
-			
-			if (phase == Phase.Preparation && playersList.get(currentPlayer).getReinforceUnits()>0){
-				throw new Exception("Can't do nextplayer because you have "
-						+ playersList.get(currentPlayer).getReinforceUnits() + " reinforcement units!");
-			}
-
-		} else {
-			throw new Exception("Can't do nextplayer because you're in PREPARATION phase!");
+		if (capturedThisTurn) {
+			playersList.get(currentPlayer).putcard(deck.Draw());
+			capturedThisTurn = false;
 		}
+		if ((playersList.get(currentPlayer).getReinforcementUnits() == 0 && phase != Phase.Preparation
+				&& phase != Phase.Reinforcement)
+				|| hasTransferred && playersList.get(currentPlayer).getReinforcementUnits() == 0) {
+			currentPlayer = (currentPlayer + 1) % playersList.size();
+			nextPlayer();
+		} else
+			throw new Exception("You cannot do nextplayer!");
+
 		return currentPlayer;
 	}
 
 	/**
 	 * Initializes the next Player's turn. Calculates the amount of Units to place.
-	 */
-	protected void nextPlayer() {
-		if (phase == Phase.Preparation) {
-			int calculatedVal = playersList.get(currentPlayer).getTerritoryCount() / 3;
-			if (calculatedVal < 3)
-				calculatedVal = 3;
-			playersList.get(currentPlayer)
-					.setReinforceUnits(calculatedVal + playersList.get(currentPlayer).getReinforcementBonus());
-			phase = Phase.Reinforcement;
-		}
-		
-		if(phase == Phase.Battle && hasreinforcementUnitsLeft())
-		{
-			phase = Phase.Reinforcement;
-		}
-
-		if (phase == Phase.Preparation && playersList.get(currentPlayer).getReinforcementBonus() == 0) {
-			currentPlayer = (currentPlayer + 1) % playersList.size();
-		}
-		
-		if (phase == Phase.Transfer && !hasTransferred) {
-			
-			if(!hasreinforcementUnitsLeft()) phase=Phase.Battle;
-			else phase=Phase.Reinforcement;
-		}
-		
-		if(phase == Phase.Transfer && hasTransferred)
-		{
-			if(hasreinforcementUnitsLeft()) phase=Phase.Reinforcement;
-			else phase=Phase.Battle;
-		}
-		
-	}
-
-	/**
-	 * Reinforce units scanner method
 	 * 
-	 * @return boolean
+	 * @throws Exception
 	 */
-	protected boolean hasAnyPlayerReinforcementUnits() {
-		for (int i = 0; i < playersList.size(); i++) {
-			if (playersList.get(i).getReinforceUnits() > 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean hasreinforcementUnitsLeft() {
-		if (playersList.get(currentPlayer).getReinforceUnits() > 0)
-			return true;
-		else
-			return false;
+	protected void nextPlayer() throws Exception {
+		int calculatedVal = playersList.get(currentPlayer).getTerritoryCount() / 3;
+		if (calculatedVal < 3)
+			calculatedVal = 3;
+		playersList.get(currentPlayer)
+				.setReinforcementUnits(calculatedVal + playersList.get(currentPlayer).getReinforcementBonus());
+		phase = Phase.Reinforcement;
 	}
 
 	/**
@@ -391,17 +334,18 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	public boolean reinforce(int territoryId) throws Exception {
 		switch (phase) {
 		case Reinforcement: {
-			Territory territory = map.getTerritory(territoryId);
-			if (territory.getOwner() != currentPlayer)
-				return false;
+			if (playersList.get(currentPlayer).getReinforcementUnits() > 0) {
+				Territory territory = map.getTerritory(territoryId);
+				if (territory.getOwner() != currentPlayer)
+					return false;
 
-			if (hasreinforcementUnitsLeft()) {
 				territory.setUnits(territory.getUnits() + 1);
-				playersList.get(currentPlayer)
-						.setReinforceUnits(playersList.get(currentPlayer).getReinforceUnits() - 1);
-				if (playersList.get(currentPlayer).getReinforceUnits() == 0) nextPhase();
-			}
-			return true;
+				playersList.get(currentPlayer).stepDownReinforceUnits();
+				if (playersList.get(currentPlayer).getReinforcementUnits() == 0)
+					nextPhase();
+				return true;
+			} else
+				phase = Phase.Battle;
 		}
 		case Preparation: {
 			Territory territory = map.getTerritory(territoryId);
@@ -411,16 +355,14 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 				territory.setOwner(currentPlayer);
 				territory.setUnits(1);
 				--miscnumber;
-				playersList.get(currentPlayer).addReinforcements(-1);
-
 			} else {
 				if (territory.getOwner() != currentPlayer)
 					return false;
 				territory.setUnits(territory.getUnits() + 1);
-				playersList.get(currentPlayer).addReinforcements(-1);
 			}
-			currentPlayer = (currentPlayer + 1) % 5;
-			if (playersList.get(currentPlayer).getReinforcementBonus() == 0)
+			currentPlayer = (currentPlayer + 1) % playersList.size();
+			++circlenumber;
+			if (circlenumber == 45)
 				nextPlayer();
 			return true;
 		}
@@ -475,7 +417,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			this.map = data.map;
 			this.currentPlayer = data.currentPlayer;
 			this.waitForUnitsTemp = data.waitForUnitsTemp;
-			this.map.setTerrytoryList(data.territoriesList);
+			this.map.setTerritoryList(data.territoriesList);
 
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -516,7 +458,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * @throws Exception
 	 */
 	public boolean transfer(int fromID, int toID, int units) throws Exception {
-			return transfer(map.getTerritory(fromID), map.getTerritory(toID), units);
+		return transfer(map.getTerritory(fromID), map.getTerritory(toID), units);
 	}
 
 	/**
@@ -530,6 +472,8 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 */
 	public boolean transfer(Territory from, Territory to, int units) throws Exception {
 		hasTransferred = false;
+		if (playersList.get(currentPlayer).getReinforcementUnits() > 0)
+			throw new Exception("Cannot transfer because you have reinforcement units left!");
 		if (phase != Phase.Transfer)
 			throw new Exception("Not in Transfer Phase");
 		if (from.getOwner() != currentPlayer || from.getUnits() < units + 1 || to.getOwner() != currentPlayer
@@ -573,7 +517,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 		case Preparation:
 			return playersList.get(playerID).getReinforcementBonus();
 		case Reinforcement:
-			return playersList.get(playerID).getReinforceUnits();
+			return playersList.get(playerID).getReinforcementUnits();
 
 		default:
 			return 0;

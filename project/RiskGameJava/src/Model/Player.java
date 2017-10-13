@@ -13,9 +13,6 @@ import java.util.List;
  */
 public class Player implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private List<Card> cardsList;
 	private Color color;
@@ -28,11 +25,7 @@ public class Player implements Serializable {
 	private int reinforcementBonus;
 	private int territoryCount;
 	
-	protected int unitsLeftToReinforce=3;
-
-	public int getTerritoryCount() {
-		return territoryCount;
-	}
+	private int unitsLeftToReinforce;
 
 	public Player(Color color, String name, Deck deck) {
 		super();
@@ -60,6 +53,10 @@ public class Player implements Serializable {
 
 	public void addTerritory() {
 		territoryCount++;
+	}
+	
+	public int getTerritoryCount() {
+		return territoryCount;
 	}
 
 	public Color getColor() {
@@ -184,12 +181,17 @@ public class Player implements Serializable {
 		territoryCount--;
 	}
 	
-	public void setReinforceUnits(int units)
+	public int stepDownReinforceUnits()
 	{
-		this.unitsLeftToReinforce=units;
+		return this.unitsLeftToReinforce--;
 	}
 	
-	public int getReinforceUnits()
+	public void setReinforcementUnits(int unit)
+	{
+		this.unitsLeftToReinforce = unit;
+	}
+	
+	public int getReinforcementUnits()
 	{
 		return this.unitsLeftToReinforce;
 	}

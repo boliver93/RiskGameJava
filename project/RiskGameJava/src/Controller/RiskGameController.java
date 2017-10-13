@@ -308,6 +308,8 @@ public class RiskGameController extends java.util.Observable {
 				else
 					addLog("Failed to transfer " + units + " units from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
 			}
+			
+			UpdateCurrentPlayer();
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}
@@ -419,6 +421,7 @@ public class RiskGameController extends java.util.Observable {
 		if (loadFile != null)
 			try {
 				model.loadGame(loadFile);
+				UpdateCurrentPlayer();
 			} catch (Exception e) {
 				addLog("Load error! " + e.getLocalizedMessage());
 			}
