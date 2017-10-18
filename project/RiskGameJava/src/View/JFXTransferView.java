@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Model.Territory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,25 +14,35 @@ import javafx.scene.control.Slider;
 /**
  * Ezen a View-en valaszthatja ki a jatekos, hogy a sajat teruleten belul hova
  * helyezi at az egysegeit.
+ * 
  * @author Szabó Dávid
  * @version 1.0
  * @created 19-ápr.-2017 23:11:49
  */
 public class JFXTransferView extends JFXViewBase {
-	
-	@FXML private Label lblPlayerName;
-	@FXML private Label lblFromCountryName;
-	@FXML private Label lblFromQuantity;
-	@FXML private Label lblToCountryName;
-	@FXML private Label lblToQuantity;
-	
-	@FXML private Slider sldSoilderQuantity;
-	@FXML private Button btnAccept;
-	
+
+	@FXML
+	private Label lblPlayerName;
+	@FXML
+	private Label lblFromCountryName;
+	@FXML
+	private Label lblFromQuantity;
+	@FXML
+	private Label lblToCountryName;
+	@FXML
+	private Label lblToQuantity;
+	@FXML
+	private Label lblSelectedQuantity;
+
+	@FXML
+	private Slider sldSoilderQuantity;
+	@FXML
+	private Button btnAccept;
+
 	private int fromID;
 	private int toID;
 
-	public JFXTransferView(){
+	public JFXTransferView() {
 		LoadFXML("/View/fxml/TransferView.fxml");
 	}
 
@@ -38,16 +50,24 @@ public class JFXTransferView extends JFXViewBase {
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
-	
+
 	@Override
-    public void initialize(URL location, ResourceBundle resources) {
-		
+	public void initialize(URL location, ResourceBundle resources) {
+
 		btnAccept.setOnMouseClicked(evt -> {
 			Double amount = sldSoilderQuantity.getValue();
-			
+
 			controller.transferAccepted(fromID, toID, amount.intValue());
 		});
 		
+		sldSoilderQuantity.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				
+				lblSelectedQuantity.setText(Integer.toString((int)sldSoilderQuantity.getValue()));
+				
+			}
+	    });
 	}
 
 	/**
@@ -67,6 +87,6 @@ public class JFXTransferView extends JFXViewBase {
 		lblToQuantity.setText(Integer.toString(to.getUnits()));
 		
 		sldSoilderQuantity.setMax(from.getUnits() - 1);
+		lblSelectedQuantity.setText(Integer.toString((int)sldSoilderQuantity.getValue()));
 	}
-
 }

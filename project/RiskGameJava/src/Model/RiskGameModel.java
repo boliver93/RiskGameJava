@@ -174,6 +174,96 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 
 		return true;
 	}
+	
+	/**
+	 * 
+	 * @param defenderID
+	 * @param attackerID
+	 * @param defendUnits
+	 * @param attackUnits
+	 * @return AttackResult
+	 * @throws Exception
+	 */
+	public AttackResult attackTerritoryWithResult(int defenderID, int attackerID, int defendUnits, int attackUnits) throws Exception {
+		if (map.getTerritory(defenderID).getUnits() == 0) {
+			throw new Exception("No more defender units left :(");
+		}
+		if (phase != Phase.Battle)
+			throw new Exception("Game is not in Battle phase");
+
+		Territory attacker = map.getTerritory(attackerID);
+		Territory defender = map.getTerritory(defenderID);
+		if (!checkAttackPossible(defender, attacker, defendUnits, attackUnits))
+			throw new Exception ("Can't attack!");
+		
+		List<Integer> attackRolls = new ArrayList<Integer>();
+		List<Integer> defendRolls = new ArrayList<Integer>();
+		
+		List<Integer> original_attackRolls = new ArrayList<Integer>();
+		List<Integer> original_defendRolls = new ArrayList<Integer>();
+
+
+		// Maximum 3 attack units is allowed
+		if (attackUnits > 3) {
+			for (int i = 0; i < 3; i++) {
+				attackRolls.add(r.nextInt(6) + 1);
+			}
+		} else {
+			for (int i = 0; i < attackUnits; i++) {
+				attackRolls.add(r.nextInt(6) + 1);
+			}
+		}
+		// Maximum 2 defend units is allowed
+		if (defendUnits > 2) {
+			for (int i = 0; i < 2; i++) {
+				defendRolls.add(r.nextInt(6) + 1);
+			}
+		} else {
+			for (int i = 0; i < defendUnits; i++) {
+				defendRolls.add(r.nextInt(6) + 1);
+			}
+		}
+
+		attackRolls.sort(Collections.reverseOrder());
+		defendRolls.sort(Collections.reverseOrder());
+		
+		//deep copy
+		for(int i=0;i<attackRolls.size();i++)
+		{
+			original_attackRolls.add(attackRolls.get(i));
+		}
+		
+		for(int i=0;i<defendRolls.size();i++)
+		{
+			original_defendRolls.add(defendRolls.get(i));
+		}
+		
+		//if defendUnits < 2, add None
+		while(original_defendRolls.size() < 3)
+		{
+			original_defendRolls.add(-1);
+		}
+		
+		while (attackRolls.size() > 0 && defendRolls.size() > 0) {
+			int currentAttRoll = attackRolls.get(0);
+			int currentDefRoll = defendRolls.get(0);
+			attackRolls.remove(0);
+			defendRolls.remove(0);
+			if (currentDefRoll >= currentAttRoll) {
+				attacker.setUnits(attacker.getUnits() - 1);
+			} else {
+				defender.setUnits(defender.getUnits() - 1);
+			}
+		}
+		if (checkIfCapturedAndConquer(defender)) {
+			phase = Phase.WaitForUnitCount;
+			waitForUnitsTemp[0] = attacker;
+			waitForUnitsTemp[1] = defender;
+		}
+		
+		return new AttackResult(attackUnits, defendUnits, original_attackRolls, original_defendRolls);
+	}
+	
 
 	/**
 	 * Csak akkor támadhat, ha a területen elegendő egysége van. Igazzal tér vissza,
@@ -188,9 +278,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	// csak a szomszédosságot és terület birtokosokat kellene ellenőriznie,
 	// unitCount-ot még nem
 	public boolean checkAttackPossible(Territory defender, Territory attacker, int defendUnits, int attackUnits) {
-		return (checkAttackPossible(defender.getId(), attacker.getId()) && defender.getUnits() >= defendUnits
-				&& attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3 && attackUnits >= 1 && defendUnits <= 2
-				&& defendUnits >= 1);
+		return (checkAttackPossible(defender.getId(), attacker.getId()));
 	}
 
 	/**

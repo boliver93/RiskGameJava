@@ -16,16 +16,20 @@ public class AttackResult {
 	private List<Integer> defenderDicesList;
 	private int defenderSurvivedUnits;
 
-	public AttackResult(int survivedAtt,int survivedDef, List<Integer> aDiceList, List<Integer> bDiceList) {
-		attackerDicesList = aDiceList;
-		attackerSurvivedUnits = survivedAtt;
-		defenderDicesList = bDiceList;
-		defenderSurvivedUnits = survivedDef;
+	public AttackResult(int attackerSurvivedUnits,int defenderSurvivedUnits, List<Integer> attackerDicesList, List<Integer> defenderDicesList) {
+		this.attackerSurvivedUnits = attackerSurvivedUnits;
+		this.defenderSurvivedUnits = defenderSurvivedUnits;
+		this.attackerDicesList = attackerDicesList;
+		this.defenderDicesList = defenderDicesList;
 	}
-
-	@Override
-	public void finalize() throws Throwable {
-
+	
+	public List<Integer> getAttackerDicesList()
+	{
+		return attackerDicesList;
 	}
-
+	
+	public List<Integer> getDefenderDicesList()
+	{
+		return defenderDicesList;
+	}
 }

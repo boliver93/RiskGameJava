@@ -32,6 +32,9 @@ public class JFXAttackView extends JFXViewBase {
 	
 	private int defenderID;
 	private int attackerID;
+	
+	private int attackerUnits;
+	private int defenderUnits;
 
 	public JFXAttackView(){
 		LoadFXML("/View/fxml/AttackView.fxml");
@@ -46,7 +49,7 @@ public class JFXAttackView extends JFXViewBase {
     public void initialize(URL location, ResourceBundle resources) {
 		btnAttack.setOnMouseClicked(evt -> {
 			//TODO: slider? 
-			controller.attackAccepted(defenderID, attackerID, 1, 2);
+			controller.attackAccepted(defenderID, attackerID, defenderUnits, attackerUnits);
 		});
 		
 		btnRetreat.setOnMouseClicked(evt -> {
@@ -71,8 +74,11 @@ public class JFXAttackView extends JFXViewBase {
 		lblDefenderName.setText(defenderName);
 		lblAttackerName.setText(attackerName);
 		
-		lblDefenderAlive.setText(Integer.toString(defender.getUnits()));
-		lblAttackerAlive.setText(Integer.toString(attacker.getUnits()));
+		defenderUnits = defender.getUnits();
+		attackerUnits = attacker.getUnits();
+		
+		lblDefenderAlive.setText(Integer.toString(defenderUnits));
+		lblAttackerAlive.setText(Integer.toString(attackerUnits));
 	}
 
 }
