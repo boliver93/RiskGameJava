@@ -156,6 +156,7 @@ public class RiskGameController extends java.util.Observable {
 
 	public void transferPhaseSelected() {
 		closePopupWindow();
+		previouslySelectedTerritory = -1;
 
 		try {
 			model.endBattlePhase();
@@ -167,6 +168,7 @@ public class RiskGameController extends java.util.Observable {
 
 	public void nextPlayerSelected() {
 		closePopupWindow();
+		previouslySelectedTerritory = -1;
 
 		try {
 			model.endTurn();
@@ -248,6 +250,7 @@ public class RiskGameController extends java.util.Observable {
 			Territory attackerTerritory = model.getTerritory(attacker);
 			String defenderPlayer = model.getPlayerName(defenderTerritory.getOwner());
 			String attackerPlayer = model.getPlayerName(attackerTerritory.getOwner());
+			closePopupWindow();
 			showAttackResultView();
 			attackResultView.UpdateViewState(attacker,defender,attackerPlayer, defenderPlayer, attackResult.getAttackerDicesList().get(0),
 					attackResult.getAttackerDicesList().get(1), attackResult.getAttackerDicesList().get(2),
