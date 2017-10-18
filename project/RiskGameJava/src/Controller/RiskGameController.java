@@ -31,14 +31,14 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- * Az MVC architektura Controller reszet megvalosï¿½to osztalya. A Controller a
- * Modell ï¿½s a View kozotti kapcsolatert felelos. Rajta keresztul hajtodnak
+ * Az MVC architektura Controller reszet megvalosíto osztalya. A Controller a
+ * Modell és a View kozotti kapcsolatert felelos. Rajta keresztul hajtodnak
  * vegre a View-on torteno valtozasok, melyek a Model-t erintik, illetve a Model
  * a Controller-en keresztul modositja a View-t.
  * 
- * @author Szabï¿½ Dï¿½vid
+ * @author Szabó Dávid
  * @version 1.0
- * @created 19-ï¿½pr.-2017 23:11:42
+ * @created 19-ápr.-2017 23:11:42
  */
 public class RiskGameController extends java.util.Observable {
 
@@ -81,7 +81,7 @@ public class RiskGameController extends java.util.Observable {
 	}
 
 	/**
-	 * Eltï¿½rolja a modellt ï¿½s feliratkoztatja magï¿½t az esemï¿½nyeire
+	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire
 	 * 
 	 * @param model
 	 */
@@ -400,7 +400,7 @@ public class RiskGameController extends java.util.Observable {
 		}
 	}
 
-	// A fï¿½ablak naplï¿½jï¿½ba kï¿½ld egy ï¿½j bejegyzï¿½st
+	// A fõablak naplójába küld egy új bejegyzést
 	public void addLog(String log) {
 		System.out.println(log);
 		mainView.appendLog(log);
