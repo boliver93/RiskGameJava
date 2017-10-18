@@ -15,9 +15,9 @@ import javafx.scene.control.Slider;
  * Ezen a View-en valaszthatja ki a jatekos, hogy a sajat teruleten belul hova
  * helyezi at az egysegeit.
  * 
- * @author Szabó Dávid
+ * @author Szabï¿½ Dï¿½vid
  * @version 1.0
- * @created 19-ápr.-2017 23:11:49
+ * @created 19-ï¿½pr.-2017 23:11:49
  */
 public class JFXTransferView extends JFXViewBase {
 
@@ -86,7 +86,7 @@ public class JFXTransferView extends JFXViewBase {
 		lblFromQuantity.setText(Integer.toString(from.getUnits()));
 		lblToQuantity.setText(Integer.toString(to.getUnits()));
 		
-		sldSoilderQuantity.setMax(from.getUnits() - 1);
+		sldSoilderQuantity.setMax(from.getUnits() - 0.5);
 		lblSelectedQuantity.setText(Integer.toString((int)sldSoilderQuantity.getValue()));
 	}
 }

@@ -111,89 +111,17 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * reduce to 3 If the defender have more than 2 units, the fighting defender
 	 * units will reduce to 2
 	 * 
-	 * @param defender
-	 * @param attacker
-	 * @param defendUnits
-	 * @param attackUnits
-	 *            attackUnits
-	 * @throws Exception
-	 */
-	public boolean attackTerritory(int defenderID, int attackerID, int defendUnits, int attackUnits) throws Exception {
-		if (map.getTerritory(defenderID).getUnits() == 0) {
-			throw new Exception("No more defender units left :(");
-		}
-		if (phase != Phase.Battle)
-			throw new Exception("Game is not in Battle phase");
-
-		Territory attacker = map.getTerritory(attackerID);
-		Territory defender = map.getTerritory(defenderID);
-		if (!checkAttackPossible(defender, attacker, defendUnits, attackUnits))
-			return false;
-		List<Integer> attackRolls = new ArrayList<Integer>();
-		List<Integer> defendRolls = new ArrayList<Integer>();
-
-		// Maximum 3 attack units is allowed
-		if (attackUnits > 3) {
-			for (int i = 0; i < 3; i++) {
-				attackRolls.add(r.nextInt(6) + 1);
-			}
-		} else {
-			for (int i = 0; i < attackUnits; i++) {
-				attackRolls.add(r.nextInt(6) + 1);
-			}
-		}
-		// Maximum 2 defend units is allowed
-		if (defendUnits > 2) {
-			for (int i = 0; i < 2; i++) {
-				attackRolls.add(r.nextInt(6) + 1);
-			}
-		} else {
-			for (int i = 0; i < defendUnits; i++) {
-				defendRolls.add(r.nextInt(6) + 1);
-			}
-		}
-
-		attackRolls.sort(Collections.reverseOrder());
-		defendRolls.sort(Collections.reverseOrder());
-		while (attackRolls.size() > 0 && defendRolls.size() > 0) {
-			int currentAttRoll = attackRolls.get(0);
-			int currentDefRoll = defendRolls.get(0);
-			attackRolls.remove(0);
-			defendRolls.remove(0);
-			if (currentDefRoll >= currentAttRoll) {
-				attacker.setUnits(attacker.getUnits() - 1);
-			} else {
-				defender.setUnits(defender.getUnits() - 1);
-			}
-		}
-		if (checkIfCapturedAndConquer(defender)) {
-			phase = Phase.WaitForUnitCount;
-			waitForUnitsTemp[0] = attacker;
-			waitForUnitsTemp[1] = defender;
-		}
-
-		return true;
-	}
-
-	/**
-	 * 
 	 * @param defenderID
 	 * @param attackerID
 	 * @param defendUnits
 	 * @param attackUnits
-	 * @return AttackResult
 	 * @throws Exception
 	 */
 	public AttackResult attackTerritoryWithResult(int defenderID, int attackerID, int defendUnits, int attackUnits)
 			throws Exception {
-		if (map.getTerritory(defenderID).getUnits() == 0) {
-			throw new Exception("No more defender units left :(");
-		}
 		if (phase != Phase.Battle)
 			throw new Exception("Game is not in Battle phase");
 
-		if (attackUnits < 2 || defendUnits < 1)
-			throw new Exception("Can't attack!");
 
 		Territory attacker = map.getTerritory(attackerID);
 		Territory defender = map.getTerritory(defenderID);
@@ -207,24 +135,12 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 		List<Integer> original_defendRolls = new ArrayList<Integer>();
 
 		// Maximum 3 attack units is allowed
-		if (attackUnits > 3) {
-			for (int i = 0; i < 3; i++) {
-				attackRolls.add(r.nextInt(6) + 1);
-			}
-		} else {
-			for (int i = 0; i < attackUnits; i++) {
-				attackRolls.add(r.nextInt(6) + 1);
-			}
+		for (int i = 0; i < attackUnits; i++) {
+			attackRolls.add(r.nextInt(6) + 1);
 		}
 		// Maximum 2 defend units is allowed
-		if (defendUnits > 2) {
-			for (int i = 0; i < 2; i++) {
-				defendRolls.add(r.nextInt(6) + 1);
-			}
-		} else {
-			for (int i = 0; i < defendUnits; i++) {
-				defendRolls.add(r.nextInt(6) + 1);
-			}
+		for (int i = 0; i < defendUnits; i++) {
+			defendRolls.add(r.nextInt(6) + 1);
 		}
 
 		attackRolls.sort(Collections.reverseOrder());
@@ -278,10 +194,10 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * @param attackUnits
 	 * @return boolean
 	 */
-	// csak a szomszédosságot és terület birtokosokat kellene ellenőriznie,
-	// unitCount-ot még nem
 	public boolean checkAttackPossible(Territory defender, Territory attacker, int defendUnits, int attackUnits) {
-		return (checkAttackPossible(defender.getId(), attacker.getId()));
+		return (checkAttackPossible(defender.getId(), attacker.getId()) && defender.getUnits() >= defendUnits
+								&& attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3 && attackUnits >= 1 && defendUnits <= 2
+								&& defendUnits >= 1);
 	}
 
 	/**
@@ -293,7 +209,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 */
 	public boolean checkAttackPossible(int defenderID, int attackerID) {
 		return map.getTerritory(attackerID).getOwner() == currentPlayer && Map.IsNeighbour(attackerID, defenderID)
-				&& map.getTerritory(defenderID).getOwner() != currentPlayer;
+				&& map.getTerritory(defenderID).getOwner() != currentPlayer && map.getTerritory(attackerID).getUnits() > 1;
 	}
 
 	/**
@@ -320,7 +236,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	public boolean moveUnits(int units) throws Exception {
 		if (phase != Phase.WaitForUnitCount)
 			throw new Exception("Not in Capturing mode");
-		if (units > waitForUnitsTemp[0].getUnits() - 1)
+		if (units > waitForUnitsTemp[0].getUnits() - 1 || units < 1)
 			return false;
 		waitForUnitsTemp[0].setUnits(waitForUnitsTemp[0].getUnits() - units);
 		waitForUnitsTemp[1].setUnits(units);
@@ -339,17 +255,6 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	}
 
 	/**
-	 * Reinforce checking method
-	 * 
-	 * @param player
-	 * @param territory
-	 * @return boolean
-	 */
-	public boolean checkReinforcePossible(Player player, Territory territory) {
-		return false;
-	}
-
-	/**
 	 * Transfer checking method
 	 * 
 	 * @param from
@@ -363,18 +268,6 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 					&& map.getTerritory(to).getOwner() == currentPlayer;
 		} else
 			return false;
-	}
-
-	/**
-	 * Transfer checking method
-	 * 
-	 * @param from
-	 * @param to
-	 * @param units
-	 * @return boolean
-	 */
-	public boolean checkTransferPossible(Territory from, Territory to, int units) {
-		return false;
 	}
 
 	/**

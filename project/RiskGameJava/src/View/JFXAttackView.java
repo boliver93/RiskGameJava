@@ -9,13 +9,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Spinner;
 
 /**
  * Ezen a View-en keresztul jelolheti meg az egyik jatekos a masik jatekos
  * (ellenfel) azon teruletet, amelyet tamadni szeretne.
- * @author Szabó Dávid
+ * @author Szabï¿½ Dï¿½vid
  * @version 1.0
- * @created 19-ápr.-2017 23:11:48
+ * @created 19-ï¿½pr.-2017 23:11:48
  */
 public class JFXAttackView extends JFXViewBase {
 	
@@ -25,6 +26,8 @@ public class JFXAttackView extends JFXViewBase {
 	@FXML private Label lblDefenderName;
 	@FXML private Label lblAttackerAlive;
 	@FXML private Label lblDefenderAlive;
+	@FXML private Spinner spinneratt;
+	@FXML private Spinner spinnerdef;
 	
 	@FXML private Button btnAttack;
 	@FXML private Button btnRetreat;
@@ -49,7 +52,7 @@ public class JFXAttackView extends JFXViewBase {
     public void initialize(URL location, ResourceBundle resources) {
 		btnAttack.setOnMouseClicked(evt -> {
 			//TODO: slider? 
-			controller.attackAccepted(defenderID, attackerID, defenderUnits, attackerUnits);
+			controller.attackAccepted(defenderID, attackerID, (int)spinnerdef.getValue(), (int)spinneratt.getValue());
 		});
 		
 		btnRetreat.setOnMouseClicked(evt -> {

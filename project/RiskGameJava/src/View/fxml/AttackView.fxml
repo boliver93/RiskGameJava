@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
+
+<?import javafx.scene.control.Spinner?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0" styleClass="root" stylesheets="@../css/addplayer.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -94,16 +96,22 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="119.0" prefWidth="795.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="30">
                <children>
-                  <Label fx:id="lblAttackerAlive" text="DummyNumber" />
-                  <ProgressBar fx:id="barUnits" prefWidth="200.0" progress="0.54">
-                     <padding>
-                        <Insets left="50.0" right="50.0" />
-                     </padding>
-                  </ProgressBar>
-                  <Label fx:id="lblDefenderAlive" text="DummyNumber" />
+                     <Label fx:id="lblAttackerAlive" text="DummyNumber"/>
+                     <Spinner fx:id="spinneratt" min="1" initialValue="1" amountToStepBy="1" max="3" prefWidth="100.0" >
+                     </Spinner>
+                     <Label text="-"></Label>
+                     <Spinner fx:id="spinnerdef" min="1" initialValue="1" amountToStepBy="1" max="2" prefWidth="100.0">
+                     </Spinner>
+                     <Label fx:id="lblDefenderAlive" text="DummyNumber"/>
                </children>
+               <VBox.margin>
+                  <Insets>
+                     <bottom>20</bottom>
+                  </Insets>
+               </VBox.margin>
+
             </HBox>
             
             <Button fx:id="btnAttack" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" stylesheets="@../css/reinforce.css" text="Attack" textAlignment="CENTER">

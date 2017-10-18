@@ -31,14 +31,14 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- * Az MVC architektura Controller reszet megvalosíto osztalya. A Controller a
- * Modell és a View kozotti kapcsolatert felelos. Rajta keresztul hajtodnak
+ * Az MVC architektura Controller reszet megvalosï¿½to osztalya. A Controller a
+ * Modell ï¿½s a View kozotti kapcsolatert felelos. Rajta keresztul hajtodnak
  * vegre a View-on torteno valtozasok, melyek a Model-t erintik, illetve a Model
  * a Controller-en keresztul modositja a View-t.
  * 
- * @author Szabó Dávid
+ * @author Szabï¿½ Dï¿½vid
  * @version 1.0
- * @created 19-ápr.-2017 23:11:42
+ * @created 19-ï¿½pr.-2017 23:11:42
  */
 public class RiskGameController extends java.util.Observable {
 
@@ -81,7 +81,7 @@ public class RiskGameController extends java.util.Observable {
 	}
 
 	/**
-	 * Eltárolja a modellt és feliratkoztatja magát az eseményeire
+	 * Eltï¿½rolja a modellt ï¿½s feliratkoztatja magï¿½t az esemï¿½nyeire
 	 * 
 	 * @param model
 	 */
@@ -298,7 +298,7 @@ public class RiskGameController extends java.util.Observable {
 
 		try {
 			if (model.getPhase() == Phase.WaitForUnitCount) {
-				if (model.moveUnits(units)) {
+				if (model.moveUnits(units > 0 ? units : 1)) {
 					addLog(units + " transferred from " + fromCountry.getName() + " to " + toCountry.getName() + "!");
 					closePopupWindow();
 				} else
@@ -400,7 +400,7 @@ public class RiskGameController extends java.util.Observable {
 		}
 	}
 
-	// A fõablak naplójába küld egy új bejegyzést
+	// A fï¿½ablak naplï¿½jï¿½ba kï¿½ld egy ï¿½j bejegyzï¿½st
 	public void addLog(String log) {
 		System.out.println(log);
 		mainView.appendLog(log);
