@@ -87,7 +87,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			throw new Exception("Not in PlayerRegistration phase");
 		playersList.add(player);
 		// player.addReinforcements(25);
-		//player.addReinforcements(9);
+		// player.addReinforcements(9);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * @param defenderID
@@ -184,24 +184,27 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 * @return AttackResult
 	 * @throws Exception
 	 */
-	public AttackResult attackTerritoryWithResult(int defenderID, int attackerID, int defendUnits, int attackUnits) throws Exception {
+	public AttackResult attackTerritoryWithResult(int defenderID, int attackerID, int defendUnits, int attackUnits)
+			throws Exception {
 		if (map.getTerritory(defenderID).getUnits() == 0) {
 			throw new Exception("No more defender units left :(");
 		}
 		if (phase != Phase.Battle)
 			throw new Exception("Game is not in Battle phase");
 
+		if (attackUnits < 2 || defendUnits < 1)
+			throw new Exception("Can't attack!");
+
 		Territory attacker = map.getTerritory(attackerID);
 		Territory defender = map.getTerritory(defenderID);
 		if (!checkAttackPossible(defender, attacker, defendUnits, attackUnits))
-			throw new Exception ("Can't attack!");
-		
+			throw new Exception("Can't attack!");
+
 		List<Integer> attackRolls = new ArrayList<Integer>();
 		List<Integer> defendRolls = new ArrayList<Integer>();
-		
+
 		List<Integer> original_attackRolls = new ArrayList<Integer>();
 		List<Integer> original_defendRolls = new ArrayList<Integer>();
-
 
 		// Maximum 3 attack units is allowed
 		if (attackUnits > 3) {
@@ -226,24 +229,25 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 
 		attackRolls.sort(Collections.reverseOrder());
 		defendRolls.sort(Collections.reverseOrder());
-		
-		//deep copy
-		for(int i=0;i<attackRolls.size();i++)
-		{
+
+		// deep copy
+		for (int i = 0; i < attackRolls.size(); i++) {
 			original_attackRolls.add(attackRolls.get(i));
 		}
-		
-		for(int i=0;i<defendRolls.size();i++)
-		{
+
+		for (int i = 0; i < defendRolls.size(); i++) {
 			original_defendRolls.add(defendRolls.get(i));
 		}
-		
-		//if defendUnits < 2, add None
-		while(original_defendRolls.size() < 3)
-		{
+
+		// if defendUnits < 2, add None
+		while (original_defendRolls.size() < 3) {
 			original_defendRolls.add(-1);
 		}
-		
+
+		while (original_attackRolls.size() < 4) {
+			original_attackRolls.add(-1);
+		}
+
 		while (attackRolls.size() > 0 && defendRolls.size() > 0) {
 			int currentAttRoll = attackRolls.get(0);
 			int currentDefRoll = defendRolls.get(0);
@@ -260,10 +264,9 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			waitForUnitsTemp[0] = attacker;
 			waitForUnitsTemp[1] = defender;
 		}
-		
+
 		return new AttackResult(attackUnits, defendUnits, original_attackRolls, original_defendRolls);
 	}
-	
 
 	/**
 	 * Csak akkor támadhat, ha a területen elegendő egysége van. Igazzal tér vissza,

@@ -80,11 +80,12 @@ public class JFXAttackResultView extends JFXViewBase {
 		lblPlayerName2.setText(player2);
 		
 		lblAttackRolls1.setText(Integer.toString(attackRolls1));
-		lblAttackRolls2.setText(Integer.toString(attackRolls2));
-		lblAttackRolls3.setText(Integer.toString(attackRolls3));
-		
+		if(attackRolls2 == -1) lblAttackRolls2.setText("-");
+		else lblAttackRolls2.setText(Integer.toString(attackRolls2));
+		if(attackRolls3 == -1) lblAttackRolls3.setText("-");
+		else lblAttackRolls3.setText(Integer.toString(attackRolls3));
 		lblDefendRolls1.setText(Integer.toString(defendRolls1));
-		if(defendRolls2 == -1) lblDefendRolls2.setText("None");
+		if(defendRolls2 == -1) lblDefendRolls2.setText("-");
 		else lblDefendRolls2.setText(Integer.toString(defendRolls2));
 	}
 }
