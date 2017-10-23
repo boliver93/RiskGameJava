@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -9,8 +10,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <right>
       <ImageView fitHeight="500.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
@@ -34,18 +36,35 @@
                      <children>
                         <Label text="1. Player:" />
                         <Label text="2. Player:" />
-                        <Label text="3. Player:" />
-                        <Label text="4. Player:" />
-                        <Label text="5. Player:" />
+                        <Label text="3. Player:" /> 
+						<Label fx:id="lblPlayer4" text="4. Player:" visible="false" />
+                        <Label fx:id="lblPlayer5" text="5. Player:" visible="false" />
+						<Label fx:id="lblPlayer6" text="6. Player:" visible="false" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="288.0" prefWidth="163.0" spacing="11.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="288.0" prefWidth="163.0" spacing="11.0">
                      <children>
                         <TextField fx:id="tfPlayer1" />
                         <TextField fx:id="tfPlayer2" />
                         <TextField fx:id="tfPlayer3" />
-                        <TextField fx:id="tfPlayer4" />
-                        <TextField fx:id="tfPlayer5" />
+						<HBox>
+						<children>
+                        <TextField fx:id="tfPlayer4" visible="false" />
+						<Button fx:id="btnDeletePlayer4" ellipsisString="+" visible="false" mnemonicParsing="false" onAction="#removePlayer4Action" prefHeight="25.0" prefWidth="35.0" stylesheets="@../css/removebutton.css" text="x" />
+						</children>
+						</HBox>
+                        <HBox>
+						<children>
+                        <TextField fx:id="tfPlayer5" visible="false" />
+						<Button fx:id="btnDeletePlayer5" ellipsisString="+" visible="false" mnemonicParsing="false" onAction="#removePlayer5Action" prefHeight="25.0" prefWidth="35.0" stylesheets="@../css/removebutton.css" text="x" />
+						</children>
+						</HBox>
+						<HBox>
+						<children>
+                        <TextField fx:id="tfPlayer6" visible="false" />
+						<Button fx:id="btnDeletePlayer6" ellipsisString="+" visible="false" mnemonicParsing="false" onAction="#removePlayer6Action" prefHeight="25.0" prefWidth="35.0" stylesheets="@../css/removebutton.css" text="x" />
+						</children>
+						</HBox>
                      </children>
                   </VBox>
                </children>
@@ -63,11 +82,23 @@
             </AnchorPane>
          </top>
          <bottom>
+		 <HBox>
+		 <children>
             <AnchorPane prefHeight="112.0" prefWidth="295.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnReady" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#readyOnAction" prefHeight="40.0" prefWidth="164.0" stylesheets="@../css/reinforce.css" text="Ready!" />
-               </children>
+					<Button fx:id="btnReady" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" onAction="#readyOnAction" prefHeight="40.0" prefWidth="164.0" stylesheets="@../css/reinforce.css" text="Ready!" />
+					<Button fx:id="btnAddPlayer" layoutX="230.0" layoutY="14.0" mnemonicParsing="false" onAction="#addPlayerAction" prefHeight="40.0" prefWidth="60.0" text="+">
+                           <stylesheets>
+                              <URL value="@../css/reinforce.css" />
+                              <URL value="@../css/addbutton.css" />
+                           </stylesheets>
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+			   </children>
             </AnchorPane>
+			</children>
+			</HBox>
          </bottom>
       </BorderPane>
    </center>

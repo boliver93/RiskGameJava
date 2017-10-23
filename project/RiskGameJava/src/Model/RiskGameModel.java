@@ -15,7 +15,7 @@ import java.util.Random;
  * @version 1.0
  * @created 19-ápr.-2017 23:11:55
  */
-public class RiskGameModel extends java.util.Observable implements Serializable {
+public class RiskGameModel {
 
 	private Deck deck;
 	private Map map;
@@ -27,6 +27,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	private Territory[] waitForUnitsTemp = new Territory[2];
 	private int miscnumber;
 	private int circlenumber;
+	private int calculatedCircleNumber;
 	private boolean hasTransferred;
 
 	/**
@@ -100,8 +101,29 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 		for (java.util.Map.Entry<Color, String> entry : map.entrySet()) {
 			addPlayerToPlayerList(new Player(entry.getKey(), entry.getValue(), deck));
 		}
+		// 42 territory
 		miscnumber = 42;
+		calculateCircle();
 		nextPhase();
+	}
+
+	private void calculateCircle() throws Exception {
+		switch (playersList.size()) {
+		case 3:
+			calculatedCircleNumber = miscnumber;
+			break;
+		case 4:
+			calculatedCircleNumber = miscnumber + 2;
+			break;
+		case 5:
+			calculatedCircleNumber = miscnumber + 3;
+			break;
+		case 6:
+			calculatedCircleNumber = miscnumber;
+			break;
+		default:
+			throw new Exception("Invalid player number!");
+		}
 	}
 
 	/**
@@ -121,7 +143,6 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			throws Exception {
 		if (phase != Phase.Battle)
 			throw new Exception("Game is not in Battle phase");
-
 
 		Territory attacker = map.getTerritory(attackerID);
 		Territory defender = map.getTerritory(defenderID);
@@ -196,8 +217,8 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 */
 	public boolean checkAttackPossible(Territory defender, Territory attacker, int defendUnits, int attackUnits) {
 		return (checkAttackPossible(defender.getId(), attacker.getId()) && defender.getUnits() >= defendUnits
-								&& attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3 && attackUnits >= 1 && defendUnits <= 2
-								&& defendUnits >= 1);
+				&& attacker.getUnits() >= attackUnits + 1 && attackUnits <= 3 && attackUnits >= 1 && defendUnits <= 2
+				&& defendUnits >= 1);
 	}
 
 	/**
@@ -209,7 +230,8 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	 */
 	public boolean checkAttackPossible(int defenderID, int attackerID) {
 		return map.getTerritory(attackerID).getOwner() == currentPlayer && Map.IsNeighbour(attackerID, defenderID)
-				&& map.getTerritory(defenderID).getOwner() != currentPlayer && map.getTerritory(attackerID).getUnits() > 1;
+				&& map.getTerritory(defenderID).getOwner() != currentPlayer
+				&& map.getTerritory(attackerID).getUnits() > 1;
 	}
 
 	/**
@@ -346,7 +368,7 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 			}
 			currentPlayer = (currentPlayer + 1) % playersList.size();
 			++circlenumber;
-			if (circlenumber == 45)
+			if (circlenumber == calculatedCircleNumber)
 				nextPlayer();
 			return true;
 		}
@@ -526,5 +548,17 @@ public class RiskGameModel extends java.util.Observable implements Serializable 
 	public Phase getPhase() {
 		return phase;
 	}
-
+	
+	/*
+	 * Getter for Players list
+	 * 
+	 * @return List<Player>
+	 */
+	public List<String> getPlayers()
+	{
+		List<String> playersNameList = new ArrayList<String>();
+		for(int i=0;i<playersList.size();i++)
+			playersNameList.add(playersList.get(i).getName());
+		return playersNameList;
+	}
 }

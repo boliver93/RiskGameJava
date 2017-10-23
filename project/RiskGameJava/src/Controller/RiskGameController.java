@@ -434,6 +434,7 @@ public class RiskGameController extends java.util.Observable {
 		if (loadFile != null)
 			try {
 				model.loadGame(loadFile);
+				mainView.UpdateConnectedPlayer(model.getPlayers());
 				UpdateCurrentPlayer();
 			} catch (Exception e) {
 				addLog("Load error! " + e.getLocalizedMessage());
