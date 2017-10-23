@@ -178,10 +178,11 @@ public class JFXMainView extends JFXViewBase {
 	 */
 	public void UpdateConnectedPlayer(List<String> playerList){
 
-		for (int i = 0; i < playerList.size(); i += 1) {
+		for (int i = 0; i < playerList.size(); i += 1)
 			lblPlayerNameList.get(i).setText(playerList.get(i));
-		}
 		
+		for(int j=playerList.size();j<lblPlayerNameList.size();j++)
+			lblPlayerNameList.get(j).setText("");
 	}
 
 	/**
