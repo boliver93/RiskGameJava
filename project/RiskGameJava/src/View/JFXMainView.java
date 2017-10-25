@@ -176,7 +176,7 @@ public class JFXMainView extends JFXViewBase {
 	 * 
 	 * @param playerList
 	 */
-	public void UpdateConnectedPlayer(List<String> playerList){
+	public void UpdateConnectedPlayers(List<String> playerList){
 
 		for (int i = 0; i < playerList.size(); i += 1)
 			lblPlayerNameList.get(i).setText(playerList.get(i));
@@ -224,6 +224,11 @@ public class JFXMainView extends JFXViewBase {
 		default:
 			break;
 		}
+	}
+	
+	//TODO: 
+	public void UpdateCurrentDeck(List<Integer> cards) {
+		
 	}
 	
 	@FXML

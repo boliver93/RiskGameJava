@@ -361,7 +361,7 @@ public class RiskGameController extends java.util.Observable {
 		showMainView();
 
 		List<String> result = map.entrySet().stream().map(x -> x.getValue()).collect(Collectors.toList());
-		mainView.UpdateConnectedPlayer(result);
+		mainView.UpdateConnectedPlayers(result);
 		UpdateAllTerritoriesOnMap();
 		UpdateCurrentPlayer();
 	}
@@ -385,6 +385,7 @@ public class RiskGameController extends java.util.Observable {
 	private void UpdateCurrentPlayer() {
 		mainView.UpdateCurrentPlayer(model.getCurrentPlayer());
 		UpdateCurrentPhase();
+		UpdateCurrentDeck();
 	}
 
 	private void UpdateCurrentPhase() {
@@ -394,6 +395,11 @@ public class RiskGameController extends java.util.Observable {
 		mainView.UpdateCurrentPhase(model.getPhase());
 		lastPhaseUpdate = model.getPhase();
 		lastPlayerUpdate = model.getCurrentPlayer();
+	}
+	
+	private void UpdateCurrentDeck() {
+		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
+		mainView.UpdateCurrentDeck(cards);
 	}
 
 	private void closePopupWindow() {
@@ -434,7 +440,7 @@ public class RiskGameController extends java.util.Observable {
 		if (loadFile != null)
 			try {
 				model.loadGame(loadFile);
-				mainView.UpdateConnectedPlayer(model.getPlayers());
+				mainView.UpdateConnectedPlayers(model.getPlayers());
 				UpdateCurrentPlayer();
 			} catch (Exception e) {
 				addLog("Load error! " + e.getLocalizedMessage());

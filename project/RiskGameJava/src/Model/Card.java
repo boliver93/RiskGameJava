@@ -9,6 +9,7 @@ package Model;
  */
 public class Card {
 
+	private int id;
 	private Territory territory;
 	private Unit type;
 	private int value;
@@ -17,6 +18,10 @@ public class Card {
 		this.territory = territory;
 		this.type = type;
 		this.value = value;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public Territory getTerritory() {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Az MVC architektura Model reszet megvalosíto osztalya.
@@ -510,6 +511,10 @@ public class RiskGameModel {
 	 */
 	public String getPlayerName(int id) {
 		return playersList.get(id).getName();
+	}
+	
+	public List<Integer> getPlayerCards(int id) {
+		return playersList.get(id).getcards().stream().map(c -> c.getId()).collect(Collectors.toList());
 	}
 
 	/**
