@@ -198,6 +198,7 @@ public class RiskGameModel {
 			}
 		}
 		if (checkIfCapturedAndConquer(defender)) {
+			capturedThisTurn = true;
 			phase = Phase.WaitForUnitCount;
 			waitForUnitsTemp[0] = attacker;
 			waitForUnitsTemp[1] = defender;
