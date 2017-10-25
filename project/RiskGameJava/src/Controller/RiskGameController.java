@@ -252,9 +252,7 @@ public class RiskGameController extends java.util.Observable {
 			String attackerPlayer = model.getPlayerName(attackerTerritory.getOwner());
 			closePopupWindow();
 			showAttackResultView();
-			attackResultView.UpdateViewState(attacker,defender,attackerPlayer, defenderPlayer, attackResult.getAttackerDicesList().get(0),
-					attackResult.getAttackerDicesList().get(1), attackResult.getAttackerDicesList().get(2),
-					attackResult.getDefenderDicesList().get(0), attackResult.getDefenderDicesList().get(1));
+			attackResultView.UpdateViewState(attacker,defender,attackerPlayer, defenderPlayer, attackResult);
 			attackView.UpdateViewState(defenderPlayer, attackerPlayer, defenderTerritory, attackerTerritory);
 			/*
 			if (model.getPhase() == Phase.WaitForUnitCount)

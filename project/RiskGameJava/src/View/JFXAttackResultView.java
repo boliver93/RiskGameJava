@@ -3,6 +3,7 @@ package View;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Model.AttackResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,20 +73,21 @@ public class JFXAttackResultView extends JFXViewBase {
 	 * @param defendRolls2
 	 * @param defendRolls3
 	 */
-	public void UpdateViewState(int attacker,int defender,String player1, String player2, int attackRolls1, int attackRolls2, int attackRolls3, int defendRolls1, int defendRolls2){
+	public void UpdateViewState(int attacker,int defender,String player1, String player2, AttackResult attackResult){
 		this.attacker=attacker;
 		this.defender=defender;
 		
 		lblPlayerName1.setText(player1);
 		lblPlayerName2.setText(player2);
 		
-		lblAttackRolls1.setText(Integer.toString(attackRolls1));
-		if(attackRolls2 == -1) lblAttackRolls2.setText("-");
-		else lblAttackRolls2.setText(Integer.toString(attackRolls2));
-		if(attackRolls3 == -1) lblAttackRolls3.setText("-");
-		else lblAttackRolls3.setText(Integer.toString(attackRolls3));
-		lblDefendRolls1.setText(Integer.toString(defendRolls1));
-		if(defendRolls2 == -1) lblDefendRolls2.setText("-");
-		else lblDefendRolls2.setText(Integer.toString(defendRolls2));
+		lblAttackRolls1.setText(Integer.toString(attackResult.getAttackerDicesList().get(0)));
+		if(attackResult.getAttackerDicesList().get(1) == -1) lblAttackRolls2.setText("-");
+		else lblAttackRolls2.setText(Integer.toString(attackResult.getAttackerDicesList().get(1)));
+		if(attackResult.getAttackerDicesList().get(2) == -1) lblAttackRolls3.setText("-");
+		else lblAttackRolls3.setText(Integer.toString(attackResult.getAttackerDicesList().get(2)));
+		
+		lblDefendRolls1.setText(Integer.toString(attackResult.getDefenderDicesList().get(0)));
+		if(attackResult.getDefenderDicesList().get(1) == -1) lblDefendRolls2.setText("-");
+		else lblDefendRolls2.setText(Integer.toString(attackResult.getDefenderDicesList().get(1)));
 	}
 }
