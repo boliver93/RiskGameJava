@@ -75,6 +75,10 @@ public class Player implements Serializable {
 		this.color = color;
 	}
 
+	public void exchangeCardsIfPossible() throws Exception {
+		this.reinforcementBonus += exchangeCardsIfPossibleInner();
+	}
+
 	/**
 	 * Ha a játékosnak van 3 beváltható kártyája, ezeket elveszi tõle, majd a
 	 * kártyákhoz tartozó erõsítési értékkel tér vissza. Ha a beváltás nem
@@ -82,7 +86,7 @@ public class Player implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public int exchangeCardsIfPossible() throws Exception {
+	public int exchangeCardsIfPossibleInner() throws Exception {
 		if (cardsList.size() < 3)
 			return 0;
 		int i1 = 0, i2 = 0, i3 = 0;

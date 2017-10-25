@@ -323,11 +323,12 @@ public class RiskGameModel {
 	 * @throws Exception
 	 */
 	protected void nextPlayer() throws Exception {
-		int calculatedVal = playersList.get(currentPlayer).getTerritoryCount() / 3;
+		Player player = playersList.get(currentPlayer);
+		int calculatedVal = player.getTerritoryCount() / 3;
 		if (calculatedVal < 3)
 			calculatedVal = 3;
-		playersList.get(currentPlayer)
-				.setReinforcementUnits(calculatedVal + playersList.get(currentPlayer).getReinforcementBonus());
+		player.exchangeCardsIfPossible();
+		player.setReinforcementUnits(calculatedVal + player.getReinforcementBonus());
 		phase = Phase.Reinforcement;
 	}
 
