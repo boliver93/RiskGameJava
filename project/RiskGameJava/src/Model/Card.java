@@ -13,8 +13,8 @@ public class Card {
 	private Territory territory;
 	private Unit type;
 
-	public Card(Territory territory, Unit type) {
-		this.territory = territory;
+	public Card(int id, Unit type) {
+		this.id = id;
 		this.type = type;
 	}
 

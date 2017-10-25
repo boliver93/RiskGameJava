@@ -244,10 +244,19 @@ public class RiskGameModel {
 	 */
 	public boolean checkIfCapturedAndConquer(Territory defender) {
 		if (checkIfTerrotiryIsEmpty(defender)) {
+			playersList.get(defender.getOwner()).removeTerritory();
+			playersList.get(currentPlayer).addTerritory();
 			defender.setOwner(currentPlayer);
+			if(playersList.get(currentPlayer).getTerritoryCount() == 42)
+				winGame(currentPlayer);
 			return true;
 		}
 		return false;
+	}
+
+	private void winGame(int winner) {
+		phase = Phase.GameOver;
+		//do fancy victory message
 	}
 
 	/**
@@ -295,7 +304,7 @@ public class RiskGameModel {
 	}
 
 	/**
-	 * Ez a függvény fogja a kockadobásokkal történő harcot szimulálni.
+	 *
 	 * 
 	 * Kor vege Returns next player's id
 	 * 
@@ -303,6 +312,7 @@ public class RiskGameModel {
 	 * @throws Exception
 	 */
 	public int endTurn() throws Exception {
+		if(phase == Phase.GameOver) return currentPlayer;
 		if (capturedThisTurn) {
 			playersList.get(currentPlayer).putcard(deck.Draw());
 			capturedThisTurn = false;
@@ -311,6 +321,9 @@ public class RiskGameModel {
 				&& phase != Phase.Reinforcement)
 				|| hasTransferred && playersList.get(currentPlayer).getReinforcementUnits() == 0) {
 			currentPlayer = (currentPlayer + 1) % playersList.size();
+			while(playersList.get(currentPlayer).getTerritoryCount() == 0) {
+				currentPlayer = (currentPlayer + 1) % playersList.size();
+			}
 			nextPlayer();
 		} else
 			throw new Exception("You cannot do nextplayer!");

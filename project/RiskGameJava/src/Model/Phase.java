@@ -6,5 +6,6 @@ public enum Phase {
 	WaitForUnitCount, // Terulet elfoglalasa utan meg kell varni az egysegek szamat, amiket az ujonnan elfoglalt teruletre akarunk mozgatni.
 	Transfer,
 	Preparation,
-	PlayerRegistration
+	PlayerRegistration,
+	GameOver
 }

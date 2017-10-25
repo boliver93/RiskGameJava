@@ -32,7 +32,6 @@ public class Deck implements Serializable{
 	private void readAllCard()
 	{
 		String line;
-		Territory tmpTerr;
 		Card tmpCard;
 		
 		String fullPath = System.getProperty("user.dir") + "\\src\\Model\\res\\territorycards.properties";
@@ -47,9 +46,8 @@ public class Deck implements Serializable{
 		    	String[] strArray = line.split(" ");
 		    	int id = Integer.parseInt(strArray[0]);
 		    	Unit unit = Unit.valueOf(strArray[1]);
-		    	
-		    	tmpTerr = new Territory(id);
-		    	tmpCard = new Card(tmpTerr,unit);
+
+		    	tmpCard = new Card(id,unit);
 		    	
 		    	cardsSet.add(tmpCard);
 		    }      
