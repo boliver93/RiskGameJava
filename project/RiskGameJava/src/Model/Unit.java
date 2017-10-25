@@ -8,5 +8,5 @@ package Model;
  * @created 19-ápr.-2017 23:11:55
  */
 public enum Unit {
-	CAVALRY, ARTILLERY, INFANTRY
+	INFANTRY, CAVALRY, ARTILLERY
 }

@@ -22,6 +22,41 @@ public class Deck implements Serializable{
 
 	public Deck() {
 		cardsSet = new HashSet<Card>();
+		readAllCard();
+	}
+	
+	/*
+	 * Read cards from territorycards.properties
+	 * 
+	 */
+	private void readAllCard()
+	{
+		String line;
+		Territory tmpTerr;
+		Card tmpCard;
+		
+		String fullPath = System.getProperty("user.dir") + "\\src\\Model\\res\\territorycards.properties";
+		java.nio.file.Path path = java.nio.file.Paths.get(fullPath);
+		
+		try (
+		    java.io.InputStream fis = new java.io.FileInputStream(path.toString());
+			java.io.InputStreamReader isr = new java.io.InputStreamReader(fis, java.nio.charset.Charset.forName("UTF-8"));
+			java.io.BufferedReader br = new java.io.BufferedReader(isr);
+		) {
+		    while ((line = br.readLine()) != null) {
+		    	String[] strArray = line.split(" ");
+		    	int id = Integer.parseInt(strArray[0]);
+		    	Unit unit = Unit.valueOf(strArray[1]);
+		    	
+		    	tmpTerr = new Territory(id);
+		    	tmpCard = new Card(tmpTerr,unit);
+		    	
+		    	cardsSet.add(tmpCard);
+		    }      
+        } catch (Exception e) {
+			System.out.println("Can't find territorycards.properties!");
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -12,14 +12,12 @@ public class Card {
 	private int id;
 	private Territory territory;
 	private Unit type;
-	private int value;
 
-	public Card(Territory territory, Unit type, int value) {
+	public Card(Territory territory, Unit type) {
 		this.territory = territory;
 		this.type = type;
-		this.value = value;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -32,7 +30,23 @@ public class Card {
 		return type;
 	}
 
-	public int getValue() {
-		return value;
+	/*
+	 * Return the card value
+	 * Converted from the unit enum
+	 * 
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getValue() throws Exception {
+		switch (type) {
+		case INFANTRY:
+			return 1;
+		case CAVALRY:
+			return 5;
+		case ARTILLERY:
+			return 10;
+		default:
+			throw new Exception("Unknown unit type!");
+		}
 	}
 }
