@@ -375,6 +375,7 @@ public class RiskGameModel {
 				if (territory.getOwner() != -1)
 					return false;
 				territory.setOwner(currentPlayer);
+				playersList.get(currentPlayer).addTerritory();
 				territory.setUnits(1);
 				--miscnumber;
 			} else {
