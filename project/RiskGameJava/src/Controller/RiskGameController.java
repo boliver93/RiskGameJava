@@ -408,6 +408,8 @@ public class RiskGameController extends java.util.Observable {
 		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
 		Accordion accordion = cardView.UpdateCurrentDeck(cards);
 		
+		cardGroup.getChildren().clear();
+		
 	    cardGroup.getChildren().add(accordion);
 	}
 
