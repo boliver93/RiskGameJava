@@ -5,6 +5,7 @@ import View.Country;
 import View.JFXAddPlayerView;
 import View.JFXAttackResultView;
 import View.JFXAttackView;
+import View.JFXCardView;
 //import View.JFXRiskCardView;
 import View.JFXTransferView;
 
@@ -20,15 +21,19 @@ import Model.Color;
 import Model.Phase;
 import Model.RiskGameModel;
 import Model.Territory;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Az MVC architektura Controller reszet megvalosíto osztalya. A Controller a
@@ -48,6 +53,7 @@ public class RiskGameController extends java.util.Observable {
 	private final Stage preStage;
 	private Stage primaryStage;
 	private Stage popupStage;
+	private Stage titledPaneStage;
 
 	/*
 	 * View objects
@@ -55,9 +61,16 @@ public class RiskGameController extends java.util.Observable {
 	private JFXMainView mainView;
 	private JFXAddPlayerView addPlayerView;
 	private JFXAttackView attackView;
-	// private JFXRiskCardView cardView;
+	//private JFXRiskCardView cardView;
 	private JFXTransferView transferView;
 	private JFXAttackResultView attackResultView;
+	
+	/*
+	 * CardView stuffs
+	 */
+    private JFXCardView cardView;
+    private Group cardGroup;
+    private Scene cardScene;
 
 	private RiskGameModel model;
 	private int previouslySelectedTerritory = -1;
@@ -68,6 +81,10 @@ public class RiskGameController extends java.util.Observable {
 		this.preStage = stage;
 		this.primaryStage = new Stage();
 		this.popupStage = new Stage();
+		
+		this.titledPaneStage = new Stage();
+        this.titledPaneStage.setTitle("Cards");
+
 
 		stage.setResizable(false);
 		primaryStage.setResizable(false);
@@ -214,8 +231,31 @@ public class RiskGameController extends java.util.Observable {
 
 		// mainScene.getStylesheets().add("View/res/world.css");
 		primaryStage.setScene(mainScene);
+	    primaryStage.setOnCloseRequest(e -> Platform.exit());
 		primaryStage.show();
+		
+		showCardView();
 
+	}
+	
+	public void showCardView()
+	{
+		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
+
+		cardView = new View.JFXCardView();
+		cardView.AddControllerListener(this);
+		
+		Accordion accordion = cardView.UpdateCurrentDeck(cards);
+		
+	    cardScene = new Scene(new Group(), 202,360) ;
+	    cardGroup = (Group)cardScene.getRoot();
+	    cardGroup.getChildren().add(accordion);
+	    titledPaneStage.setX(primaryStage.getX()-200);
+	    titledPaneStage.setY(primaryStage.getY()+primaryStage.getHeight()/4);
+	    titledPaneStage.setScene(cardScene);
+	    titledPaneStage.initStyle(StageStyle.UNDECORATED);
+
+	    titledPaneStage.show();
 	}
 
 	/*
@@ -363,6 +403,13 @@ public class RiskGameController extends java.util.Observable {
 		UpdateAllTerritoriesOnMap();
 		UpdateCurrentPlayer();
 	}
+	
+	private void UpdateCurrentDeck() {
+		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
+		Accordion accordion = cardView.UpdateCurrentDeck(cards);
+		
+	    cardGroup.getChildren().add(accordion);
+	}
 
 	private void UpdateTerritoryOnMap(int territoryID) {
 		Territory territory = model.getTerritory(territoryID);
@@ -395,10 +442,7 @@ public class RiskGameController extends java.util.Observable {
 		lastPlayerUpdate = model.getCurrentPlayer();
 	}
 	
-	private void UpdateCurrentDeck() {
-		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
-		mainView.UpdateCurrentDeck(cards);
-	}
+
 
 	private void closePopupWindow() {
 		if (popupStage.isShowing()) {

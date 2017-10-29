@@ -51,7 +51,6 @@ public class JFXAttackView extends JFXViewBase {
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		btnAttack.setOnMouseClicked(evt -> {
-			//TODO: slider? 
 			controller.attackAccepted(defenderID, attackerID, (int)spinnerdef.getValue(), (int)spinneratt.getValue());
 		});
 		
