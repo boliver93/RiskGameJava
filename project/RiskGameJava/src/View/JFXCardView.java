@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,19 +12,16 @@ import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Accordion;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 public class JFXCardView extends JFXViewBase {
 
 	@FXML
-	private TitledPane titledpane;
+	private TitledPane titledPane;
 
 	HashMap<Integer, String> locJPG;
 
@@ -35,9 +31,13 @@ public class JFXCardView extends JFXViewBase {
 	BufferedImage bufferedImage[];
 	TitledPane titledPanes[];
 	int numOfCards;
+	int initializeNumber;
+	String backgroundPath;
+	String fullPath;
 
 	public JFXCardView() {
 		locJPG = new HashMap<Integer, String>();
+		backgroundPath = System.getProperty("user.dir") + "\\src\\View\\img\\territorycards\\risk_card.png";
 
 		loadJPG();
 
@@ -45,11 +45,9 @@ public class JFXCardView extends JFXViewBase {
 	}
 
 	private void loadJPG() {
-		String fullpath;
 		for (int i = 1; i < 42; i++) {
-			fullpath = System.getProperty("user.dir") + "\\src\\View\\img\\territorycards\\effected\\" + i + ".jpg";
-			System.out.println(fullpath);
-			locJPG.put(i, fullpath);
+			fullPath = System.getProperty("user.dir") + "\\src\\View\\img\\territorycards\\effected\\" + i + ".jpg";
+			locJPG.put(i, fullPath);
 		}
 	}
 
@@ -69,16 +67,25 @@ public class JFXCardView extends JFXViewBase {
 
 	public Accordion UpdateCurrentDeck(List<Integer> cards) {
 		numOfCards = cards.size();
-		images = new Image[numOfCards];
-		bufferedImage = new BufferedImage[numOfCards];
-		imageViews = new ImageView[numOfCards];
-		titledPanes = new TitledPane[numOfCards];
 
-		for (int i = 0; i < numOfCards; i++) {
-			String fullpath = locJPG.get(cards.get(i));
+		if (numOfCards == 0)
+			initializeNumber = numOfCards + 1;
+		else
+			initializeNumber = numOfCards;
 
+		images = new Image[initializeNumber];
+		bufferedImage = new BufferedImage[initializeNumber];
+		imageViews = new ImageView[initializeNumber];
+		titledPanes = new TitledPane[initializeNumber];
+
+		for (int i = 0; i < initializeNumber; i++) {
 			try {
-				bufferedImage[i] = ImageIO.read(new File(fullpath));
+				if (numOfCards == 0)
+					bufferedImage[i] = ImageIO.read(new File(backgroundPath));
+				else {
+					fullPath = locJPG.get(cards.get(i));
+					bufferedImage[i] = ImageIO.read(new File(fullPath));
+				}
 
 				images[i] = SwingFXUtils.toFXImage(bufferedImage[i], null);
 				imageViews[i] = new ImageView();
@@ -87,15 +94,22 @@ public class JFXCardView extends JFXViewBase {
 				imageViews[i].setPreserveRatio(true);
 				imageViews[i].setSmooth(true);
 				imageViews[i].setCache(true);
-				titledPanes[i] = new TitledPane(String.valueOf(i), imageViews[i]);
+
+				if (numOfCards == 0)
+					titledPanes[0] = new TitledPane("Territory cards", imageViews[i]);
+				else
+					titledPanes[i] = new TitledPane(String.valueOf(i + 1) + ". card", imageViews[i]);
+
+				if (numOfCards == 0 || numOfCards == 1)
+					titledPanes[i].setCollapsible(false);
 			} catch (IOException e) {
 			}
 		}
+
 		Accordion accordion = new Accordion();
 		accordion.getPanes().addAll(titledPanes);
-		if (titledPanes.length > 0)
-			accordion.setExpandedPane(titledPanes[0]);
-		
+		accordion.setExpandedPane(titledPanes[0]);
+
 		return accordion;
 	}
 }
