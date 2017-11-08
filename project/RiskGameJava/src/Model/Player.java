@@ -164,8 +164,7 @@ public class Player implements Serializable {
 			}
 			return 10;
 		}
-		throw new Exception("Card exchange failed");
-
+	return 0;
 	}
 
 	public List<Card> getcards() {
