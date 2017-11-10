@@ -87,7 +87,13 @@ public class RiskGameController extends java.util.Observable {
 
 
 		stage.setResizable(false);
+		primaryStage.setTitle("Risk");
 		primaryStage.setResizable(false);
+		primaryStage.xProperty().addListener(evt -> moveCardView());
+		primaryStage.yProperty().addListener(evt -> moveCardView());
+		primaryStage.setOnHiding(evt -> { if (titledPaneStage != null) titledPaneStage.setIconified(true); primaryStage.requestFocus(); });
+		primaryStage.setOnShowing(evt -> { if (titledPaneStage != null) titledPaneStage.setIconified(false); primaryStage.requestFocus(); });
+	
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.setOnCloseRequest(evt -> {
 			// Dont't let th User close the Transfer window when waiting for Unit Count
@@ -238,8 +244,7 @@ public class RiskGameController extends java.util.Observable {
 
 	}
 	
-	public void showCardView()
-	{
+	public void showCardView() {
 		List<Integer> cards = model.getPlayerCards((model.getCurrentPlayer()));
 
 		cardView = new View.JFXCardView();
@@ -250,12 +255,18 @@ public class RiskGameController extends java.util.Observable {
 	    cardScene = new Scene(new Group(), 202,360) ;
 	    cardGroup = (Group)cardScene.getRoot();
 	    cardGroup.getChildren().add(accordion);
-	    titledPaneStage.setX(primaryStage.getX()-200);
-	    titledPaneStage.setY(primaryStage.getY()+primaryStage.getHeight()/4);
 	    titledPaneStage.setScene(cardScene);
 	    titledPaneStage.initStyle(StageStyle.UNDECORATED);
 
+	    moveCardView();
 	    titledPaneStage.show();
+	}
+	
+	public void moveCardView() {
+		if (titledPaneStage != null && primaryStage != null) {
+		    titledPaneStage.setX(primaryStage.getX()-200);
+		    titledPaneStage.setY(primaryStage.getY()+primaryStage.getHeight()/4);
+		}
 	}
 
 	/*
