@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import Controller.RiskGameController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
 import javafx.beans.property.ObjectProperty;
@@ -31,6 +32,8 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -48,6 +51,10 @@ import javafx.scene.text.Text;
  * 	@version 1.0
  */
 public class World extends Region {
+	/*
+	 * Controller
+	 */
+	RiskGameController controller;
 	
 	/*
 	 * 	Window specific fields
@@ -58,6 +65,7 @@ public class World extends Region {
     private static final double     aspectRatio     	= preferredHeight / preferredWidth;
 	private Pane pane;
 	private Pane unitPane;
+	private Pane imgPane;
 	private Group group;
 	private double width;
 	private double height;
@@ -87,6 +95,9 @@ public class World extends Region {
     private              Country                         formerSelectedCountry;
     protected            Map<String, List<CountryPath>>  countryPaths;
     private Properties resolutionProperties;
+    private Image defend;
+    private Image attack;
+    private int clickCounter;
     
     /*
      * 	Events and event handler specific fields
@@ -106,6 +117,7 @@ public class World extends Region {
      * 	Constructor
      */
     public World() {
+    	
     	/*
     	 * 	Set svg paths
     	 */
@@ -178,6 +190,7 @@ public class World extends Region {
          */
         pane                 = new Pane();
         unitPane             = new Pane();
+        imgPane             = new Pane();
         group                = new Group();
 
         /*
@@ -207,7 +220,13 @@ public class World extends Region {
             }
             
         }
-
+        
+        InputStream defendStream = this.getClass().getResourceAsStream("/View/img/shield.png");
+        InputStream attackStream = this.getClass().getResourceAsStream("/View/img/sword.png");
+        this.defend = new Image(defendStream);
+        this.attack = new Image(attackStream);
+        this.clickCounter = 0;
+        
         getStyleClass().add("world");
 
         Color fill   = getFillColor();
@@ -240,6 +259,11 @@ public class World extends Region {
                 text.setMouseTransparent(true);
                 unitPane.getChildren().add(text);
                 
+                ImageView iv = path.getImageView();
+                iv.setPickOnBounds(false);
+                iv.setMouseTransparent(true);
+                imgPane.getChildren().add(iv);
+                
                 path.updateUnitPosition();
             });
             
@@ -248,15 +272,18 @@ public class World extends Region {
         });
 
         group.getChildren().add(pane);
+        group.getChildren().add(imgPane);
         group.getChildren().add(unitPane);
         //group.setOpacity(OPACITY);
         pane.setOpacity(OPACITY);
+        imgPane.setOpacity(1d);
         unitPane.setOpacity(1d);
         
         getChildren().setAll(group);
         this.setPickOnBounds(false);
         pane.setPickOnBounds(false);
         unitPane.setPickOnBounds(false);
+        imgPane.setPickOnBounds(false);
         // setBackground(new Background(new BackgroundFill(getBackgroundColor(), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
@@ -277,6 +304,13 @@ public class World extends Region {
     private void registerPropertyListeners() {
         widthProperty().addListener(o -> resize());
         heightProperty().addListener(o -> resize());
+    }
+    
+    /*
+     * Add controller
+     */
+    public void setController(RiskGameController controller) {
+    	this.controller = controller;
     }
     
     /*
@@ -301,17 +335,24 @@ public class World extends Region {
             unitPane.setCache(true);
             unitPane.setCacheHint(CacheHint.SCALE);
             
+            imgPane.setCache(true);
+            imgPane.setCacheHint(CacheHint.SCALE);
+            
             pane.setScaleX(width / preferredWidth);
             pane.setScaleY(height / preferredHeight);
 
             unitPane.setScaleX(width / preferredWidth);
             unitPane.setScaleY(height / preferredHeight);
+
+            imgPane.setScaleX(width / preferredWidth);
+            imgPane.setScaleY(height / preferredHeight);
             
             group.resize(width, height);
             group.relocate((getWidth() - width) * 0.5, (getHeight() - height) * 0.5);
 
             pane.setCache(false);
             unitPane.setCache(false);
+            imgPane.setCache(false);
             
         }
     }
@@ -328,6 +369,7 @@ public class World extends Region {
         final List<CountryPath> paths        	= countryPaths.get(countryName);
         final EventType<? extends MouseEvent> eventType = event.getEventType();
 
+        
         if (MOUSE_ENTERED == eventType) {
         	
             if (isHoverEnabled()) {
@@ -337,6 +379,23 @@ public class World extends Region {
             
         } else if (MOUSE_PRESSED == eventType) {
         	
+        	/*
+            Model.Phase phase = this.controller.getPhase();
+            this.clickCounter += 1;
+
+            if (clickCounter % 2 == 1) {
+            	
+            	countryPaths.forEach((name, pathList) -> {
+                    pathList.forEach(path -> { path.setImageView(null); });
+                });
+            	
+            }
+            
+            if (phase == Model.Phase.Battle) {
+            	countryPath.setImageView(attack);
+            } 
+            */ 
+        	
             if (isSelectionEnabled()) {
             	
                 Color color;
@@ -344,8 +403,10 @@ public class World extends Region {
                 if (null == getSelectedCountry()) {
                     setSelectedCountry(country);
                     color = getSelectedColor();
+                    
                 } else {
                     color = null == getSelectedCountry().getColor() ? getFillColor() : getSelectedCountry().getColor();
+                    
                 }
                 
                 for (SVGPath path : countryPaths.get(getSelectedCountry().getName())) { path.setFill(color); }
@@ -402,6 +463,24 @@ public class World extends Region {
         
         
         if (null != eventHandler) eventHandler.handle(event);
+    }
+    
+    public void updateIcons(int attacker, int defender) {
+    	countryPaths.forEach((name, pathList) -> {
+            pathList.forEach(path -> { 
+            	
+            	if ((attacker != -1) && (Country.values()[attacker] == Country.valueOf(path.getName()))) 
+            		path.setImageView(attack);
+            	else if ((defender != -1) && (Country.values()[defender] == Country.valueOf(path.getName())))
+            		path.setImageView(defend);
+            	else
+            		path.setImageView(null); 
+            
+            });
+        });
+    	
+    	
+    	
     }
     
     /*

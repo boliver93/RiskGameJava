@@ -1,7 +1,11 @@
 package View;
 
+import java.io.InputStream;
+
 import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 
@@ -15,7 +19,8 @@ public class CountryPath extends SVGPath {
     private final String name;
     private final Tooltip tooltip;
     private final Text units;
-
+    private final ImageView iv;
+    
     public CountryPath(final String name) {
         this(name, null, 0);
     }
@@ -24,7 +29,7 @@ public class CountryPath extends SVGPath {
         super();
         this.name    = name;
         this.tooltip = new Tooltip(name);
-        
+
         Tooltip.install(this, tooltip);
         // if (null == content) return;
         setContent(content);
@@ -34,6 +39,18 @@ public class CountryPath extends SVGPath {
 		double y = bb.getMinY() + bb.getHeight()/2.0;
         this.units = new Text(x, y, Integer.toString(0));
         
+        this.iv = new ImageView();
+        this.iv.setX(x); 
+        this.iv.setY(y); 
+        this.iv.setFitWidth(50);
+        this.iv.setFitHeight(50);
+        this.iv.setPreserveRatio(true);
+        this.iv.setVisible(true);
+        
+        InputStream defendStream = getClass().getResourceAsStream("/View/img/shield.png");
+        Image defend = new Image(defendStream);
+        // this.setImageView(defend);
+
         setUnits(unit);
     }
 
@@ -43,6 +60,14 @@ public class CountryPath extends SVGPath {
     
     public Text getText() {
     	return units;
+    }
+    
+    public ImageView getImageView() {
+    	return iv;
+    }
+    
+    public void setImageView(Image img) {
+    	this.iv.setImage(img);
     }
     
     public void setUnits(int u){
@@ -56,7 +81,21 @@ public class CountryPath extends SVGPath {
         Bounds bb = this.getLayoutBounds();
 		double x = bb.getMinX() + bb.getWidth()/2.0;
 		double y = bb.getMinY() + bb.getHeight()/2.0;
-		units.setX(x);
+		
+		int l = units.getText().length();
+		if (l == 1)
+			units.setX(x);
+		else if (l == 2) 
+			units.setX(x - 6);
+		else {  
+			units.setX(x - 10);
+			// world dominance
+		}	
 		units.setY(y);
+		
+		if (iv != null) {
+			iv.setX(x - 35);
+			iv.setY(y - 50);
+		}
     }
 }

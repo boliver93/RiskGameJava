@@ -2,6 +2,7 @@ package View;
 
 import java.util.HashMap;
 
+import Controller.RiskGameController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
@@ -16,10 +17,12 @@ import javafx.scene.input.MouseEvent;
  * 	@version 1.0
  */
 public class WorldBuilder {
-
+	
 	private HashMap<String, Property> properties = new HashMap<>();
 
-	public static final WorldBuilder create() { return new WorldBuilder(); }
+	public static final WorldBuilder create() { 
+		return new WorldBuilder(); 
+	}
 	 
     public final WorldBuilder hoverEnabled(final boolean isEnabled) {
         properties.put("hoverEnabled", new SimpleBooleanProperty(isEnabled));

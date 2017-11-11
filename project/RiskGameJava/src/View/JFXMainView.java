@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Controller.RiskGameController;
 import Model.Phase;
 import Model.Territory;
 import javafx.event.ActionEvent;
@@ -257,7 +258,13 @@ public class JFXMainView extends JFXViewBase {
 	 private void hangleLoadButton(ActionEvent event) {
 		// Initialize handles this
 	}
-		
+	
+	@Override
+	public void AddControllerListener(RiskGameController controller) {
+		super.AddControllerListener(controller);
+		this.getWorld().setController(controller);
+	}
+	
 	/**
 	 * 
 	 * @param territories
@@ -337,6 +344,10 @@ public class JFXMainView extends JFXViewBase {
 
 	}
 
+	public void updateIcons(int attacker, int defender) {
+		world.updateIcons(attacker, defender);
+	}
+	
 	public void appendLog(String s){
 		taLog.appendText("\n");
 		taLog.appendText(s);

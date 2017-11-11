@@ -115,8 +115,17 @@ public class RiskGameController extends java.util.Observable {
 		// this.model.addObserver(this);
 	}
 
+	public Phase getPhase() {
+		return model.getPhase();
+	}
+
+	public int getPreviouslySelectedTerritory() {
+		return  previouslySelectedTerritory;
+	}
+	
 	public void countrySelected(Country country) {
 		int territoryID = convertToTerritoryID(country);
+		mainView.updateIcons(-1, -1);
 		// System.out.println("Controller - Territory selected: " + country.getName() +
 		// "/" + territoryID);
 
@@ -130,13 +139,17 @@ public class RiskGameController extends java.util.Observable {
 				if (previouslySelectedTerritory != -1) {
 					if (model.checkAttackPossible(territoryID, previouslySelectedTerritory)) {
 						addLog("Attacking " + country.getName() + "!");
+						mainView.updateIcons(previouslySelectedTerritory, territoryID);
 						showAttackView(territoryID, previouslySelectedTerritory);
-					} else
+					} else {
 						addLog(country.getName() + " cannot be attacked!");
+						mainView.updateIcons(-1, -1);
+					}
 					previouslySelectedTerritory = -1;
 				} else {
 					addLog("Attacking from " + country.getName() + "...");
 					previouslySelectedTerritory = territoryID;
+					mainView.updateIcons(previouslySelectedTerritory, -1);
 				}
 				break;
 
