@@ -8,6 +8,7 @@ import View.JFXAttackView;
 import View.JFXCardView;
 //import View.JFXRiskCardView;
 import View.JFXTransferView;
+import View.JFXVictoryView;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class RiskGameController extends java.util.Observable {
 	private Stage primaryStage;
 	private Stage popupStage;
 	private Stage titledPaneStage;
+	private Stage victoryStage;
 
 	/*
 	 * View objects
@@ -64,6 +66,7 @@ public class RiskGameController extends java.util.Observable {
 	//private JFXRiskCardView cardView;
 	private JFXTransferView transferView;
 	private JFXAttackResultView attackResultView;
+
 	
 	/*
 	 * CardView stuffs
@@ -71,6 +74,11 @@ public class RiskGameController extends java.util.Observable {
     private JFXCardView cardView;
     private Group cardGroup;
     private Scene cardScene;
+    
+    /*
+     * VictoryView stuffs
+     */
+	private JFXVictoryView victoryView;
 
 	private RiskGameModel model;
 	private int previouslySelectedTerritory = -1;
@@ -81,10 +89,10 @@ public class RiskGameController extends java.util.Observable {
 		this.preStage = stage;
 		this.primaryStage = new Stage();
 		this.popupStage = new Stage();
+        this.victoryStage = new Stage();
 		
 		this.titledPaneStage = new Stage();
-        this.titledPaneStage.setTitle("Cards");
-
+        this.titledPaneStage.setTitle("Cards");     
 
 		stage.setResizable(false);
 		primaryStage.setTitle("Risk");
@@ -101,6 +109,12 @@ public class RiskGameController extends java.util.Observable {
 				evt.consume();
 		});
 
+	}
+	
+	private boolean isVictory()
+	{
+		if(lastPhaseUpdate == Phase.GameOver) return true;
+		return false;
 	}
 
 	/**
@@ -214,6 +228,18 @@ public class RiskGameController extends java.util.Observable {
 			addLog(e.getMessage());
 		}
 	}
+	
+	public void showVictoryView()
+	{
+		victoryView = new JFXVictoryView();
+		victoryView.AddControllerListener(this);
+		Parent root = victoryView.getRoot();
+
+		Scene victoryScene = new Scene(root, 500,185);
+	    victoryStage.initStyle(StageStyle.UNDECORATED);
+		victoryStage.setScene(victoryScene);
+	    victoryStage.show();
+	}
 
 	/*
 	 * Main View
@@ -255,7 +281,6 @@ public class RiskGameController extends java.util.Observable {
 		primaryStage.show();
 		
 		showCardView();
-
 	}
 	
 	public void showCardView() {
@@ -319,6 +344,10 @@ public class RiskGameController extends java.util.Observable {
 			showAttackResultView();
 			attackResultView.UpdateViewState(attacker,defender,attackerPlayer, defenderPlayer, attackResult);
 			attackView.UpdateViewState(defenderPlayer, attackerPlayer, defenderTerritory, attackerTerritory);
+			
+			//GameOver
+			if(isVictory()) showVictoryView();
+			
 			/*
 			if (model.getPhase() == Phase.WaitForUnitCount)
 				showTransferView(attacker, defender);
@@ -465,11 +494,9 @@ public class RiskGameController extends java.util.Observable {
 			addLog("\nPlayer: " + model.getPlayerName(model.getCurrentPlayer()) + " - " + model.getPhase());
 
 		mainView.UpdateCurrentPhase(model.getPhase());
-		lastPhaseUpdate = model.getPhase();
+		lastPhaseUpdate = model.getPhase();		
 		lastPlayerUpdate = model.getCurrentPlayer();
 	}
-	
-
 
 	private void closePopupWindow() {
 		if (popupStage.isShowing()) {
