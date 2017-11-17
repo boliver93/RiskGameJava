@@ -30,6 +30,10 @@
 	-fx-background-color: #19e64d;
 }
 
+.cardPanel6 {
+	-fx-background-color: #fe59c2;
+}
+
 .text-area *.text {
     -fx-text-alignment: center;
 }

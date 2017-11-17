@@ -490,7 +490,7 @@ public class World extends Region {
     	
     	List<Model.Territory> data = Controller.RiskGameController.getTerritoryData();
     	ArrayList<Color> colorList = new ArrayList<>();
-		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.LIME);
+		Collections.addAll(colorList, Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.LIME, Color.FUCHSIA);
     	
 		/*
         countryPaths.keySet().forEach(name -> {

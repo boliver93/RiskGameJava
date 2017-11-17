@@ -63,7 +63,7 @@ public class RiskGameController extends java.util.Observable {
 	private JFXMainView mainView;
 	private JFXAddPlayerView addPlayerView;
 	private JFXAttackView attackView;
-	//private JFXRiskCardView cardView;
+	// private JFXRiskCardView cardView;
 	private JFXTransferView transferView;
 	private JFXAttackResultView attackResultView;
 
