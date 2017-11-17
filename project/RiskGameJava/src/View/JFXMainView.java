@@ -50,6 +50,8 @@ public class JFXMainView extends JFXViewBase {
 	@FXML private Pane panePlayerColor4;
 	@FXML private Label lblPlayerName5;
 	@FXML private Pane panePlayerColor5;
+	@FXML private Label lblPlayerName6;
+	@FXML private Pane panePlayerColor6;
 	@FXML private TextArea taLog; 
 
 	@FXML private Button btnLog; 
@@ -121,8 +123,8 @@ public class JFXMainView extends JFXViewBase {
 	    btnSave.setVisible(false);
 	    btnLoad.setVisible(false);
 	    
-	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5);
-	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5);
+	    Collections.addAll(lblPlayerNameList, lblPlayerName1, lblPlayerName2, lblPlayerName3, lblPlayerName4, lblPlayerName5, lblPlayerName6);
+	    Collections.addAll(panePlayerColorList, panePlayerColor1, panePlayerColor2, panePlayerColor3, panePlayerColor4, panePlayerColor5, panePlayerColor6);
 	    Collections.addAll(btnControlList, btnBattlePhase, btnReinforcePhase, btnTransferPhase, btnNextPlayer, btnLog, btnSettings, btnSave, btnLoad);
 	    
 	    btnSave.setOnMouseClicked(evt -> {

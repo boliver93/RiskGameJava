@@ -26,36 +26,50 @@
 				</ImageView>
             <Pane fx:id="pain" layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0">
                <children>
-                  <Label fx:id="lblPlayerName1" alignment="CENTER" layoutX="63.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+               
+                  <Label fx:id="lblPlayerName1" alignment="CENTER" layoutX="55.0" layoutY="12.0" prefHeight="27.0" prefWidth="98.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Pane fx:id="panePlayerColor1" layoutX="242.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel1" />
-                  <Label fx:id="lblPlayerName2" alignment="CENTER" layoutX="338.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  
+                  <Label fx:id="lblPlayerName2" alignment="CENTER" layoutX="258.0" layoutY="12.0" prefHeight="27.0" prefWidth="98.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayerName3" alignment="CENTER" layoutX="601.0" layoutY="12.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  
+                  <Label fx:id="lblPlayerName3" alignment="CENTER" layoutX="450.0" layoutY="12.0" prefHeight="27.0" prefWidth="98.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayerName5" alignment="CENTER" layoutX="63.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  
+                  <Label fx:id="lblPlayerName4" alignment="CENTER" layoutX="642.0" layoutY="12.0" prefHeight="27.0" prefWidth="114.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayerName4" alignment="CENTER" layoutX="601.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                  
+                  <Label fx:id="lblPlayerName6" alignment="CENTER" layoutX="63.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Pane fx:id="panePlayerColor2" layoutX="510.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel2" />
-                  <Pane fx:id="panePlayerColor3" layoutX="779.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel3" />
-                  <Pane fx:id="panePlayerColor5" layoutX="242.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel5" />
-                  <Pane fx:id="panePlayerColor4" layoutX="779.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel4" />
+                  
+                  <Label fx:id="lblPlayerName5" alignment="CENTER" layoutX="601.0" layoutY="559.0" prefHeight="27.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  
+                  <Pane fx:id="panePlayerColor1" layoutX="182.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel1" />
+                  <Pane fx:id="panePlayerColor2" layoutX="377.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel2" />
+                  <Pane fx:id="panePlayerColor3" layoutX="569.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel3" />
+                  <Pane fx:id="panePlayerColor4" layoutX="779.0" layoutY="16.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel4" />
+                  <Pane fx:id="panePlayerColor6" layoutX="242.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel6" />
+                  <Pane fx:id="panePlayerColor5" layoutX="779.0" layoutY="565.0" prefHeight="19.0" prefWidth="13.0" styleClass="cardPanel5" />
+                  
                   <TextArea fx:id="taLog" editable="false" layoutX="90.0" layoutY="531.0" minHeight="10.0" opacity="0.76" prefHeight="18.0" prefWidth="637.0" styleClass="text-area" stylesheets="@../css/world.css" text="Ready!">
                      <font>
                         <Font size="11.0" />
