@@ -131,7 +131,7 @@ public class JFXMainView extends JFXViewBase {
 	    	 */
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Save game...");
-	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+ "/Desktop"));
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir"), "/save"));
 	    	fileChooser.setInitialFileName("1.risksave");
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showSaveDialog(stage);
@@ -147,7 +147,7 @@ public class JFXMainView extends JFXViewBase {
 	            
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Open save file...");
-	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+ "/Desktop"));
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir"), "/save"));
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showOpenDialog(stage);
 	    	if (file != null) {
