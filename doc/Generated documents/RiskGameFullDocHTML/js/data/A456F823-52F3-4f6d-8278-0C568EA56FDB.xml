@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.1.4:1", "", "Preparation Stage Use Cases", "EARoot/EA1/EA4/EA32.htm", "180.png", "9", "0", "", "Use Case diagram0","{C04B7756-316E-45a2-BBA5-D060DE2F8F86}");
+tocTab[tocTab.length] = new Array("0.1.4:2", "", "Define The Starting Player", "EARoot/EA1/EA4/EA35.htm", "7.png", "E49", "0", "", "UseCase0","{0566D66B-4FCB-454e-ADF2-FF968540B54E}");
+tocTab[tocTab.length] = new Array("0.1.4:3", "", "Player", "EARoot/EA1/EA4/EA36.htm", "6.png", "E48", "0", "", "Actor0","{567D2980-41D4-4643-84DD-1636D8CA03AF}");
+tocTab[tocTab.length] = new Array("0.1.4:4", "", "Preparation Stage (contraction)", "EARoot/EA1/EA4/EA37.htm", "7.png", "E50", "0", "", "UseCase0","{68C03A62-3D18-451d-A6E1-48E64FA55E79}");

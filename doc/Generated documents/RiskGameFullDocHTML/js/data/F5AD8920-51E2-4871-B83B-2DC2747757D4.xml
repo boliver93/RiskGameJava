@@ -1,0 +1,9 @@
+tocTab[tocTab.length] = new Array("0.2.3:1", "", "Define the starting player", "EARoot/EA2/EA3/EA108.htm", "185.png", "25", "0", "", "Sequence diagram0","{346578C8-1676-4a19-B2ED-B1AD41C20DD6}");
+tocTab[tocTab.length] = new Array("0.2.3:2", "", "Preparation stage", "EARoot/EA2/EA3/EA110.htm", "185.png", "32", "0", "", "Sequence diagram0","{9DA65B6B-ACC6-4c5b-96A1-9B1FAC30546F}");
+tocTab[tocTab.length] = new Array("0.2.3:3", "", "Alternative", "EARoot/EA2/EA3/EA115.htm", "101.png", "E280", "0", "", "InteractionFragment0","{4D045E5A-637B-497e-8C1F-5A0518EDBD03}");
+tocTab[tocTab.length] = new Array("0.2.3:4", "", "Alternative1", "EARoot/EA2/EA3/EA116.htm", "101.png", "E213", "0", "", "InteractionFragment0","{FE409985-2A18-4c3f-AFA3-3D4A66A06EB7}");
+tocTab[tocTab.length] = new Array("0.2.3:5", "", "Alternative2", "EARoot/EA2/EA3/EA117.htm", "101.png", "E214", "0", "", "InteractionFragment0","{F33EE177-7858-4340-B786-8AAF42DE8DC8}");
+tocTab[tocTab.length] = new Array("0.2.3:6", "", "Alternative3", "EARoot/EA2/EA3/EA118.htm", "101.png", "E215", "0", "", "InteractionFragment0","{B14B14FC-B4E4-4a0a-9D56-0ACFD2749A41}");
+tocTab[tocTab.length] = new Array("0.2.3:7", "", "Alternative4", "EARoot/EA2/EA3/EA119.htm", "101.png", "E216", "0", "", "InteractionFragment0","{7926EF8A-0A41-453f-93E1-1EAEEA074831}");
+tocTab[tocTab.length] = new Array("0.2.3:8", "", "Preparation loop", "EARoot/EA2/EA3/EA120.htm", "101.png", "E217", "0", "", "InteractionFragment0","{E5AF47B9-6E96-4249-90CE-B178BB1F667E}");
+tocTab[tocTab.length] = new Array("0.2.3:9", "", "StartingPlayerLoop", "EARoot/EA2/EA3/EA121.htm", "101.png", "E274", "0", "", "InteractionFragment0","{7F0CE26E-A057-4276-8C72-22C0074C34D3}");

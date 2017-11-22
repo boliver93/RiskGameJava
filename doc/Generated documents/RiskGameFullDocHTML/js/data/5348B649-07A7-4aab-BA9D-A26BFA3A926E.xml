@@ -1,0 +1,2 @@
+tocTab[tocTab.length] = new Array("0.3.2:1", "", "Controller", "EARoot/EA3/EA2/EA134.htm", "175.png", "10", "0", "", "Logical diagram0","{560F1326-1469-4548-AE5C-522F2BF24C89}");
+tocTab[tocTab.length] = new Array("0.3.2:2", "", "RiskGameController", "EARoot/EA3/EA2/EA137.htm", "5.png", "E68", "0", "", "Class0","{62D4333E-ECDC-4f4d-96E6-F164ED310FAE}");

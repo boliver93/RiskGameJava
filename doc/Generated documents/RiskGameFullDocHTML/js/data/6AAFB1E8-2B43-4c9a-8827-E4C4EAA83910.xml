@@ -1,0 +1,14 @@
+tocTab[tocTab.length] = new Array("0.3.4:1", "", "Model", "EARoot/EA3/EA4/EA151.htm", "175.png", "6", "0", "", "Logical diagram0","{25155372-6EA8-411e-A455-BD5BD31BFF74}");
+tocTab[tocTab.length] = new Array("0.3.4:2", "", "AttackResult", "EARoot/EA3/EA4/EA154.htm", "5.png", "E182", "0", "", "Class0","{3E87D4E7-8E28-4fa6-9059-2205C9693026}");
+tocTab[tocTab.length] = new Array("0.3.4:3", "", "Card", "EARoot/EA3/EA4/EA155.htm", "5.png", "E61", "0", "", "Class0","{B870A47C-7621-4529-8217-44CEFE90A1CB}");
+tocTab[tocTab.length] = new Array("0.3.4:4", "", "Color", "EARoot/EA3/EA4/EA156.htm", "247.png", "E66", "0", "", "Enumeration0","{BE1E490C-EAF1-4275-B5D6-6D2CE42EC01C}");
+tocTab[tocTab.length] = new Array("0.3.4:5", "", "Deck", "EARoot/EA3/EA4/EA157.htm", "5.png", "E63", "0", "", "Class0","{D7B547C1-E7C4-47d8-8937-FE313FDAF896}");
+tocTab[tocTab.length] = new Array("0.3.4:6", "", "Map", "EARoot/EA3/EA4/EA158.htm", "5.png", "E24", "0", "", "Class0","{1958ABDF-FBF8-4c9a-A8D5-21FEE0D4DD23}");
+tocTab[tocTab.length] = new Array("0.3.4:7", "", "Phase", "EARoot/EA3/EA4/EA159.htm", "247.png", "E308", "0", "", "Enumeration0","{454571BE-746A-43bc-937B-B194F3F61D4A}");
+tocTab[tocTab.length] = new Array("0.3.4:8", "", "Player", "EARoot/EA3/EA4/EA160.htm", "5.png", "E65", "0", "", "Class0","{6886EA19-4538-4e3c-BDC6-CA72B6192A2B}");
+tocTab[tocTab.length] = new Array("0.3.4:9", "", "ResourceManager", "EARoot/EA3/EA4/EA161.htm", "5.png", "E309", "0", "", "Class0","{548FBA2C-607B-4845-9F1E-5D23BAD86D8E}");
+tocTab[tocTab.length] = new Array("0.3.4:10", "", "RiskGameModel", "EARoot/EA3/EA4/EA162.htm", "5.png", "E26", "0", "", "Class0","{26C5B009-D32C-4e1d-AE33-2619344307F8}");
+tocTab[tocTab.length] = new Array("0.3.4:11", "", "SaveData", "EARoot/EA3/EA4/EA163.htm", "5.png", "E310", "0", "", "Class0","{2A3B4A9D-901F-4c53-86BA-0DE25418E345}");
+tocTab[tocTab.length] = new Array("0.3.4:12", "", "Territory", "EARoot/EA3/EA4/EA164.htm", "5.png", "E25", "0", "", "Class0","{C135B0B5-EFB3-4680-A668-E0BD59C465E4}");
+tocTab[tocTab.length] = new Array("0.3.4:13", "", "Unit", "EARoot/EA3/EA4/EA165.htm", "247.png", "E64", "0", "", "Enumeration0","{75908E24-2FDD-475f-BD0D-9B48AE6CCCB4}");
+tocTab[tocTab.length] = new Array("0.3.4:14", "", "Country", "EARoot/EA3/EA4/EA166.htm", "247.png", "E307", "E24", "", "Enumeration0","{0329FEAB-1F79-46af-8DC7-D1F2DA436902}");

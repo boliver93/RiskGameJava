@@ -1,0 +1,8 @@
+tocTab[tocTab.length] = new Array("0.1.3:1", "", "Game Stage Use Cases", "EARoot/EA1/EA3/EA22.htm", "180.png", "1", "0", "", "Use Case diagram0","{BE68FD7A-AD14-4583-A151-9C3246BBF4C3}");
+tocTab[tocTab.length] = new Array("0.1.3:2", "", "Exit Game", "EARoot/EA1/EA3/EA25.htm", "7.png", "E55", "0", "", "UseCase0","{997D9602-7BA0-4ff4-8884-E9F79D62C6AF}");
+tocTab[tocTab.length] = new Array("0.1.3:3", "", "Game (contraction)", "EARoot/EA1/EA3/EA26.htm", "7.png", "E29", "0", "", "UseCase0","{D21D68E0-0539-4a0b-8D74-2C233DFCE80D}");
+tocTab[tocTab.length] = new Array("0.1.3:4", "", "Main Battle Sequence", "EARoot/EA1/EA3/EA27.htm", "7.png", "E13", "0", "", "UseCase0","{D1A005B3-1B0C-4342-9307-22F3B60D2333}");
+tocTab[tocTab.length] = new Array("0.1.3:5", "", "Reinforcement", "EARoot/EA1/EA3/EA28.htm", "7.png", "E12", "0", "", "UseCase0","{BE8575B5-AAF6-4a1e-88EF-9774BC2D1673}");
+tocTab[tocTab.length] = new Array("0.1.3:6", "", "Save Game", "EARoot/EA1/EA3/EA29.htm", "7.png", "E60", "0", "", "UseCase0","{A22897D2-16F2-49e5-BF51-48ADB67C1EF8}");
+tocTab[tocTab.length] = new Array("0.1.3:7", "", "Transfer Units", "EARoot/EA1/EA3/EA30.htm", "7.png", "E30", "0", "", "UseCase0","{789AC01E-67E1-477b-9AA7-96CC967DA973}");
+tocTab[tocTab.length] = new Array("0.1.3:8", "", "3 Card Exchange/Using/TradeIn", "EARoot/EA1/EA3/EA31.htm", "7.png", "E271", "0", "", "UseCase0","{DDE8399B-EA04-4481-B055-0C0B366F6AFC}");

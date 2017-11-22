@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.4:1", "", "User Interface Model", "EARoot/EA4/EA167.htm", "188.png", "13", "0", "", "Custom diagram0","{EBB08846-52D2-42bb-A3CC-B123001C80FF}");
+tocTab[tocTab.length] = new Array("0.4.1", "1", "Primary Forms", "EARoot/EA4/EA1/EA181.htm", "4.png", "", "", "{3E51CEAA-7A79-42ea-851D-496B9AEC51E8}", "Package");
+tocTab[tocTab.length] = new Array("0.4.2", "1", "Administrative Forms", "EARoot/EA4/EA2/EA243.htm", "4.png", "", "", "{587F6333-D903-440c-90A6-B2A41F2CF609}", "Package");
+tocTab[tocTab.length] = new Array("0.4.3", "1", "Help System", "EARoot/EA4/EA3/EA247.htm", "4.png", "", "", "{74199343-E5B7-4350-9F67-F42D09EFA5AE}", "Package");
