@@ -409,6 +409,7 @@ public class RiskGameController extends java.util.Observable {
 			}
 
 			UpdateCurrentPlayer();
+			if(isVictory()) showVictoryView();
 		} catch (Exception e) {
 			addLog(e.getMessage());
 		}

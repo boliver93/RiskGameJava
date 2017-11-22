@@ -247,8 +247,6 @@ public class RiskGameModel {
 			playersList.get(defender.getOwner()).removeTerritory();
 			playersList.get(currentPlayer).addTerritory();
 			defender.setOwner(currentPlayer);
-			if(playersList.get(currentPlayer).getTerritoryCount() == 42)
-				winGame(currentPlayer);
 			return true;
 		}
 		return false;
@@ -274,6 +272,8 @@ public class RiskGameModel {
 		waitForUnitsTemp[0].setUnits(waitForUnitsTemp[0].getUnits() - units);
 		waitForUnitsTemp[1].setUnits(units);
 		phase = Phase.Battle;
+		if(playersList.get(currentPlayer).getTerritoryCount() == 42)
+			winGame(currentPlayer);
 		return true;
 	}
 
