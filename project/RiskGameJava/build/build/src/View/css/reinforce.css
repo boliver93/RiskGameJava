@@ -1,0 +1,14 @@
+
+.root {
+	-fx-font: 16px "Serif";
+    -fx-padding: 10;
+    -fx-background-color: #ffe0b3;
+}
+
+.button{
+    -fx-text-fill: #ffffe6;
+    -fx-background-color: #7d4d36;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}

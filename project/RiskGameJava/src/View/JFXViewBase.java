@@ -18,7 +18,7 @@ public abstract class JFXViewBase implements Initializable {
 	
 	protected void LoadFXML(String resourceName)
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(resourceName));
+		FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(resourceName));
 		fxmlLoader.setController(this);
 		
         try {

@@ -1,0 +1,47 @@
+
+.world {
+	-fx-opacity		 : 0.8;
+    -background-color: #000066;
+    -fill-color      : #e6e6ff;
+    -stroke-color    : #000000;
+    -hover-color     : #8080ff;
+    -pressed-color   : #789dff;
+    -selected-color  : #009900;
+    -location-color  : #FF0000;
+}
+
+.cardPanel1 {
+	-fx-background-color: #ff4000;
+}
+
+.cardPanel2 {
+	-fx-background-color: #0040ff;
+}
+
+.cardPanel3 {
+	-fx-background-color: #000000;
+}
+
+.cardPanel4 {
+	-fx-background-color: #f2f20d;
+}
+
+.cardPanel5 {
+	-fx-background-color: #19e64d;
+}
+
+.cardPanel6 {
+	-fx-background-color: #fe59c2;
+}
+
+.text-area *.text {
+    -fx-text-alignment: center;
+}
+
+.button {
+	-fx-background-color: #ffc638;
+	-fx-text-fill: #000000;
+	-fx-border-color: #9e7000;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

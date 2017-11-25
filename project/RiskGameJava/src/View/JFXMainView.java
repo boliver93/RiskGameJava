@@ -82,8 +82,7 @@ public class JFXMainView extends JFXViewBase {
 		world = WorldBuilder.create()
         		.mousePressHandler(evt -> {
                 	CountryPath countryPath = (CountryPath) evt.getSource();
-                	//System.out.println(countryPath.getName());
-                	//System.out.println(countryPath.getContent());
+
                 	controller.countrySelected(Country.valueOf(countryPath.getName()));
                 })
         		.hoverEnabled(false)
@@ -107,15 +106,6 @@ public class JFXMainView extends JFXViewBase {
 		centerStackPane.setAlignment(Pos.CENTER);
 		centerStackPane.getChildren().addAll(world);
 		
-		/*
-		imageView.setCache(true);
-		imageView.fitWidthProperty().bind(stage.widthProperty());
-		imageView.fitHeightProperty().bind(stage.heightProperty());
-		*/
-		
-		// world.maxWidthProperty().bind(stage.widthProperty());
-		// world.maxHeightProperty().bind(stage.heightProperty());
-		
 	    lblPlayerNameList = new ArrayList<>();
 	    panePlayerColorList = new ArrayList<>();
 	    btnControlList = new ArrayList<>();
@@ -133,7 +123,7 @@ public class JFXMainView extends JFXViewBase {
 	    	 */
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Save game...");
-	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir"), "/save"));
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 	    	fileChooser.setInitialFileName("1.risksave");
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showSaveDialog(stage);
@@ -149,7 +139,7 @@ public class JFXMainView extends JFXViewBase {
 	            
 	    	FileChooser fileChooser = new FileChooser();
 	    	fileChooser.setTitle("Open save file...");
-	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir"), "/save"));
+	    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter("Risksave Files", "*.risksave"));
 	    	File file = fileChooser.showOpenDialog(stage);
 	    	if (file != null) {
@@ -227,11 +217,6 @@ public class JFXMainView extends JFXViewBase {
 		default:
 			break;
 		}
-	}
-	
-	//TODO: 
-	public void UpdateCurrentDeck(List<Integer> cards) {
-		
 	}
 	
 	@FXML

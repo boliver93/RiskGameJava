@@ -9,7 +9,6 @@ package View;
 public class JFXRiskCardView extends JFXViewBase {
 
 	public JFXRiskCardView(){
-		// skip task
 		LoadFXML("/View/fxml/RiskCardView.fxml");
 	}
 

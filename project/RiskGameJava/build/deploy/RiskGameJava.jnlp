@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="RiskGameJava.jnlp">
+  <information>
+    <title>RiskGameJava</title>
+    <vendor>ELTE</vendor>
+    <description>RiskGame</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="RiskGameJava.jar" size="11559246" download="eager" />
+    <jar href="libs\org.eclipse.fx.ide.converter_3.0.0.201705220750.jar" size="11777" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="Application.App"  name="RiskGame" />
+  <update check="background"/>
+</jnlp>

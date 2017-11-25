@@ -126,7 +126,6 @@ public class RiskGameController extends java.util.Observable {
 		this.model = model;
 		lastPhaseUpdate = model.getPhase();
 		lastPlayerUpdate = model.getCurrentPlayer();
-		// this.model.addObserver(this);
 	}
 
 	public Phase getPhase() {
@@ -140,8 +139,6 @@ public class RiskGameController extends java.util.Observable {
 	public void countrySelected(Country country) {
 		int territoryID = convertToTerritoryID(country);
 		mainView.updateIcons(-1, -1);
-		// System.out.println("Controller - Territory selected: " + country.getName() +
-		// "/" + territoryID);
 
 		try {
 			switch (model.getPhase()) {
@@ -275,7 +272,6 @@ public class RiskGameController extends java.util.Observable {
 			}
 		});
 
-		// mainScene.getStylesheets().add("View/res/world.css");
 		primaryStage.setScene(mainScene);
 	    primaryStage.setOnCloseRequest(e -> Platform.exit());
 		primaryStage.show();
@@ -334,8 +330,7 @@ public class RiskGameController extends java.util.Observable {
 			AttackResult attackResult = model.attackTerritoryWithResult(defender, attacker, defenderUnits,
 					attackerUnits);
 			addLog(attackerCountry.getName() + " attacked " + defenderCountry.getName() + "!");
-			// TODO: attackView.UpdateViewState(attackResult);
-			// Temporal code instead:
+
 			Territory defenderTerritory = model.getTerritory(defender);
 			Territory attackerTerritory = model.getTerritory(attacker);
 			String defenderPlayer = model.getPlayerName(defenderTerritory.getOwner());

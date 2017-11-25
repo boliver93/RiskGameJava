@@ -26,8 +26,8 @@ public class JFXAttackView extends JFXViewBase {
 	@FXML private Label lblDefenderName;
 	@FXML private Label lblAttackerAlive;
 	@FXML private Label lblDefenderAlive;
-	@FXML private Spinner spinneratt;
-	@FXML private Spinner spinnerdef;
+	@FXML private Spinner<Integer> spinneratt;
+	@FXML private Spinner<Integer> spinnerdef;
 	
 	@FXML private Button btnAttack;
 	@FXML private Button btnRetreat;

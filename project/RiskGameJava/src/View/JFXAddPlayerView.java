@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * Ezen a View-en keresztul tortenik a leendo jatekosok hozzaadasa a jatekhoz.
  * @author fodorad
  * @version 1.0
- * @created 19-ápr.-2017 23:11:48
+ * @created 19-Ã¡pr.-2017 23:11:48
  */
 public class JFXAddPlayerView extends JFXViewBase {
 
@@ -45,8 +45,8 @@ public class JFXAddPlayerView extends JFXViewBase {
 		tfList = new ArrayList<TextField>();
 		
 		this.stage = stage;
+		//LoadFXML("/View/fxml/AddPlayerView.fxml");
 		LoadFXML("/View/fxml/AddPlayerView.fxml");
-		
 	}
 	
 	@FXML protected void readyOnAction(ActionEvent event){
